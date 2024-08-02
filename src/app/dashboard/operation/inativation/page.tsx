@@ -3,7 +3,6 @@
 import { use, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useSession from "@/hooks/useSession";
-import { getDoctors } from "@/services/diagnostic";
 import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
@@ -26,11 +25,11 @@ export default function Diagnostic() {
     pageSize: 10000,
   });
 
-  useEffect(() => {
-    if (refresh) {
-      getFilteredData();
-    }
-  }, [refresh]);
+  // useEffect(() => {
+  //   if (refresh) {
+  //     getFilteredData();
+  //   }
+  // }, [refresh]);
 
   const handleFilterChange = (e: any) => {
     const { name, value } = e.target;
@@ -50,27 +49,27 @@ export default function Diagnostic() {
     });
   };
 
-  const getFilteredData = useCallback(() => {
-    setIsLoading(true);
-    setRefresh(true);
-    getDoctors(filter)
-      .then((res) => {
-        setDiagnosticRows(res);
-      })
-      .catch(() => {
-        toast.error("Erro ao buscar diagnósticos");
-      })
-      .finally(() => {
-        setIsLoading(false);
-        setRefresh(false);
-      });
-  }, [filter]);
+  // const getFilteredData = useCallback(() => {
+  //   setIsLoading(true);
+  //   setRefresh(true);
+  //   getDoctors(filter)
+  //     .then((res) => {
+  //       setDiagnosticRows(res);
+  //     })
+  //     .catch(() => {
+  //       toast.error("Erro ao buscar diagnósticos");
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //       setRefresh(false);
+  //     });
+  // }, [filter]);
 
-  useEffect(() => {
-    if (isLogged) {
-      getFilteredData();
-    }
-  }, [filter]);
+  // useEffect(() => {
+  //   if (isLogged) {
+  //     getFilteredData();
+  //   }
+  // }, [filter]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">

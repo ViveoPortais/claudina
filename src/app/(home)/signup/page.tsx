@@ -1,12 +1,8 @@
 "use client";
 
-import { PatientPreRegister } from "@/components/signup/PatientPreRegister";
-import { PatientSignUp } from "@/components/signup/PatientSignUp";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function SignUp() {
   const router = useRouter();
