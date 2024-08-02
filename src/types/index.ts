@@ -58,7 +58,7 @@ export interface IOtherData {
   Name: string;
   cpf: string;
   licenseNumber: string;
-  emailAddress: string;
+  EmailAddress1: string;
   Telephone1: string;
   Mobilephone1: string;
   doctorResponsableLicenseNumber: string;

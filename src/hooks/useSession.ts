@@ -18,6 +18,10 @@ type SessionStore = {
   motivo?: string;
   nameLaudo?: string;
   cpfLaudo?: string;
+  namePatient?: string;
+  cpfPatient?: string;
+  setNamePatient: (namePatient: string) => void;
+  setCpfPatient: (cpfPatient: string) => void;
   setNameLaudo: (nameLaudo: string) => void;
   setCpfLaudo: (cpfLaudo: string) => void;
   setMotivo: (motivo: string) => void;
@@ -54,6 +58,10 @@ const useSession = create(
       motivo: "",
       nameLaudo: "",
       cpfLaudo: "",
+      namePatient: "",
+      cpfPatient: "",
+      setNamePatient: (namePatient) => set({ namePatient: namePatient }),
+      setCpfPatient: (cpfPatient) => set({ cpfPatient: cpfPatient }),
       setNameLaudo: (nameLaudo) => set({ nameLaudo: nameLaudo }),
       setCpfLaudo: (cpfLaudo) => set({ cpfLaudo: cpfLaudo }),
       setMotivo: (motivo) => set({ motivo: motivo }),

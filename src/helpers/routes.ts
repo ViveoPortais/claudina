@@ -53,7 +53,24 @@ export const routes: IRouteProps = {
     },
     {
       route: "/dashboard/operation/inativation",
-      text: "Inativação",
+      text: "Acompanhamento de Solicitação",
+      icon: LuClipboardList,
+    },
+  ],
+  profissional: [
+    {
+      route: "/dashboard/profissional/starts",
+      text: "Início",
+      icon: IoHomeOutline,
+    },
+    {
+      route: "/dashboard/profissional/pre-register",
+      text: "Solicitar Exames",
+      icon: HiOutlineDocumentAdd,
+    },
+    {
+      route: "/dashboard/profissional/exam",
+      text: "Acompanhamento de Solicitação de Exames",
       icon: LuClipboardList,
     },
   ],

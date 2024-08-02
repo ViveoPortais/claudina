@@ -2,10 +2,18 @@
 
 import { CustomSelect } from "@/components/custom/CustomSelect";
 import { Button } from "@/components/ui/button";
-import { useModalInativePartial, useModalTotalPartial } from "@/hooks/useModal";
+import {
+  useModalInativePartial,
+  useModalTotalPartial,
+  useSolicitation,
+} from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
+import { downloadingLaudo } from "@/services/diagnostic";
 import { inactiveDoctor } from "@/services/doctor";
 import { ColumnDef } from "@tanstack/react-table";
+import dayjs from "dayjs";
+import { FaDownload, FaHandPointer } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export type Report2 = {
   doctorId: any;
@@ -13,142 +21,126 @@ export type Report2 = {
   doctorCRMUF: string;
   inactivationType: string;
   motivo: string;
+  namePatient: string;
+  cpf: string;
+  patientBirthDate: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
   {
-    accessorKey: "doctorName",
-    header: "Nome do Médico",
+    accessorKey: "nameDoctor",
+    header: "Médico",
   },
   {
-    accessorKey: "doctorCRMUF",
-    header: "CRM do Médico",
+    accessorKey: "licenseNumber",
+    header: "CRM",
   },
   {
-    accessorKey: "inactivationType",
-    header: "Status",
-    cell: ({ row }) => {
-      const params = row.original;
-      return (
-        <div>
-          {params.inactivationType === "#TOTAL_INACTIVATION" && (
-            <span>Inativação Total </span>
-          )}
-          {params.inactivationType === "#PARTIAL_INACTIVATION" && (
-            <span>Inativação Parcial </span>
-          )}
-          {params.inactivationType === null && <span>Ativo </span>}
-        </div>
-      );
-    },
+    accessorKey: "licenseState",
+    header: "UF",
   },
   {
-    accessorKey: "Inativação",
-    header: "Tipo de Inativação",
+    accessorKey: "namePatient",
+    header: "Nome do Paciente",
 
     cell: ({ row }) => {
       const params = row.original;
       const dataStorage = useSession();
+      const solicitation = useSolicitation();
 
-      const handleChange = (value: string) => {
-        dataStorage.setInactiveType(value);
-        dataStorage.setNameInactive(params.doctorName);
-        dataStorage.setCrmInactive(params.doctorCRMUF);
+      const handleSaveName = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        solicitation.openModal(true);
       };
 
       return (
-        <div>
-          <CustomSelect
-            onChange={handleChange}
-            customClass="w-52"
-            params={params}
-            name="teste"
-            options={[
-              { id: "#TOTAL_INACTIVATION", value: "Inativação Total" },
-              { id: "#PARTIAL_INACTIVATION", value: "Inativação Parcial" },
-            ]}
-          />
+        <div
+          className="cursor-pointer flex items-center gap-2 hover:scale-110 transition-transform duration-200"
+          onClick={handleSaveName}
+        >
+          <span className="hover:text-enzimaisBlue">{params.namePatient}</span>
+          <FaHandPointer className="text-main-orange" size={16} />
         </div>
       );
     },
   },
   {
-    accessorKey: "motivo",
-    header: "Motivo da Inativação Total",
-
-    cell: ({ row }) => {
-      const params = row.original;
-      const dataStorage = useSession();
-
-      const handleChange = (value: string) => {
-        dataStorage.setMotivo(value);
-      };
-
-      return (
-        <div>
-          <CustomSelect
-            customClass="w-52"
-            params={params}
-            name="motivo"
-            onChange={handleChange}
-            options={[
-              { id: "Óbito", value: "Óbito" },
-              { id: "Solicitação Paciente", value: "Solicitação Paciente" },
-              { id: "DSBR", value: "DSBR" },
-              {
-                id: "Enceramento do Programa",
-                value: "Enceramento do Programa",
-              },
-              { id: "Pedido do Médico", value: "Pedido do Médico" },
-            ]}
-          />
-        </div>
-      );
-    },
+    accessorKey: "cpf",
+    header: "CPF",
   },
   {
-    accessorKey: "Ações",
-    header: "Ações",
-
+    accessorKey: "patientBirthDate",
+    header: "Data de Nascimento",
     cell: ({ row }) => {
       const report = row.original;
-      const dataStorage = useSession();
-      const partialModal = useModalInativePartial();
-      const totalPartial = useModalTotalPartial();
+      if (report.patientBirthDate) {
+        return dayjs(report.patientBirthDate).format("DD/MM/YYYY");
+      }
+      return "";
+    },
+  },
+  {
+    accessorKey: "diseaseName",
+    header: "Patologia",
+  },
+  {
+    accessorKey: "logisticsStatus",
+    header: "Data Solicitação do Laudo",
+  },
+  {
+    accessorKey: "laudo",
+    header: "Laudo Anatomopatológico",
+    cell: ({ row }) => {
+      const params = row.original;
 
-      const inative = () => {
+      const handleDownload = () => {
         const data = {
-          ProgramCode: "150",
-          DoctorByProgramId: report.doctorId,
-          InactiveType: dataStorage.inactiveType,
+          programcode: "985",
+          cpf: params.cpf,
+          flagStringMap: "#A_LAUDOANATOMO",
         };
-        inactiveDoctor(data as any)
-          .then(() => {
-            if (dataStorage.inactiveType === "#PARTIAL_INACTIVATION") {
-              refresh();
-              partialModal.openModal(true);
+        downloadingLaudo(data as any)
+          .then((response) => {
+            if (!response.documentBody) {
+              toast.error("Erro no download do laudo");
+              return;
             }
-            if (dataStorage.inactiveType === "#TOTAL_INACTIVATION") {
-              refresh();
-              totalPartial.openModal(true);
+
+            const base64String = response.documentBody;
+            const byteCharacters = atob(base64String);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
             }
-            dataStorage.setInactiveType("");
-            dataStorage.setMotivo("");
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], {
+              type: response.contentType || "application/octet-stream",
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = response.fileName || "downloaded_file";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            toast.success("Laudo baixado com sucesso");
           })
-          .catch(() => {
-            console.log("Erro ao inativar");
+          .catch((error) => {
+            toast.error("Erro no download do laudo");
           });
       };
-
-      const refresh = () => {
-        dataStorage.setRefresh(true);
-      };
-
       return (
-        <div>
-          <Button variant="secondary" size="lg" onClick={inative}>
-            Inativar
-          </Button>
+        <div className="hover:scale-110 transition-transform duration-200 cursor-pointer flex justify-center">
+          <span>
+            <FaDownload
+              onClick={handleDownload}
+              size={24}
+              className="text-main-orange"
+            />
+          </span>
         </div>
       );
     },

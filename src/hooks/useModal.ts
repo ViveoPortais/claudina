@@ -64,3 +64,8 @@ export const useSucessExam = create<ModalProps>((set) => ({
   isModalOpen: false,
   openModal: (action) => set(() => ({ isModalOpen: action })),
 }));
+
+export const useSolicitation = create<ModalProps>((set) => ({
+  isModalOpen: false,
+  openModal: (action) => set(() => ({ isModalOpen: action })),
+}));

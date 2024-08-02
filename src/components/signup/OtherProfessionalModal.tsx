@@ -34,7 +34,7 @@ const doctorSignUpSchema = z.object({
   Name: z.string().min(1, { message: "Insira seu nome" }),
   licenseNumber: z.string().min(1, { message: "Insira seu nome" }),
 
-  emailAddress: z.string().min(1, { message: "Insira seu nome" }),
+  EmailAddress1: z.string().min(1, { message: "Insira seu nome" }),
   cpf: z.string().min(1, { message: "Insira seu nome" }),
   doctorResponsableLicenseNumber: z
     .string()
@@ -130,7 +130,7 @@ export function OtherProfessionalModal() {
         Name: data.Name,
         cpf: data.cpf,
         licenseNumber: data.licenseNumber,
-        emailAddress: data.emailAddress,
+        EmailAddress1: data.EmailAddress1,
         doctorResponsableLicenseNumber: data.doctorResponsableLicenseNumber,
         doctorResponsableLicenseState: data.doctorResponsableLicenseState,
         Mobilephone1: data.Mobilephone1,
@@ -221,11 +221,11 @@ export function OtherProfessionalModal() {
             <Input
               type="email"
               placeholder="E-mail"
-              {...register("emailAddress", { required: "Campo obrigatório" })}
+              {...register("EmailAddress1", { required: "Campo obrigatório" })}
             />
-            {errors.emailAddress && (
+            {errors.EmailAddress1 && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.emailAddress.message}
+                {errors.EmailAddress1.message}
               </span>
             )}
           </div>

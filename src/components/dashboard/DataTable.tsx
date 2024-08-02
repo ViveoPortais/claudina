@@ -68,11 +68,11 @@ export function DataTable<TData, TValue>({
       <div className="rounded-lg border relative">
         {isLoading && (
           <div className="absolute top-0 left-0 w-full h-full bg-white/50 z-20 flex items-center justify-center">
-            <CgSpinner size={36} className="text-main-orange animate-spin" />
+            <CgSpinner size={36} className="text-main-blue animate-spin" />
           </div>
         )}
         <Table>
-          <TableHeader className="bg-main-orange">
+          <TableHeader className="bg-main-blue">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow className="" key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

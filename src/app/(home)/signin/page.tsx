@@ -54,6 +54,9 @@ export default function SignIn() {
     if (role.toLowerCase().includes("laboratory")) {
       return "laboratory";
     }
+    if (role.toLowerCase().includes("professional")) {
+      return "profissional";
+    }
 
     return "treatment";
   }

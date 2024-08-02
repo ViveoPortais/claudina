@@ -10,18 +10,18 @@ const Page = () => {
   return (
     <div>
       <ContentCard
-        title="Bem Vindo ao Painel de Operações"
-        subtitle="Aqui você pode inativar os médicos"
+        title="Bem Vindo ao Painel de Laboratório"
+        subtitle="Aqui você pode acompanhar as solicitações."
         subtitleTwo="Escolha uma das opções abaixo para começar."
-        bgColor="bg-main-orange"
+        bgColor="bg-main-blue"
         hideButton
       />
       <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-5 my-5">
         <ContentCard
-          title="Inativação de Médicos"
-          subtitle="Aqui você pode inativar os médicos"
-          subtitleTwo="Clique no botão abaixo para inativar um médico."
-          bgColor="bg-main-orange"
+          title="Acompanhamento de Solicitação"
+          subtitle="Aqui você pode acompanhar as solicitações."
+          subtitleTwo="Clique no botão abaixo para ver mais."
+          bgColor="bg-main-blue"
           buttonText="Ver Mais"
           onButtonClick={() => router.push("/dashboard/operation/inativation")}
         />

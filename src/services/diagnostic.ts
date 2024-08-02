@@ -31,3 +31,28 @@ export const sendLaudoPatient = async (data: ISendLaudo) => {
   const response = await api.post("/Diagnostic/addattachment", data);
   return response.data;
 };
+
+export const getSolicitation = async () => {
+  const response = await api.get("/Diagnostic/getdiagnostics", {
+    params: {
+      programcode: "985",
+    },
+  });
+  return response.data;
+};
+
+export const downloadingLaudo = async (data: any) => {
+  const response = await api.get("/Diagnostic/getdocattchmentbycpf", {
+    params: {
+      programcode: data.programcode,
+      cpf: data.cpf,
+      flagStringMap: data.flagStringMap,
+    },
+  });
+  return response.data;
+};
+
+export const pendentDiagnostic = async (data: any) => {
+  const res = await api.post("/Diagnostic/pendentdiagnostic", data);
+  return res.data;
+};
