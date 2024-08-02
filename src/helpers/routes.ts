@@ -47,12 +47,12 @@ export const routes: IRouteProps = {
 
   laboratory: [
     {
-      route: "/dashboard/laboratory/starts",
+      route: "/dashboard/operation/starts",
       text: "Inicio",
       icon: IoHomeOutline,
     },
     {
-      route: "/dashboard/laboratory/inativation",
+      route: "/dashboard/operation/inativation",
       text: "Inativação",
       icon: LuClipboardList,
     },

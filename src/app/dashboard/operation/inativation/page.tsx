@@ -25,11 +25,11 @@ export default function Diagnostic() {
     pageSize: 10000,
   });
 
-  // useEffect(() => {
-  //   if (refresh) {
-  //     getFilteredData();
-  //   }
-  // }, [refresh]);
+  useEffect(() => {
+    if (refresh) {
+      // getFilteredData();
+    }
+  }, [refresh]);
 
   const handleFilterChange = (e: any) => {
     const { name, value } = e.target;
@@ -65,11 +65,11 @@ export default function Diagnostic() {
   //     });
   // }, [filter]);
 
-  // useEffect(() => {
-  //   if (isLogged) {
-  //     getFilteredData();
-  //   }
-  // }, [filter]);
+  useEffect(() => {
+    if (isLogged) {
+      // getFilteredData();
+    }
+  }, [filter]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">
