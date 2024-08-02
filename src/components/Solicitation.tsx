@@ -1,14 +1,13 @@
 "use client";
 
 import { DialogContent } from "@/components/ui/dialog";
-import { useSendLaudo, useSolicitation } from "@/hooks/useModal";
+import { useSolicitation } from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
-import { pendentDiagnostic, sendLaudoPatient } from "@/services/diagnostic";
-import { useEffect, useState } from "react";
+import { pendentDiagnostic } from "@/services/diagnostic";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { DialogTitle } from "@radix-ui/react-dialog";
 import { CustomSelect } from "./custom/CustomSelect";
 
 export function Solicitation() {

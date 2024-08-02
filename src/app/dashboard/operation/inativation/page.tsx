@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog } from "@/components/ui/dialog";
 import { getSolicitation } from "@/services/diagnostic";
-import { Solicitation } from "@/components/solicitation";
 import { useSolicitation } from "@/hooks/useModal";
+import { Solicitation } from "@/components/Solicitation";
 
 export default function Diagnostic() {
   const [isLoading, setIsLoading] = useState(false);
