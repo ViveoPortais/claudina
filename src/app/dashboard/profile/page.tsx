@@ -129,8 +129,8 @@ export default function Logistics() {
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
           <Input
             placeholder="Celular"
-            name="telephoneNumber"
-            value={doctorInfo.telephoneNumber}
+            name="mobileNumber"
+            value={doctorInfo.mobileNumber}
             disabled
           />
         </div>

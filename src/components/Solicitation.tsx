@@ -14,7 +14,10 @@ export function Solicitation() {
   const auth = useSession();
   const [hasPendingNo, setHasPendingNo] = useState(false);
   const [hasPendingYes, setHasPendingYes] = useState(false);
+  const [logisticsStatus, setLogisticsStatus] = useState("");
   const solicitation = useSolicitation();
+  const [her2Result, setHer2Result] = useState("");
+  const [claudinaResult, setClaudinaResult] = useState("");
 
   interface DataItem {
     CPF: string;
@@ -92,6 +95,17 @@ export function Solicitation() {
   const handlePendingChange = (value: string) => {
     setHasPendingNo(value === "Não");
     setHasPendingYes(value === "Sim");
+
+    if (value === "Não") {
+      setData((prevData) => ({
+        ...prevData,
+        Exams: prevData.Exams.map((exam) => ({
+          ...exam,
+          ExamStatusStringMap: { OptionName: "" },
+        })),
+      }));
+      setLogisticsStatus("");
+    }
   };
 
   const sendDocument = () => {
@@ -99,6 +113,17 @@ export function Solicitation() {
       .then((res) => {
         if (res.isValidData) {
           toast.success("Solicitação enviada com sucesso");
+
+          setHer2Result("");
+          setClaudinaResult("");
+          setLogisticsStatus("");
+          setData((prevData) => ({
+            ...prevData,
+            Exams: prevData.Exams.map((exam) => ({
+              ...exam,
+              ExamStatusStringMap: { OptionName: "" },
+            })),
+          }));
           solicitation.openModal(false);
         }
         if (res.isValidData === false) {
@@ -145,6 +170,11 @@ export function Solicitation() {
           : exam
       ),
     }));
+    if (examName === "HER2") {
+      setHer2Result(selectedValue);
+    } else if (examName === "Claudina 18.2") {
+      setClaudinaResult(selectedValue);
+    }
   };
 
   const handleDateChange = (e: any) => {
@@ -161,11 +191,13 @@ export function Solicitation() {
   };
 
   const handleLogisticsStatusChange = (e: any) => {
+    const selectedValue = e.target.value;
+    setLogisticsStatus(selectedValue);
     setData((prevData) => ({
       ...prevData,
       LogisticsSchedule: {
         ...prevData.LogisticsSchedule,
-        ScheduleStatusStringMap: { OptionName: e.target.value },
+        ScheduleStatusStringMap: { OptionName: selectedValue },
       },
     }));
   };
@@ -208,37 +240,41 @@ export function Solicitation() {
 
       {hasPendingNo && (
         <>
-          <div className="mt-5 grid grid-cols-3 gap-4">
-            <Input
-              placeholder="Upload do pedido médico"
-              name="doctorRequest"
-              type="file"
-              onChange={(e: any) => handleFileChange(e, "#DOCTOR_REQUEST")}
-            />
-            <Input
-              placeholder="Upload do laudo HER2"
-              name="her2Report"
-              type="file"
-              onChange={(e: any) => handleFileChange(e, "#REPORT_TKC")}
-            />
+          <div className="mt-5 grid grid-cols-1 gap-4">
+            <div>
+              <Input
+                placeholder="Upload do pedido médico"
+                name="doctorRequest"
+                type="file"
+                onChange={(e: any) => handleFileChange(e, "#DOCTOR_REQUEST")}
+              />
+            </div>
+            <div className="grid grid-cols-2">
+              <Input
+                placeholder="Upload do laudo HER2"
+                name="her2Report"
+                type="file"
+                onChange={(e: any) => handleFileChange(e, "#REPORT_TKC")}
+              />
+              <CustomSelect
+                name="her2Result"
+                label="Resultado do laudo HER2"
+                options={[
+                  { value: "Positivo", id: "Positivo" },
+                  { value: "Negativo", id: "Negativo" },
+                  { value: "Inconclusivo", id: "Inconclusivo" },
+                ]}
+                onChange={(e: any) => handleSelectChange(e, "HER2")}
+                value={her2Result}
+              />
+            </div>
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-4">
             <Input
               placeholder="Upload do laudo Claudina 18.2"
               name="claudinaReport"
               type="file"
               onChange={(e: any) => handleFileChange(e, "#REPORT_TKC")}
-            />
-          </div>
-          <div className="mt-5 grid grid-cols-3 gap-4">
-            <CustomSelect
-              name="her2Result"
-              label="Resultado do laudo HER2"
-              options={[
-                { value: "Positivo", id: "Positivo" },
-                { value: "Negativo", id: "Negativo" },
-                { value: "Inconclusivo", id: "Inconclusivo" },
-              ]}
-              onChange={(e: any) => handleSelectChange(e, "HER2")}
-              value={data.Exams[1].ExamStatusStringMap.OptionName}
             />
             <CustomSelect
               name="claudinaResult"
@@ -249,7 +285,7 @@ export function Solicitation() {
                 { value: "Inconclusivo", id: "Inconclusivo" },
               ]}
               onChange={(e: any) => handleSelectChange(e, "Claudina 18.2")}
-              value={data.Exams[0].ExamStatusStringMap.OptionName}
+              value={claudinaResult}
             />
           </div>
         </>
@@ -279,23 +315,22 @@ export function Solicitation() {
               },
             ]}
             onChange={handleLogisticsStatusChange}
-            value={data.LogisticsSchedule.ScheduleStatusStringMap.OptionName}
+            value={logisticsStatus}
           />
-          <Input
-            placeholder="Termo do paciente"
-            name="file1"
-            type="file"
-            onChange={(e: any) =>
-              handleFileChange(e, "#PatientConsentForm_TKC")
-            }
-          />
+          {logisticsStatus === "Ausência do termo do Paciente" && (
+            <Input
+              placeholder="Termo do paciente"
+              name="file1"
+              type="file"
+              onChange={(e: any) =>
+                handleFileChange(e, "#PatientConsentForm_TKC")
+              }
+            />
+          )}
         </div>
       )}
       <div className="flex mt-10">
-        <Button
-          onClick={sendDocument}
-          className="w-full bg-[#12356A] border border-[#12356A] text-white"
-        >
+        <Button onClick={sendDocument} variant="tertiary" className="w-full">
           Enviar
         </Button>
       </div>

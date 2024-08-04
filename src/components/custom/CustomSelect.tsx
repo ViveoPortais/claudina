@@ -27,6 +27,7 @@ interface CustomSelectProps {
   isLoading?: boolean;
   params?: any;
   disabled?: boolean;
+  required?: boolean;
 }
 
 const CustomSelect = forwardRef<
@@ -45,6 +46,7 @@ const CustomSelect = forwardRef<
       isLoading,
       params,
       disabled,
+      required,
       ...props
     },
     ref
@@ -71,8 +73,9 @@ const CustomSelect = forwardRef<
         disabled={disabled}
       >
         <div className="w-full">
-          <label className="w-full text-start mb-1 text-sm font-bold uppercase trackin-wide text-main-blue">
+          <label className="w-full flex gap-1 text-start mb-1 text-sm font-bold uppercase tracking-wide text-main-blue">
             {label}
+            {required && <span className="text-red-500">*</span>}
           </label>
           <SelectTrigger
             ref={ref}

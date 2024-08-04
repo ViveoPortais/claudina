@@ -24,6 +24,7 @@ export type Report2 = {
   namePatient: string;
   cpf: string;
   patientBirthDate: string;
+  logisticsDateForecast: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -85,8 +86,15 @@ export const columns: ColumnDef<Report2>[] = [
     header: "Patologia",
   },
   {
-    accessorKey: "logisticsStatus",
+    accessorKey: "logisticsDateForecast",
     header: "Data Solicitação do Laudo",
+    cell: ({ row }) => {
+      const report = row.original;
+      if (report.logisticsDateForecast) {
+        return dayjs(report.logisticsDateForecast).format("DD/MM/YYYY");
+      }
+      return "";
+    },
   },
   {
     accessorKey: "laudo",

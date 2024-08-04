@@ -39,6 +39,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       maxLength,
       tooltip,
       textTooltip,
+      required, // Adiciona a prop required
       ...props
     },
     ref
@@ -54,8 +55,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={cn("w-full", className)}>
         <div className="flex gap-1 mb-1">
-          <label className=" text-sm font-semibold uppercase tracking-wide text-main-blue">
+          <label className="flex gap-1 text-sm font-semibold uppercase tracking-wide text-main-blue">
             {props.placeholder}
+            {required && <span className="text-red-500">*</span>}
           </label>
           {tooltip && (
             <div className="flex items-center text-gray-500">

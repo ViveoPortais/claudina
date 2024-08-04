@@ -23,6 +23,7 @@ import { AcceptRegister } from "./AcceptRegister";
 import { RescueRegisterEmail } from "./RescueRegisterEmail";
 import { getAddressByCep } from "@/services/address";
 import { InputLoading } from "../custom/InputLoading";
+import { TreatmentTerms } from "./TreatmentTerms";
 
 const doctorSignUpSchema = z.object({
   doctorName: z.string().min(1, { message: "Insira seu nome" }),
@@ -356,7 +357,7 @@ export function DoctorSignUp() {
                 control={control}
                 render={({ field }) =>
                   maskedField(
-                    "addressPostalCode",
+                    "cep",
                     field.onChange,
                     field.name,
                     "CEP",
@@ -405,7 +406,7 @@ export function DoctorSignUp() {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-1 lg:grid-cols-4 lg:gap-2">
+        <div className="w-full grid grid-cols-2 lg:grid-cols-4 lg:gap-2">
           <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
             <Checkbox
               checked={termsModal.isMedicDiagnosticTermsAccepted}
@@ -414,21 +415,89 @@ export function DoctorSignUp() {
             />
 
             <span className="uppercase text-[11px]">
-              Afirmo que li e aceito o
+              Li e aceito a
               <Dialog
-                open={termsModal.isTermModalOpen}
-                onOpenChange={termsModal.openTermModal}
+                open={termsModal.isDiagnosticModalOpen}
+                onOpenChange={termsModal.openDiagnosticModal}
               >
                 <DialogTrigger className="text-main-orange underline cursor-pointer uppercase text-[11px] ml-2">
-                  Termo de Uso
+                  Politica de Privacidade
                 </DialogTrigger>
 
-                <TermsModal type="diagnostic" />
+                <TermsModal
+                  type="diagnostic"
+                  isOpen={termsModal.isDiagnosticModalOpen}
+                  setOpen={termsModal.openDiagnosticModal}
+                />
               </Dialog>
             </span>
           </div>
 
           {!termsModal.isMedicDiagnosticTermsAccepted && (
+            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
+              É necessário aceitar o termo para continuar
+            </span>
+          )}
+
+          <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
+            <Checkbox
+              checked={termsModal.isMedicTreatmentTermsAccepted}
+              onCheckedChange={termsModal.acceptMedicTreatmentTerms}
+              disabled
+            />
+
+            <span className="uppercase text-[11px]">
+              Li e aceito o
+              <Dialog
+                open={termsModal.isTreatmentModalOpen}
+                onOpenChange={termsModal.openTreatmentModal}
+              >
+                <DialogTrigger className="text-main-orange underline cursor-pointer uppercase text-[11px] ml-2">
+                  Regulamento do Programa
+                </DialogTrigger>
+
+                <TermsModal
+                  type="treatment"
+                  isOpen={termsModal.isTreatmentModalOpen}
+                  setOpen={termsModal.openTreatmentModal}
+                />
+              </Dialog>
+            </span>
+          </div>
+
+          {!termsModal.isMedicTreatmentTermsAccepted && (
+            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
+              É necessário aceitar o termo para continuar
+            </span>
+          )}
+
+          <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
+            <Checkbox
+              checked={termsModal.isPatientTermsAccepted}
+              onCheckedChange={termsModal.acceptPatientTerms}
+              disabled
+            />
+
+            <span className="uppercase text-[11px]">
+              Li e aceito o
+              <Dialog
+                open={termsModal.isPatientModalOpen}
+                onOpenChange={termsModal.openPatientModal}
+              >
+                <DialogTrigger className="text-main-orange underline cursor-pointer uppercase text-[11px] ml-2">
+                  Termo de Consentimento
+                </DialogTrigger>
+
+                <TermsModal
+                  type="patient"
+                  isOpen={termsModal.isPatientModalOpen}
+                  setOpen={termsModal.openPatientModal}
+                />
+              </Dialog>
+            </span>
+          </div>
+
+          {!termsModal.isPatientTermsAccepted && (
             <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
               É necessário aceitar o termo para continuar
             </span>
@@ -476,7 +545,9 @@ export function DoctorSignUp() {
           disabled={
             !isValid ||
             addDoctorLoading ||
-            !termsModal.isMedicDiagnosticTermsAccepted
+            !termsModal.isMedicDiagnosticTermsAccepted ||
+            !termsModal.isMedicTreatmentTermsAccepted ||
+            !termsModal.isPatientTermsAccepted
           }
         >
           {addDoctorLoading ? <Loading /> : "Cadastrar"}

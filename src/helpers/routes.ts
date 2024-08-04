@@ -35,12 +35,12 @@ export const routes: IRouteProps = {
     },
     {
       route: "/dashboard/doctor/solicitation",
-      text: "Solicitação de Profissional de Saúde",
+      text: "Solicitação de Profissional da Saúde",
       icon: LuClipboardList,
     },
     {
       route: "/dashboard/doctor/inativation",
-      text: "Inativação de Profissional de Saúde",
+      text: "Inativação de Profissional da Saúde",
       icon: LuClipboardList,
     },
   ],

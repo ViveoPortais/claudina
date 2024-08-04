@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
@@ -15,9 +15,7 @@ export default function Diagnostic() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [filter, setFilter] = useState({
-    cpf: "",
-  });
+  const [filter, setFilter] = useState("");
   const solicitation = useSolicitation();
 
   const otherProfissional = () => {
@@ -42,24 +40,25 @@ export default function Diagnostic() {
   };
 
   const Buttonfilter = () => {
-    const filtered = data.filter((item: any) => item.patientCpf === filter.cpf);
+    const filtered = data.filter((item: any) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      return (
+        item.nameDoctor.toLowerCase().includes(lowerCaseFilter) ||
+        item.licenseNumber.toLowerCase().includes(lowerCaseFilter) ||
+        item.licenseState.toLowerCase().includes(lowerCaseFilter) ||
+        item.namePatient.toLowerCase().includes(lowerCaseFilter) ||
+        item.cpf.toLowerCase().includes(lowerCaseFilter) ||
+        item.diseaseName.toLowerCase().includes(lowerCaseFilter) ||
+        item.logisticsStatus.toLowerCase().includes(lowerCaseFilter)
+      );
+    });
+
     setFilteredData(filtered);
   };
 
   const clearFilter = () => {
-    getSolicitation().then((res) => {
-      const mapId = res.data.map((item: any) => {
-        return {
-          ...item,
-          id: Math.random(),
-        };
-      });
-      setData(mapId);
-      setFilteredData(mapId);
-    });
-    setFilter({
-      cpf: "",
-    });
+    otherProfissional(); // Recarregar todos os dados
+    setFilter(""); // Limpar o filtro
   };
 
   useEffect(() => {
@@ -75,10 +74,10 @@ export default function Diagnostic() {
         <div className="grid grid-cols-1 md:grid md:grid-cols-5 gap-5 mb-10 items-center ">
           <div className="md:ml-6">
             <Input
-              name="name"
+              name="filter"
               placeholder="Filtro"
-              value={filter.cpf}
-              onChange={(e) => setFilter({ ...filter, cpf: e.target.value })}
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
             />
           </div>
 
@@ -86,15 +85,14 @@ export default function Diagnostic() {
             <Button
               onClick={Buttonfilter}
               className="md:w-60 w-full py-3"
-              type="submit"
               variant="tertiary"
             >
               Buscar
             </Button>
+
             <Button
               onClick={clearFilter}
               className="md:w-60 w-full py-3"
-              type="submit"
               variant="tertiary"
             >
               Limpar

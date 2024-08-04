@@ -175,7 +175,7 @@ export default function PreRegister() {
       updatedData[name] = value;
       if (value === "Não") {
         updatedData.resultHER2 = "";
-        updatedData.ExamDefinitionName = "HER2 + Claudina 18.2";
+        updatedData.ExamDefinitionName = "Claudina 18.2 + HER2";
       } else {
         updatedData.ExamDefinitionName = "";
       }
@@ -193,6 +193,14 @@ export default function PreRegister() {
       } else {
         updatedData.AccountSettingsByProgram.CustomString1 = "";
       }
+    } else if (name === "Name") {
+      const lettersOnly = /^[A-Za-zÀ-ÿ\s]+$/;
+      if (lettersOnly.test(value) || value === "") {
+        updatedData[name] = value;
+      }
+    } else if (name === "Mobilephone1") {
+      updatedData[name] = value;
+      setMobilephone(value);
     } else {
       updatedData[name] = value;
     }
@@ -350,6 +358,61 @@ export default function PreRegister() {
   const isHER2Positive =
     preRegisterData.doneHER2 === "Sim" &&
     preRegisterData.resultHER2 === "HER2 positivo";
+
+  const isStep1Valid = () => {
+    return (
+      preRegisterData.ExamDefinitionName === "Claudina 18.2 + HER2" ||
+      preRegisterData.ExamDefinitionName === "Claudina 18.2"
+    );
+  };
+
+  const isStep2Valid = () => {
+    const birthdate = new Date(preRegisterData.Birthdate);
+    const age = new Date().getFullYear() - birthdate.getFullYear();
+    const isMinor =
+      age < 18 ||
+      (age === 18 &&
+        new Date() <
+          new Date(birthdate.setFullYear(birthdate.getFullYear() + 1)));
+
+    return (
+      preRegisterData.CPF &&
+      preRegisterData.Name &&
+      preRegisterData.Birthdate &&
+      preRegisterData.DiseaseName &&
+      !isMinor
+    );
+  };
+
+  const isStep3Valid = () => {
+    const isCnpjValid =
+      localType === "Hospital/Clínica" &&
+      preRegisterData.AccountSettingsByProgram.Cnpj;
+    const isCpfValid =
+      localType === "Pessoa Física" &&
+      preRegisterData.AccountSettingsByProgram.CustomString1;
+
+    return (
+      (isCnpjValid || isCpfValid) &&
+      preRegisterData.LogisticsSchedule.ResponsibleForReceiving &&
+      preRegisterData.LogisticsSchedule.ResponsibleTelephoneWithdrawal &&
+      preRegisterData.AccountSettingsByProgram.AddressPostalCode &&
+      preRegisterData.AccountSettingsByProgram.AddressName &&
+      preRegisterData.AccountSettingsByProgram.AddressDistrict &&
+      preRegisterData.AccountSettingsByProgram.AddressCity &&
+      preRegisterData.AccountSettingsByProgram.AddressState &&
+      preRegisterData.AccountSettingsByProgram.AddressNumber
+    );
+  };
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <div className="w-full h-full flex flex-col mt-8 lg:mt-0">
       <div className="px-5">
@@ -421,7 +484,10 @@ export default function PreRegister() {
                     { value: "HER2 negativo", id: "HER2 negativo" },
                   ]}
                   value={preRegisterData.resultHER2}
-                  disabled={preRegisterData.doneHER2 === "Não"}
+                  disabled={
+                    preRegisterData.doneHER2 === "Não" ||
+                    !preRegisterData.doneHER2
+                  }
                 />
               </div>
               {isHER2Positive ? (
@@ -478,16 +544,17 @@ export default function PreRegister() {
                   tooltip={true}
                   value={preRegisterData.Birthdate}
                   onChange={handleChange}
+                  required
                 />
                 <ReactInputMask
                   mask="(99) 99999-9999"
                   value={preRegisterData.Mobilephone1}
                   onChange={handleChange}
-                  required
                 >
-                  <Input placeholder="Telefone" name="Mobilephone1" />
+                  <Input placeholder="Celular" name="Mobilephone1" />
                 </ReactInputMask>
                 <CustomSelect
+                  required
                   name="DiseaseName"
                   label="Diagnóstico"
                   value={preRegisterData.DiseaseName}
@@ -498,8 +565,8 @@ export default function PreRegister() {
                       id: "Câncer Gástrico Metastático",
                     },
                     {
-                      value: "Câncer de Junção Gastroesofágico Metastático",
-                      id: "Câncer de Junção Gastroesofágico Metastático",
+                      value: "Câncer de Junção Gastroesofágica Metastático",
+                      id: "Câncer de Junção Gastroesofágica Metastático",
                     },
                     {
                       value: "Câncer Gástrico Localmente Avançado Inoperável",
@@ -576,6 +643,7 @@ export default function PreRegister() {
                     { value: "Pessoa Física", id: "Pessoa Física" },
                   ]}
                   value={localType}
+                  required
                 />
                 {localType === "Hospital/Clínica" && (
                   <ReactInputMask
@@ -770,7 +838,7 @@ export default function PreRegister() {
                   type="date"
                   value={preRegisterData.LogisticsSchedule.DateForCollecting}
                   name="dateForCollecting"
-                  placeholder="Data de Retirada da Amostra"
+                  placeholder="Data Prevista de Coleta"
                   onChange={(e) =>
                     setPreRegisterData({
                       ...preRegisterData,
@@ -780,6 +848,7 @@ export default function PreRegister() {
                       },
                     })
                   }
+                  min={getCurrentDate()}
                 />
                 <CustomSelect
                   name="LaboratoryName"
@@ -847,6 +916,7 @@ export default function PreRegister() {
                       value={mobilephone}
                       onChange={(e) => setMobilephone(e.target.value)}
                       onBlur={checkPhone}
+                      disabled
                     >
                       <Input
                         name="mobilephone"
@@ -887,6 +957,7 @@ export default function PreRegister() {
               variant={`tertiary`}
               onClick={handleNextStep}
               className="md:w-60 w-full md:mb-0 mb-5"
+              disabled={step === 1 ? !isStep1Valid() : false || !isStep2Valid()}
             >
               Próximo
             </Button>
@@ -896,6 +967,7 @@ export default function PreRegister() {
               variant={`tertiary`}
               className="md:w-60 w-full md:mb-0 mb-5"
               onClick={resgisterPatient}
+              disabled={step === 3 ? !isStep3Valid() : false}
             >
               Solicitar Exame
             </Button>

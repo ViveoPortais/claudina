@@ -43,6 +43,9 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
     }
   }, [isLogged, router, pathname]);
 
+  const isSpecialRoute =
+    pathname === "/signup/doctor" || pathname === "/signup/otherprofessional";
+
   return (
     <main className="h-screen w-screen overflow-hidden">
       {pathname === "/" ? (
@@ -50,8 +53,24 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
           <Home />
         </>
       ) : (
-        <div className="w-full h-screen grid grid-cols-1 xl:grid-cols-3 bg-[url('/SVG-CLAUDI.svg')] bg-left py-2 xl:py-8 xl:px-20">
-          <div className="hidden xl:flex items-center justify-center text-white p-12" />
+        <div
+          className={`w-full h-screen grid grid-cols-1 xl:grid-cols-3 py-2 xl:py-8 xl:px-20 ${
+            !isSpecialRoute
+              ? 'bg-[url("/SVG-CLAUDI.svg")] bg-left'
+              : "bg-[#F7F7F7]"
+          }`}
+        >
+          <div className="hidden xl:flex items-center justify-center text-white p-12">
+            {isSpecialRoute && (
+              <Image
+                src="/SVG-CLAUDI.svg"
+                width={1000}
+                height={80}
+                alt="bg"
+                className="absolute ml-10"
+              />
+            )}
+          </div>
 
           <div className="flex items-center justify-center xl:col-span-2 xl:justify-end">
             <ScrollArea className="bg-white border border-gray-200 rounded-xl flex flex-col items-center justify-center p-4 md:p-8 mx-4 max-h-[90vh] md:max-h-[85vh]">

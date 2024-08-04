@@ -4,21 +4,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { maskedField } from "@/components/custom/MaskedField";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getExam } from "@/services/diagnostic";
-import { useSendLaudo } from "@/hooks/useModal";
-import { Dialog } from "@radix-ui/react-dialog";
-import { SendLaudo } from "@/components/SendLaudo";
 import { getHealthProfessionals } from "@/services/healthprofessional";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [filter, setFilter] = useState({
-    cpf: "",
-  });
+  const [filter, setFilter] = useState("");
 
   const otherProfissional = () => {
     getHealthProfessionals()
@@ -38,24 +31,21 @@ export default function Diagnostic() {
   };
 
   const Buttonfilter = () => {
-    const filtered = data.filter((item: any) => item.patientCpf === filter.cpf);
+    const filtered = data.filter((item: any) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      return (
+        item.name.toLowerCase().includes(lowerCaseFilter) ||
+        item.licenseNumber.toLowerCase().includes(lowerCaseFilter) ||
+        item.licenseState.toLowerCase().includes(lowerCaseFilter)
+      );
+    });
+
     setFilteredData(filtered);
   };
 
   const clearFilter = () => {
-    getHealthProfessionals().then((res) => {
-      const mapId = res.data.map((item: any) => {
-        return {
-          ...item,
-          id: Math.random(),
-        };
-      });
-      setData(mapId);
-      setFilteredData(mapId);
-    });
-    setFilter({
-      cpf: "",
-    });
+    otherProfissional();
+    setFilter("");
   };
 
   useEffect(() => {
@@ -74,10 +64,10 @@ export default function Diagnostic() {
         <div className="grid grid-cols-1 md:grid md:grid-cols-5 gap-5 mb-10 items-center ">
           <div className="md:ml-6">
             <Input
-              name="name"
+              name="filter"
               placeholder="Filtro"
-              value={filter.cpf}
-              onChange={(e) => setFilter({ ...filter, cpf: e.target.value })}
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
             />
           </div>
 
@@ -85,7 +75,6 @@ export default function Diagnostic() {
             <Button
               onClick={Buttonfilter}
               className="md:w-60 w-full py-3"
-              type="submit"
               variant="tertiary"
             >
               Buscar
@@ -94,7 +83,6 @@ export default function Diagnostic() {
             <Button
               onClick={clearFilter}
               className="md:w-60 w-full py-3"
-              type="submit"
               variant="tertiary"
             >
               Limpar

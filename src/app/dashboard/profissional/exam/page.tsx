@@ -17,9 +17,7 @@ export default function Diagnostic() {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const sendLaudo = useSendLaudo();
-  const [filter, setFilter] = useState({
-    cpf: "",
-  });
+  const [filter, setFilter] = useState("");
 
   const otherProfissional = () => {
     getExam()
@@ -39,24 +37,22 @@ export default function Diagnostic() {
   };
 
   const Buttonfilter = () => {
-    const filtered = data.filter((item: any) => item.patientCpf === filter.cpf);
+    const filtered = data.filter((item: any) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      return (
+        item.cpf.toLowerCase().includes(lowerCaseFilter) ||
+        item.namePatient.toLowerCase().includes(lowerCaseFilter) ||
+        item.diseaseName.toLowerCase().includes(lowerCaseFilter) ||
+        item.logisticsStatus.toLowerCase().includes(lowerCaseFilter)
+      );
+    });
+
     setFilteredData(filtered);
   };
 
   const clearFilter = () => {
-    getExam().then((res) => {
-      const mapId = res.data.map((item: any) => {
-        return {
-          ...item,
-          id: Math.random(),
-        };
-      });
-      setData(mapId);
-      setFilteredData(mapId);
-    });
-    setFilter({
-      cpf: "",
-    });
+    otherProfissional();
+    setFilter("");
   };
 
   useEffect(() => {
@@ -75,10 +71,10 @@ export default function Diagnostic() {
         <div className="grid grid-cols-1 md:grid md:grid-cols-5 gap-5 mb-10 items-center ">
           <div className="md:ml-6">
             <Input
-              name="name"
+              name="filter"
               placeholder="Filtro"
-              value={filter.cpf}
-              onChange={(e) => setFilter({ ...filter, cpf: e.target.value })}
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
             />
           </div>
 

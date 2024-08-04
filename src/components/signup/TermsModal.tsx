@@ -11,9 +11,11 @@ import { PatientTerms } from "./PatientTerms";
 
 interface TermsProps {
   type: string;
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
 }
 
-export function TermsModal({ type }: TermsProps) {
+export function TermsModal({ type, isOpen, setOpen }: TermsProps) {
   const termsModal = useAcceptTerms();
 
   function acceptTerm(termType: string) {
@@ -28,7 +30,7 @@ export function TermsModal({ type }: TermsProps) {
         termsModal.acceptMedicTreatmentTerms(true);
         break;
     }
-    termsModal.openTermModal(false);
+    setOpen(false);
   }
 
   function rejectTerm(termType: string) {
@@ -43,7 +45,7 @@ export function TermsModal({ type }: TermsProps) {
         termsModal.acceptMedicTreatmentTerms(false);
         break;
     }
-    termsModal.openTermModal(false);
+    setOpen(false);
   }
 
   return (
