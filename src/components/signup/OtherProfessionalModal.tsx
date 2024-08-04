@@ -1,18 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "react-toastify";
 import { useAcceptTerms } from "@/hooks/useTerms";
-import { UFlist, medicSpecialtyFilter } from "@/helpers/select-filters";
-import {
-  addDoctor,
-  AddOtherProfessional,
-  getDoctorbyCRM,
-} from "@/services/doctor";
+import { UFlist } from "@/helpers/select-filters";
+import { AddOtherProfessional } from "@/services/doctor";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -22,16 +17,17 @@ import { CustomSelect } from "../custom/CustomSelect";
 import { Loading } from "../custom/Loading";
 import { TermsModal } from "./TermsModal";
 import { useAccept, useModal, useModalEmail } from "@/hooks/useModal";
-import { RescueRegister } from "./RescueRegister";
-import { AcceptRegister } from "./AcceptRegister";
-import { RescueRegisterEmail } from "./RescueRegisterEmail";
-import { InputLoading } from "../custom/InputLoading";
 import { AcceptRegisterOther } from "./AcceptRegisterOther";
 import { RescueRegisterEmailOther } from "./RescueRegisterEmailOther";
 import { RescueRegisterOther } from "./RescueRegisterOther";
 
 const doctorSignUpSchema = z.object({
-  Name: z.string().min(1, { message: "Insira seu nome" }),
+  Name: z
+    .string()
+    .min(1, { message: "Insira seu nome" })
+    .regex(/^[A-Za-zÀ-ÿ\s]+$/, {
+      message: "O nome deve conter apenas letras.",
+    }),
   licenseNumber: z.string().min(1, { message: "Insira seu nome" }),
 
   EmailAddress1: z.string().min(1, { message: "Insira seu nome" }),
@@ -120,6 +116,21 @@ export function OtherProfessionalModal() {
     setValue("doctorResponsableLicenseNumber", value);
   };
 
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, ""); // Aceita apenas letras e espaços
+    setValue("Name", value);
+  };
+
+  const handleLicenseNumberChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+    setValue("licenseNumber", value);
+  };
+
   return (
     <div className="text-zinc-800">
       <h1 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 text-main-orange">
@@ -135,7 +146,10 @@ export function OtherProfessionalModal() {
             <Input
               type="text"
               placeholder="Nome completo"
-              {...register("Name", { required: "Campo obrigatório" })}
+              {...register("Name", {
+                required: "Campo obrigatório",
+                onChange: handleNameChange,
+              })}
             />
             {errors.Name && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
@@ -145,9 +159,12 @@ export function OtherProfessionalModal() {
           </div>
           <div className="w-full md:col-span-2">
             <Input
-              type="number"
+              type="text"
               placeholder="Número do Conselho"
               {...register("licenseNumber", { required: "Campo obrigatório" })}
+              onChange={handleLicenseNumberChange}
+              value={watch("licenseNumber")}
+              maxLength={10}
             />
             {errors.licenseNumber && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
