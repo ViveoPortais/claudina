@@ -158,7 +158,8 @@ export function DoctorSignUp() {
         mobileNumber: data.mobileNumber,
         addressCity: data.addressCity,
         addressState: data.addressState,
-        healthProgramCode: "985",
+        addressPostalCode: data.addressPostalCode,
+        HealthProgramCode: "985",
       });
 
       if (res.isValidData === true) {

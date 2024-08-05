@@ -43,6 +43,7 @@ export interface IRescueHeathProfessional {
 }
 
 export interface IDoctorData {
+  addressPostalCode: string;
   doctorName: string;
   cpf: string;
   licenseNumber: string | number;
@@ -50,7 +51,7 @@ export interface IDoctorData {
   medicalSpecialty: string;
   emailAddress1: string;
   telephoneNumber: string;
-  healthProgramCode: string;
+  HealthProgramCode: string;
   [key: string]: string | number | undefined;
 }
 

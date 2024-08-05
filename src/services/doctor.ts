@@ -22,7 +22,6 @@ export const getDoctorbyCRM = async (data: IDoctorInfoByCRM) => {
 export const addDoctor = async (data: IDoctorData) => {
   const res = await api.post("/Doctor/adddoctor", {
     ...data,
-    HealthProgramCode: programCode,
   });
   return res.data;
 };

@@ -31,10 +31,6 @@ export const columns: ColumnDef<Report2>[] = [
     header: "Conselho",
   },
   {
-    accessorKey: "licenseState",
-    header: "UF",
-  },
-  {
     accessorKey: "healthProfessionalStatus",
     header: "Status",
   },
