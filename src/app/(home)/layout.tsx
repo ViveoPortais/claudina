@@ -76,7 +76,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
             <ScrollArea className="bg-white border border-gray-200 rounded-xl flex flex-col items-center justify-center p-4 md:p-8 mx-4 max-h-[90vh] md:max-h-[85vh]">
               <div className="w-full flex items-center justify-center">
                 <Image
-                  src="/logo-Claudinova.png"
+                  src="/logo2.png"
                   width={400}
                   height={80}
                   alt="logo"

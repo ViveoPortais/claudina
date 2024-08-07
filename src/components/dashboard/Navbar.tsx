@@ -3,13 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-
 import { HiChevronDoubleLeft } from "react-icons/hi";
-
 import { useLateralMenu } from "@/hooks/useMenus";
 import { routes } from "@/helpers/routes";
 import useSession from "@/hooks/useSession";
-
 import { MenuIcon } from "../custom/Icon";
 
 export function Navbar() {
@@ -22,18 +19,18 @@ export function Navbar() {
     <nav
       className={`${
         isMenuOpen ? "w-1/4" : "w-[100px]"
-      } hidden lg:flex relative h-full transition-all border-r border-zinc-200 shadow-lg px-4 pb-6  flex-col items-center text-zinc-800`}
+      } hidden lg:flex relative h-full transition-all border-r border-zinc-200 shadow-lg px-4 pb-6 flex-col items-center text-zinc-800`}
     >
       <div className="w-full h-28 border-b-2 border-main-purple flex items-center justify-center gap-2">
-        {/* <Image
-          src="/daiichi-logo-short.svg"
+        <Image
+          src="/simbolo.png"
           width={50}
           height={50}
           alt="logo"
-          className=""
-        /> */}
+          className={`${isMenuOpen ? "hidden" : "block"}`}
+        />
         <Image
-          src="/logo-Claudinova.png"
+          src="/logo2.png"
           width={200}
           height={60}
           alt="logo"
@@ -72,7 +69,6 @@ export function Navbar() {
           size={24}
           className={` ${!isMenuOpen && "rotate-180"} transition-all`}
         />
-
         {isMenuOpen && <span>Fechar</span>}
       </div>
     </nav>
