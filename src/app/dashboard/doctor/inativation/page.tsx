@@ -35,9 +35,8 @@ export default function Diagnostic() {
       const lowerCaseFilter = filter.toLowerCase();
       return (
         item.name.toLowerCase().includes(lowerCaseFilter) ||
-        item.licenseNumber.toLowerCase().includes(lowerCaseFilter) ||
-        item.licenseState.toLowerCase().includes(lowerCaseFilter) ||
-        item.healthProfessionalStatus.toLowerCase().includes(lowerCaseFilter)
+        item.licenseCoren.toLowerCase().includes(lowerCaseFilter) ||
+        item.representativeStatus.toLowerCase().includes(lowerCaseFilter)
       );
     });
 
@@ -56,7 +55,7 @@ export default function Diagnostic() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">
       <div className="flex justify-start text-xl md:text-2xl text-main-blue">
-        <span className="font-georgia">Inativação de Profissonal de Saúde</span>
+        <span className="font-georgia">Inativação de Profissonal da Saúde</span>
       </div>
 
       <div className="mt-10 w-full">

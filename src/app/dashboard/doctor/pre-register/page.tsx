@@ -78,7 +78,7 @@ export default function PreRegister() {
     Birthdate: "",
     CPF: "",
     DiseaseName: "",
-    Mobilephone1: "",
+    Mobilephone: "",
   });
 
   const sendSmsPhone = () => {
@@ -164,7 +164,7 @@ export default function PreRegister() {
       Birthdate: "",
       CPF: "",
       DiseaseName: "",
-      Mobilephone1: "",
+      Mobilephone: "",
     });
   };
 
@@ -194,12 +194,16 @@ export default function PreRegister() {
       } else {
         updatedData.AccountSettingsByProgram.CustomString1 = "";
       }
-    } else if (name === "Name") {
+    } else if (name === "Name" || name === "ResponsibleForReceiving") {
       const lettersOnly = /^[A-Za-zÀ-ÿ\s]+$/;
       if (lettersOnly.test(value) || value === "") {
-        updatedData[name] = value;
+        if (name === "Name") {
+          updatedData[name] = value;
+        } else {
+          updatedData.LogisticsSchedule.ResponsibleForReceiving = value;
+        }
       }
-    } else if (name === "Mobilephone1") {
+    } else if (name === "Mobilephone") {
       updatedData[name] = value;
       setMobilephone(value);
     } else {
@@ -563,10 +567,10 @@ export default function PreRegister() {
                 />
                 <ReactInputMask
                   mask="(99) 99999-9999"
-                  value={preRegisterData.Mobilephone1}
+                  value={preRegisterData.Mobilephone}
                   onChange={handleChange}
                 >
-                  <Input placeholder="Celular" name="Mobilephone1" />
+                  <Input placeholder="Celular" name="Mobilephone" />
                 </ReactInputMask>
                 <CustomSelect
                   required
@@ -705,15 +709,7 @@ export default function PreRegister() {
                   value={
                     preRegisterData.LogisticsSchedule.ResponsibleForReceiving
                   }
-                  onChange={(e) =>
-                    setPreRegisterData({
-                      ...preRegisterData,
-                      LogisticsSchedule: {
-                        ...preRegisterData.LogisticsSchedule,
-                        ResponsibleForReceiving: e.target.value,
-                      },
-                    })
-                  }
+                  onChange={handleChange}
                   required
                 />
                 <ReactInputMask

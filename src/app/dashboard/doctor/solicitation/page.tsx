@@ -35,8 +35,7 @@ export default function Diagnostic() {
       const lowerCaseFilter = filter.toLowerCase();
       return (
         item.name.toLowerCase().includes(lowerCaseFilter) ||
-        item.licenseNumber.toLowerCase().includes(lowerCaseFilter) ||
-        item.licenseState.toLowerCase().includes(lowerCaseFilter)
+        item.licenseCoren.toLowerCase().includes(lowerCaseFilter)
       );
     });
 
@@ -56,7 +55,7 @@ export default function Diagnostic() {
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">
       <div className="flex justify-start text-xl md:text-2xl text-main-blue">
         <span className="font-georgia">
-          Solicitações de Profissional de Saúde
+          Solicitações de Profissional da Saúde
         </span>
       </div>
 
