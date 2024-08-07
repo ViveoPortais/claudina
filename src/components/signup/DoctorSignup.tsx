@@ -407,7 +407,7 @@ export function DoctorSignUp() {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-2 lg:grid-cols-4 lg:gap-2">
+        <div className="w-full flex flex-col lg:gap-2">
           <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
             <Checkbox
               checked={termsModal.isMedicDiagnosticTermsAccepted}
@@ -432,13 +432,14 @@ export function DoctorSignUp() {
                 />
               </Dialog>
             </span>
+            <div>
+              {!termsModal.isMedicDiagnosticTermsAccepted && (
+                <span className="ml-2 w-full text-xs text-red-400 h-full">
+                  É necessário aceitar o termo para continuar
+                </span>
+              )}
+            </div>
           </div>
-
-          {!termsModal.isMedicDiagnosticTermsAccepted && (
-            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
-              É necessário aceitar o termo para continuar
-            </span>
-          )}
 
           <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
             <Checkbox
@@ -464,13 +465,14 @@ export function DoctorSignUp() {
                 />
               </Dialog>
             </span>
+            <div>
+              {!termsModal.isMedicTreatmentTermsAccepted && (
+                <span className="ml-2 w-full text-xs text-red-400">
+                  É necessário aceitar o termo para continuar
+                </span>
+              )}
+            </div>
           </div>
-
-          {!termsModal.isMedicTreatmentTermsAccepted && (
-            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
-              É necessário aceitar o termo para continuar
-            </span>
-          )}
 
           <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
             <Checkbox
@@ -496,13 +498,14 @@ export function DoctorSignUp() {
                 />
               </Dialog>
             </span>
+            <div>
+              {!termsModal.isPatientTermsAccepted && (
+                <span className="ml-2 w-full text-xs text-red-400">
+                  É necessário aceitar o termo para continuar
+                </span>
+              )}
+            </div>
           </div>
-
-          {!termsModal.isPatientTermsAccepted && (
-            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
-              É necessário aceitar o termo para continuar
-            </span>
-          )}
         </div>
 
         <div className="w-full">

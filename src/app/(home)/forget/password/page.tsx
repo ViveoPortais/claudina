@@ -16,7 +16,6 @@ const signInValidationSchema = z.object({
   email: z.string().min(1, { message: "Insira seu email" }).email({
     message: "Insira um email válido",
   }),
-  crm: z.string().min(1, { message: "Insira um CRM válido" }),
 });
 
 type SignInValidationProps = z.infer<typeof signInValidationSchema>;
@@ -58,10 +57,7 @@ export default function ForgetPassword() {
     <div className="flex flex-col gap-4 w-full items-center">
       <div className="mb-4 flex flex-col">
         <span className="text-lg md:text-xl mr-2 text-main-orange">
-          Por favor, insira o endereço de e-mail e CRM
-        </span>
-        <span className="text-lg md:text-xl mr-2 text-main-orange">
-          associado à sua conta abaixo:
+          Por favor, insira o endereço de e-mail:
         </span>
       </div>
 
@@ -81,23 +77,6 @@ export default function ForgetPassword() {
               {errors.email.message}
             </span>
           )}
-        </div>
-
-        <div className="w-full grid grid-cols-1">
-          <div className="w-full">
-            <Input
-              textTooltip="Insira o CRM dessa forma: UF123456"
-              tooltip={true}
-              type="text"
-              placeholder="CRM"
-              {...register("crm", { required: "Campo obrigatório" })}
-            />
-            {errors.crm && (
-              <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.crm.message}
-              </span>
-            )}
-          </div>
         </div>
 
         <Button

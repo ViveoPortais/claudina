@@ -177,7 +177,9 @@ export function Header() {
             <Separator className="my-4 bg-main-green" />
 
             <div className="text-zinc-700">
-              {role === "laboratory" ? (
+              {role === "doctor" ||
+              role === "operation" ||
+              role === "profissional" ? (
                 <>
                   <Link
                     href={`/`}

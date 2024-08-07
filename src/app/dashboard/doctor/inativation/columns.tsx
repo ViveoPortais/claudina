@@ -10,15 +10,12 @@ import { FaCheckDouble } from "react-icons/fa";
 import { useSendLaudo } from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
 import { toast } from "react-toastify";
-import {
-  activateHeathProfessional,
-  inactivateHealthProfessional,
-  rescueHeathProfessional,
-} from "@/services/healthprofessional";
+import { inactivateHealthProfessional } from "@/services/representative";
 
 export type Report2 = {
   name: string;
-  licenseNumber: string;
+  licenseNumberCoren: string;
+  licenseCoren: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -27,11 +24,11 @@ export const columns: ColumnDef<Report2>[] = [
     header: "Nome do Profissional de Saúde",
   },
   {
-    accessorKey: "licenseNumber",
+    accessorKey: "licenseCoren",
     header: "Conselho",
   },
   {
-    accessorKey: "healthProfessionalStatus",
+    accessorKey: "representativeStatus",
     header: "Status",
   },
   {
@@ -42,12 +39,11 @@ export const columns: ColumnDef<Report2>[] = [
 
       const handleInativation = () => {
         const data = {
-          HealthProgramCode: "985",
+          ProgramCode: "985",
           Name: report.name,
-          LicenseNumber: report.licenseNumber,
-          // LicenseState: report.licenseState,
+          LicenseNumberCoren: report.licenseCoren,
         };
-        inactivateHealthProfessional(data)
+        inactivateHealthProfessional(data as any)
           .then((response) => {
             if (response.isValidData) {
               toast.success("Profissional de saúde inativado com sucesso.");

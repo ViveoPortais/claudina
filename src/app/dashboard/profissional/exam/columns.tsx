@@ -20,7 +20,7 @@ export type Report2 = {
   examStatusName: string;
   laudos: string;
   logisticsStatus: string;
-  datePrevision: string;
+  logisticsDateForecast: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -53,12 +53,12 @@ export const columns: ColumnDef<Report2>[] = [
     },
   },
   {
-    accessorKey: "datePrevision",
+    accessorKey: "logisticsDateForecast",
     header: "Data Prevista do Laudo",
     cell: ({ row }) => {
       const report = row.original;
-      if (report.datePrevision) {
-        return dayjs(report.datePrevision).format("DD/MM/YYYY");
+      if (report.logisticsDateForecast) {
+        return dayjs(report.logisticsDateForecast).format("DD/MM/YYYY");
       }
       return "";
     },
@@ -90,13 +90,11 @@ export const columns: ColumnDef<Report2>[] = [
             </>
           )}
 
-          {report.logisticsStatus === "" && (
-            <>
-              <Button size="sm" disabled>
-                <FaCheckDouble size={19} />
-              </Button>
-            </>
-          )}
+          <div>
+            <Button size="sm" disabled className="bg-green-600">
+              <FaCheckDouble size={19} />
+            </Button>
+          </div>
         </div>
       );
     },

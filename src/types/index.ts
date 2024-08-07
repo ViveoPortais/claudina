@@ -10,7 +10,6 @@ export interface ILoginData {
 
 export interface IForgetPasswordData {
   email: string;
-  crm: string;
 }
 
 export interface IDoctorInfoByCRM {
@@ -29,17 +28,15 @@ export interface ISendLaudo {
 }
 
 export interface IActivateHeathProfessional {
-  HealthProgramCode: string;
+  ProgramCode: string;
   Name: string;
-  LicenseNumber: string;
-  // LicenseState: string;
+  LicenseNumberCoren: string;
 }
 
 export interface IRescueHeathProfessional {
-  HealthProgramCode: string;
+  ProgramCode: string;
   Name: string;
-  LicenseNumber: string;
-  // LicenseState: string;
+  LicenseNumberCoren: string;
 }
 
 export interface IDoctorData {
@@ -56,15 +53,15 @@ export interface IDoctorData {
 }
 
 export interface IOtherData {
-  Name: string;
-  cpf: string;
-  licenseNumber: string;
-  EmailAddress1: string;
-  Telephone1: string;
-  Mobilephone1: string;
-  doctorResponsableLicenseNumber: string;
-  doctorResponsableLicenseState: string;
-  healthProgramCode: string;
+  LicenseNumberCoren: string;
+  Cpf: string;
+  EmailAddress: string;
+  ProgramCode: string;
+  Telefone: string;
+  Mobilephone: string;
+  DoctorLicenseNumber: string;
+  DoctorLicenseState: string;
+  ProfessionalName: string;
 }
 
 export interface IUpdateDoctorData {

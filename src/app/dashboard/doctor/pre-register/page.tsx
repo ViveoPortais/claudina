@@ -33,6 +33,7 @@ import {
 import { Dialog } from "@/components/ui/dialog";
 import { SucessExam } from "@/components/SucessExam";
 import { useSucessExam } from "@/hooks/useModal";
+import { Loading } from "@/components/custom/Loading";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -967,9 +968,9 @@ export default function PreRegister() {
               variant={`tertiary`}
               className="md:w-60 w-full md:mb-0 mb-5"
               onClick={resgisterPatient}
-              disabled={step === 3 ? !isStep3Valid() : false}
+              disabled={step === 3 ? !isStep3Valid() : false || isLoading}
             >
-              Solicitar Exame
+              {isLoading ? <Loading /> : "Solicitar Exame"}
             </Button>
           ) : (
             <Button

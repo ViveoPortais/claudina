@@ -33,6 +33,7 @@ import {
 import { Dialog } from "@/components/ui/dialog";
 import { SucessExam } from "@/components/SucessExam";
 import { useSucessExam } from "@/hooks/useModal";
+import { Loading } from "@/components/custom/Loading";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -366,6 +367,14 @@ export default function PreRegister() {
     );
   };
 
+  const isStep1FieldsFilled = () => {
+    return (
+      preRegisterData.doneHER2 &&
+      preRegisterData.resultHER2 &&
+      preRegisterData.medicoSolicitante
+    );
+  };
+
   const isStep2Valid = () => {
     const birthdate = new Date(preRegisterData.Birthdate);
     const age = new Date().getFullYear() - birthdate.getFullYear();
@@ -464,7 +473,7 @@ export default function PreRegister() {
         <div className="mt-14">
           {step === 1 && (
             <>
-              <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid md:grid-cols-3 gap-5">
                 <CustomSelect
                   name="doneHER2"
                   label="Paciente já realizou HER2?"
@@ -488,6 +497,17 @@ export default function PreRegister() {
                     preRegisterData.doneHER2 === "Não" ||
                     !preRegisterData.doneHER2
                   }
+                />
+                <CustomSelect
+                  name="medicoSolicitante"
+                  label="Médico solicitante"
+                  onChange={handleChange}
+                  options={[
+                    { value: "1", id: "1" },
+                    { value: "2", id: "2" },
+                  ]}
+                  value={preRegisterData.medicoSolicitante}
+                  disabled={!preRegisterData.resultHER2}
                 />
               </div>
               {isHER2Positive ? (
@@ -565,8 +585,8 @@ export default function PreRegister() {
                       id: "Câncer Gástrico Metastático",
                     },
                     {
-                      value: "Câncer de Junção Gastroesofágico Metastático",
-                      id: "Câncer de Junção Gastroesofágico Metastático",
+                      value: "Câncer de Junção Gastroesofágica Metastático",
+                      id: "Câncer de Junção Gastroesofágica Metastático",
                     },
                     {
                       value: "Câncer Gástrico Localmente Avançado Inoperável",
@@ -957,7 +977,11 @@ export default function PreRegister() {
               variant={`tertiary`}
               onClick={handleNextStep}
               className="md:w-60 w-full md:mb-0 mb-5"
-              disabled={step === 1 ? !isStep1Valid() : false || !isStep2Valid()}
+              disabled={
+                step === 1
+                  ? !isStep1FieldsFilled() || !isStep1Valid()
+                  : !isStep2Valid()
+              }
             >
               Próximo
             </Button>
@@ -967,9 +991,9 @@ export default function PreRegister() {
               variant={`tertiary`}
               className="md:w-60 w-full md:mb-0 mb-5"
               onClick={resgisterPatient}
-              disabled={step === 3 ? !isStep3Valid() : false}
+              disabled={step === 3 ? !isStep3Valid() : false || isLoading}
             >
-              Solicitar Exame
+              {isLoading ? <Loading /> : "Solicitar Exame"}
             </Button>
           ) : (
             <Button

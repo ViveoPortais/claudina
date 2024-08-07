@@ -2,15 +2,16 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
 import {
   activateHeathProfessional,
   rescueHeathProfessional,
-} from "@/services/healthprofessional";
-import { toast } from "react-toastify";
+} from "@/services/representative";
 
 export type Report2 = {
   name: string;
-  licenseNumber: string;
+  licenseNumberCoren: string;
+  licenseCoren: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -19,7 +20,7 @@ export const columns: ColumnDef<Report2>[] = [
     header: "Nome do Profissional de Saúde",
   },
   {
-    accessorKey: "licenseNumber",
+    accessorKey: "licenseCoren",
     header: "Conselho",
   },
   {
@@ -30,12 +31,11 @@ export const columns: ColumnDef<Report2>[] = [
 
       const handleACcept = () => {
         const data = {
-          HealthProgramCode: "985",
+          ProgramCode: "985",
           Name: report.name,
-          LicenseNumber: report.licenseNumber,
-          // LicenseState: params.licenseState,
+          LicenseNumberCoren: report.licenseCoren,
         };
-        activateHeathProfessional(data)
+        activateHeathProfessional(data as any)
           .then((response) => {
             if (!response.isValidData) {
               toast.error(response.message);
@@ -52,12 +52,11 @@ export const columns: ColumnDef<Report2>[] = [
 
       const handleRescue = () => {
         const data = {
-          HealthProgramCode: "985",
+          ProgramCode: "985",
           Name: report.name,
-          LicenseNumber: report.licenseNumber,
-          // LicenseState: params.licenseState,
+          LicenseNumberCoren: report.licenseCoren,
         };
-        rescueHeathProfessional(data)
+        rescueHeathProfessional(data as any)
           .then((response) => {
             if (!response.isValidData) {
               toast.error("Erro ao resgatar profissional de saúde!");

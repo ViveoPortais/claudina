@@ -7,7 +7,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAcceptTerms } from "@/hooks/useTerms";
 import { UFlist } from "@/helpers/select-filters";
-import { AddOtherProfessional } from "@/services/doctor";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -20,26 +19,23 @@ import { useAccept, useModal, useModalEmail } from "@/hooks/useModal";
 import { AcceptRegisterOther } from "./AcceptRegisterOther";
 import { RescueRegisterEmailOther } from "./RescueRegisterEmailOther";
 import { RescueRegisterOther } from "./RescueRegisterOther";
+import { AddOtherProfessional } from "@/services/representative";
 
 const doctorSignUpSchema = z.object({
-  Name: z
+  ProfessionalName: z
     .string()
     .min(1, { message: "Insira seu nome" })
     .regex(/^[A-Za-zÀ-ÿ\s]+$/, {
       message: "O nome deve conter apenas letras.",
     }),
-  licenseNumber: z.string().min(1, { message: "Insira seu nome" }),
+  LicenseNumberCoren: z.string().min(1, { message: "Insira seu nome" }),
 
-  EmailAddress1: z.string().min(1, { message: "Insira seu nome" }),
-  cpf: z.string().min(1, { message: "Insira seu nome" }),
-  doctorResponsableLicenseNumber: z
-    .string()
-    .min(1, { message: "Insira seu nome" }),
-  doctorResponsableLicenseState: z
-    .string()
-    .min(1, { message: "Insira seu nome" }),
-  Mobilephone1: z.string().min(1, { message: "Insira seu nome" }),
-  Telephone1: z.string().min(1, { message: "Insira seu nome" }),
+  EmailAddress: z.string().min(1, { message: "Insira seu nome" }),
+  Cpf: z.string().min(1, { message: "Insira seu nome" }),
+  DoctorLicenseNumber: z.string().min(1, { message: "Insira seu nome" }),
+  DoctorLicenseState: z.string().min(1, { message: "Insira seu nome" }),
+  Mobilephone: z.string().min(1, { message: "Insira seu nome" }),
+  Telefone: z.string().min(1, { message: "Insira seu nome" }),
 
   // regulation: z.boolean().default(false).refine((val) => val === true, {
   //     message: "É necessário aceitar os termos de Consentimento e de Privacidade",
@@ -73,7 +69,7 @@ export function OtherProfessionalModal() {
   const modalRescue = useModal();
   const modalAccept = useAccept();
   const useEmail = useModalEmail();
-  const doctorUfCrm = watch("doctorResponsableLicenseNumber");
+  const doctorUfCrm = watch("DoctorLicenseNumber");
 
   const [medicalSpecialtyOptions, setMedicalSpecialtyOptions] = useState<
     { id: string; value: string }[]
@@ -84,15 +80,15 @@ export function OtherProfessionalModal() {
     setAddDoctorLoading(true);
     try {
       const res = await AddOtherProfessional({
-        Name: data.Name,
-        cpf: data.cpf,
-        licenseNumber: data.licenseNumber,
-        EmailAddress1: data.EmailAddress1,
-        doctorResponsableLicenseNumber: data.doctorResponsableLicenseNumber,
-        doctorResponsableLicenseState: data.doctorResponsableLicenseState,
-        Mobilephone1: data.Mobilephone1,
-        Telephone1: data.Telephone1,
-        healthProgramCode: "985",
+        ProfessionalName: data.ProfessionalName,
+        Cpf: data.Cpf,
+        LicenseNumberCoren: data.LicenseNumberCoren,
+        EmailAddress: data.EmailAddress,
+        DoctorLicenseNumber: data.DoctorLicenseNumber,
+        DoctorLicenseState: data.DoctorLicenseState,
+        Mobilephone: data.Mobilephone,
+        Telefone: data.Telefone,
+        ProgramCode: "985",
       });
 
       if (res.isValidData === true) {
@@ -113,12 +109,12 @@ export function OtherProfessionalModal() {
   }
   const handleCrmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
-    setValue("doctorResponsableLicenseNumber", value);
+    setValue("DoctorLicenseNumber", value);
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, ""); // Aceita apenas letras e espaços
-    setValue("Name", value);
+    const value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
+    setValue("ProfessionalName", value);
   };
 
   const handleLicenseNumberChange = (
@@ -128,7 +124,7 @@ export function OtherProfessionalModal() {
     if (value.length > 10) {
       value = value.slice(0, 10);
     }
-    setValue("licenseNumber", value);
+    setValue("LicenseNumberCoren", value);
   };
 
   return (
@@ -146,14 +142,14 @@ export function OtherProfessionalModal() {
             <Input
               type="text"
               placeholder="Nome completo"
-              {...register("Name", {
+              {...register("ProfessionalName", {
                 required: "Campo obrigatório",
                 onChange: handleNameChange,
               })}
             />
-            {errors.Name && (
+            {errors.ProfessionalName && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.Name.message}
+                {errors.ProfessionalName.message}
               </span>
             )}
           </div>
@@ -161,20 +157,22 @@ export function OtherProfessionalModal() {
             <Input
               type="text"
               placeholder="Número do Conselho"
-              {...register("licenseNumber", { required: "Campo obrigatório" })}
+              {...register("LicenseNumberCoren", {
+                required: "Campo obrigatório",
+              })}
               onChange={handleLicenseNumberChange}
-              value={watch("licenseNumber")}
+              value={watch("LicenseNumberCoren")}
               maxLength={10}
             />
-            {errors.licenseNumber && (
+            {errors.LicenseNumberCoren && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.licenseNumber.message}
+                {errors.LicenseNumberCoren.message}
               </span>
             )}
           </div>
           <div className="w-full md:col-span-2">
             <Controller
-              name="cpf"
+              name="Cpf"
               control={control}
               render={({ field }) =>
                 maskedField(
@@ -188,9 +186,9 @@ export function OtherProfessionalModal() {
                 )
               }
             />
-            {errors.cpf && (
+            {errors.Cpf && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.cpf.message}
+                {errors.Cpf.message}
               </span>
             )}
           </div>
@@ -199,11 +197,11 @@ export function OtherProfessionalModal() {
             <Input
               type="email"
               placeholder="E-mail"
-              {...register("EmailAddress1", { required: "Campo obrigatório" })}
+              {...register("EmailAddress", { required: "Campo obrigatório" })}
             />
-            {errors.EmailAddress1 && (
+            {errors.EmailAddress && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.EmailAddress1.message}
+                {errors.EmailAddress.message}
               </span>
             )}
           </div>
@@ -212,7 +210,7 @@ export function OtherProfessionalModal() {
         <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="w-full">
             <Controller
-              name="Telephone1"
+              name="Telefone"
               control={control}
               render={({ field }) =>
                 maskedField(
@@ -226,15 +224,15 @@ export function OtherProfessionalModal() {
                 )
               }
             />
-            {errors.Telephone1 && (
+            {errors.Telefone && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.Telephone1.message}
+                {errors.Telefone.message}
               </span>
             )}
           </div>
           <div className="w-full">
             <Controller
-              name="Mobilephone1"
+              name="Mobilephone"
               control={control}
               render={({ field }) =>
                 maskedField(
@@ -249,9 +247,9 @@ export function OtherProfessionalModal() {
               }
             />
 
-            {errors.Mobilephone1 && (
+            {errors.Mobilephone && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.Mobilephone1.message}
+                {errors.Mobilephone.message}
               </span>
             )}
           </div>
@@ -262,7 +260,7 @@ export function OtherProfessionalModal() {
               type="text"
               placeholder="CRM"
               maxLength={10}
-              {...register("doctorResponsableLicenseNumber", {
+              {...register("DoctorLicenseNumber", {
                 pattern: {
                   value: /^\d{1,6}$/,
                   message: "O CRM deve conter apenas números.",
@@ -270,29 +268,29 @@ export function OtherProfessionalModal() {
               })}
               onChange={handleCrmChange}
             />
-            {errors.doctorResponsableLicenseNumber && (
+            {errors.DoctorLicenseNumber && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.doctorResponsableLicenseNumber.message}
+                {errors.DoctorLicenseNumber.message}
               </span>
             )}
           </div>
           <div className="w-full">
             <Controller
-              name="doctorResponsableLicenseState"
+              name="DoctorLicenseState"
               control={control}
               render={({ field }) => (
                 <CustomSelect label="UF do CRM" options={UFlist} {...field} />
               )}
             />
-            {errors.doctorResponsableLicenseState && (
+            {errors.DoctorLicenseState && (
               <span className="ml-2 w-full text-xs text-red-400 mt-1">
-                {errors.doctorResponsableLicenseState.message}
+                {errors.DoctorLicenseState.message}
               </span>
             )}
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-2 lg:grid-cols-4 lg:gap-2">
+        <div className="w-full flex flex-col lg:gap-2">
           <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
             <Checkbox
               checked={termsModal.isMedicDiagnosticTermsAccepted}
@@ -317,13 +315,14 @@ export function OtherProfessionalModal() {
                 />
               </Dialog>
             </span>
+            <div>
+              {!termsModal.isMedicDiagnosticTermsAccepted && (
+                <span className="ml-2 w-full text-xs text-red-400 h-full">
+                  É necessário aceitar o termo para continuar
+                </span>
+              )}
+            </div>
           </div>
-
-          {!termsModal.isMedicDiagnosticTermsAccepted && (
-            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
-              É necessário aceitar o termo para continuar
-            </span>
-          )}
 
           <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
             <Checkbox
@@ -349,13 +348,14 @@ export function OtherProfessionalModal() {
                 />
               </Dialog>
             </span>
+            <div>
+              {!termsModal.isMedicTreatmentTermsAccepted && (
+                <span className="ml-2 w-full text-xs text-red-400">
+                  É necessário aceitar o termo para continuar
+                </span>
+              )}
+            </div>
           </div>
-
-          {!termsModal.isMedicTreatmentTermsAccepted && (
-            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
-              É necessário aceitar o termo para continuar
-            </span>
-          )}
 
           <div className="w-full flex flex-row items-center gap-4 mt-4 lg:col-span-2">
             <Checkbox
@@ -381,13 +381,14 @@ export function OtherProfessionalModal() {
                 />
               </Dialog>
             </span>
+            <div>
+              {!termsModal.isPatientTermsAccepted && (
+                <span className="ml-2 w-full text-xs text-red-400">
+                  É necessário aceitar o termo para continuar
+                </span>
+              )}
+            </div>
           </div>
-
-          {!termsModal.isPatientTermsAccepted && (
-            <span className="ml-2 w-full text-xs text-red-400 mt-2 h-full flex items-center">
-              É necessário aceitar o termo para continuar
-            </span>
-          )}
         </div>
 
         <div className="w-full">

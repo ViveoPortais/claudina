@@ -26,15 +26,6 @@ export const addDoctor = async (data: IDoctorData) => {
   return res.data;
 };
 
-export const AddOtherProfessional = async (data: IOtherData) => {
-  const response = await api.post(
-    "/HealthProfessional/addhealthprofessional",
-    data
-  );
-
-  return response.data;
-};
-
 export const getDoctorInfo = async () => {
   const res = await api.get("/doctor/getdoctorinfo", {
     params: {

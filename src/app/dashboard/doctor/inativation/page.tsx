@@ -6,7 +6,7 @@ import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getHealthProfessionalsActivated } from "@/services/healthprofessional";
+import { getHealthProfessionalsActivated } from "@/services/representative";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);

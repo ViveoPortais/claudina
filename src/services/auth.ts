@@ -12,9 +12,9 @@ export const login = async (data: ILoginData) => {
 };
 
 export const forgetPassword = async (data: IForgetPasswordData) => {
-  const res = await api.post("/forgotpassword/doctor", {
+  const res = await api.post("/forgotpassword", {
     ...data,
-    ProgramCode: programCode,
+    Code: programCode,
   });
   return res.data;
 };
