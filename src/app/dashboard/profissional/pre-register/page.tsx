@@ -367,22 +367,17 @@ export default function PreRegister() {
     );
   };
 
-  const isStep1FieldsFilled = () => {
-    return (
-      preRegisterData.doneHER2 &&
-      preRegisterData.resultHER2 &&
-      preRegisterData.medicoSolicitante
-    );
-  };
-
   const isStep2Valid = () => {
     const birthdate = new Date(preRegisterData.Birthdate);
-    const age = new Date().getFullYear() - birthdate.getFullYear();
-    const isMinor =
-      age < 18 ||
-      (age === 18 &&
-        new Date() <
-          new Date(birthdate.setFullYear(birthdate.getFullYear() + 1)));
+    const today = new Date();
+    const age = today.getFullYear() - birthdate.getFullYear();
+
+    const hasBirthdayOccurredThisYear =
+      today.getMonth() > birthdate.getMonth() ||
+      (today.getMonth() === birthdate.getMonth() &&
+        today.getDate() >= birthdate.getDate());
+
+    const isMinor = age < 18 || (age === 18 && !hasBirthdayOccurredThisYear);
 
     return (
       preRegisterData.CPF &&
@@ -420,6 +415,17 @@ export default function PreRegister() {
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
+  };
+
+  const validateDate = (date: any) => {
+    const selectedDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return selectedDate >= today;
+  };
+
+  const showError = (message: any) => {
+    toast.error(message);
   };
 
   return (
@@ -473,7 +479,7 @@ export default function PreRegister() {
         <div className="mt-14">
           {step === 1 && (
             <>
-              <div className="grid grid-cols-1 md:grid md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-5">
                 <CustomSelect
                   name="doneHER2"
                   label="Paciente já realizou HER2?"
@@ -497,17 +503,6 @@ export default function PreRegister() {
                     preRegisterData.doneHER2 === "Não" ||
                     !preRegisterData.doneHER2
                   }
-                />
-                <CustomSelect
-                  name="medicoSolicitante"
-                  label="Médico solicitante"
-                  onChange={handleChange}
-                  options={[
-                    { value: "1", id: "1" },
-                    { value: "2", id: "2" },
-                  ]}
-                  value={preRegisterData.medicoSolicitante}
-                  disabled={!preRegisterData.resultHER2}
                 />
               </div>
               {isHER2Positive ? (
@@ -868,6 +863,20 @@ export default function PreRegister() {
                       },
                     })
                   }
+                  onBlur={(e) => {
+                    if (!validateDate(e.target.value)) {
+                      setPreRegisterData({
+                        ...preRegisterData,
+                        LogisticsSchedule: {
+                          ...preRegisterData.LogisticsSchedule,
+                          DateForCollecting: "",
+                        },
+                      });
+                      showError(
+                        "A data para previsão de entrega, não pode ser anterior à data de hoje."
+                      );
+                    }
+                  }}
                   min={getCurrentDate()}
                 />
                 <CustomSelect
@@ -977,11 +986,7 @@ export default function PreRegister() {
               variant={`tertiary`}
               onClick={handleNextStep}
               className="md:w-60 w-full md:mb-0 mb-5"
-              disabled={
-                step === 1
-                  ? !isStep1FieldsFilled() || !isStep1Valid()
-                  : !isStep2Valid()
-              }
+              disabled={step === 1 ? !isStep1Valid() : false || !isStep2Valid()}
             >
               Próximo
             </Button>

@@ -369,12 +369,15 @@ export default function PreRegister() {
 
   const isStep2Valid = () => {
     const birthdate = new Date(preRegisterData.Birthdate);
-    const age = new Date().getFullYear() - birthdate.getFullYear();
-    const isMinor =
-      age < 18 ||
-      (age === 18 &&
-        new Date() <
-          new Date(birthdate.setFullYear(birthdate.getFullYear() + 1)));
+    const today = new Date();
+    const age = today.getFullYear() - birthdate.getFullYear();
+
+    const hasBirthdayOccurredThisYear =
+      today.getMonth() > birthdate.getMonth() ||
+      (today.getMonth() === birthdate.getMonth() &&
+        today.getDate() >= birthdate.getDate());
+
+    const isMinor = age < 18 || (age === 18 && !hasBirthdayOccurredThisYear);
 
     return (
       preRegisterData.CPF &&
@@ -412,6 +415,17 @@ export default function PreRegister() {
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
+  };
+
+  const validateDate = (date: any) => {
+    const selectedDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return selectedDate >= today;
+  };
+
+  const showError = (message: any) => {
+    toast.error(message);
   };
 
   return (
@@ -849,6 +863,20 @@ export default function PreRegister() {
                       },
                     })
                   }
+                  onBlur={(e) => {
+                    if (!validateDate(e.target.value)) {
+                      setPreRegisterData({
+                        ...preRegisterData,
+                        LogisticsSchedule: {
+                          ...preRegisterData.LogisticsSchedule,
+                          DateForCollecting: "",
+                        },
+                      });
+                      showError(
+                        "A data para previsão de entrega, não pode ser anterior à data de hoje."
+                      );
+                    }
+                  }}
                   min={getCurrentDate()}
                 />
                 <CustomSelect

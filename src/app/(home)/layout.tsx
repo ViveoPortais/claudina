@@ -56,7 +56,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
         <div
           className={`w-full h-screen grid grid-cols-1 xl:grid-cols-3 py-2 xl:py-8 xl:px-20 ${
             !isSpecialRoute
-              ? 'bg-[url("/SVG-CLAUDI.svg")] bg-left'
+              ? 'bg-[url("/SVG-CLAUDI.svg")] bg-left bg-no-repeat '
               : "bg-[#F7F7F7]"
           }`}
         >
