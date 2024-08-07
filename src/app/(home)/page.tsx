@@ -19,7 +19,7 @@ export default function Home() {
       <nav className="bg-white border-gray-200 z-50 absolute w-full shadow-xl">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Image
-            src="/logo2.png"
+            src="/logo-removebg-preview.png"
             width={200}
             height={150}
             priority

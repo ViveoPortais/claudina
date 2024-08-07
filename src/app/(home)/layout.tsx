@@ -54,9 +54,9 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
         </>
       ) : (
         <div
-          className={`w-full h-screen grid grid-cols-1 xl:grid-cols-3 py-2 xl:py-8 xl:px-20 ${
+          className={`w-full h-screen grid grid-cols-1 xl:grid-cols-3 py-2 xl:py-8 xl:px-20 bg-[#F7F7F7] ${
             !isSpecialRoute
-              ? 'bg-[url("/SVG-CLAUDI.svg")] bg-left bg-no-repeat '
+              ? 'lg:bg-[url("/SVG-CLAUDI.svg")] lg:bg-left lg:bg-no-repeat '
               : "bg-[#F7F7F7]"
           }`}
         >
@@ -76,7 +76,7 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
             <ScrollArea className="bg-white border border-gray-200 rounded-xl flex flex-col items-center justify-center p-4 md:p-8 mx-4 max-h-[90vh] md:max-h-[85vh]">
               <div className="w-full flex items-center justify-center">
                 <Image
-                  src="/logo2.png"
+                  src="/logo-removebg-preview.png"
                   width={400}
                   height={80}
                   alt="logo"

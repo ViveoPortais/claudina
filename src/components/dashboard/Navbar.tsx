@@ -23,14 +23,14 @@ export function Navbar() {
     >
       <div className="w-full h-28 border-b-2 border-main-purple flex items-center justify-center gap-2">
         <Image
-          src="/simbolo.png"
+          src="/simbolo-removebg-preview.png"
           width={50}
           height={50}
           alt="logo"
           className={`${isMenuOpen ? "hidden" : "block"}`}
         />
         <Image
-          src="/logo2.png"
+          src="/logo-removebg-preview.png"
           width={200}
           height={60}
           alt="logo"

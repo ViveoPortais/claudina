@@ -87,7 +87,7 @@ export function Documents() {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <Image
-              src="/logo2.png"
+              src="/logo-removebg-preview.png"
               width={100}
               height={80}
               alt="logo"

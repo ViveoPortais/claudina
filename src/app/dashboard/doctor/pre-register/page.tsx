@@ -915,7 +915,7 @@ export default function PreRegister() {
               </div>
               <div className="w-full flex justify-center mb-24">
                 <Image
-                  src="/logo2.png"
+                  src="/logo-removebg-preview.png"
                   width={600}
                   height={150}
                   priority

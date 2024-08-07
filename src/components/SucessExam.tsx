@@ -3,7 +3,7 @@ import { DialogContent } from "./ui/dialog";
 export function SucessExam() {
   return (
     <DialogContent className="w-[30%] rounded-lg lg:max-w-[80vw] border border-none">
-      <div className="w-full flex justify-start text-3xl md:text-2xl gap-1">
+      <div className="w-full flex justify-center text-3xl md:text-2xl gap-1">
         <span className="text-main-blue font-semibold md:text-2xl text-sm">
           Solicitação
         </span>
