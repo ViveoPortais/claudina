@@ -57,3 +57,12 @@ export const inactivateHealthProfessional = async (
   );
   return response.data;
 };
+
+export const getDoctorVinculed = async () => {
+  const response = await api.get("/Representative/getdoctorvinculed", {
+    params: {
+      HealthProgramCode: "985",
+    },
+  });
+  return response.data;
+};

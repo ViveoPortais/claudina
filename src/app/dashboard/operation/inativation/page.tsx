@@ -57,8 +57,8 @@ export default function Diagnostic() {
   };
 
   const clearFilter = () => {
-    otherProfissional(); // Recarregar todos os dados
-    setFilter(""); // Limpar o filtro
+    otherProfissional();
+    setFilter("");
   };
 
   useEffect(() => {
@@ -103,14 +103,7 @@ export default function Diagnostic() {
 
       <DataTable columns={columns} isLoading={isLoading} data={filteredData} />
 
-      <div>
-        <Dialog
-          open={solicitation.isModalOpen}
-          onOpenChange={solicitation.openModal}
-        >
-          <Solicitation />
-        </Dialog>
-      </div>
+      {solicitation.isModalOpen && <Solicitation />}
     </div>
   );
 }

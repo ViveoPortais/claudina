@@ -1,10 +1,11 @@
 import { HiOutlineDocumentReport } from "react-icons/hi";
-import { MdOutlinePhotoLibrary } from "react-icons/md";
+import { MdOutlineCancel, MdOutlinePhotoLibrary } from "react-icons/md";
 import { LuClipboardList } from "react-icons/lu";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { TbBuildingHospital } from "react-icons/tb";
 import { IconType } from "react-icons/lib";
 import { IoHomeOutline } from "react-icons/io5";
+import { IoMegaphoneOutline } from "react-icons/io5";
 
 interface IProfileProps {
   route: string;
@@ -36,12 +37,12 @@ export const routes: IRouteProps = {
     {
       route: "/dashboard/doctor/solicitation",
       text: "Solicitação de Profissional da Saúde",
-      icon: LuClipboardList,
+      icon: IoMegaphoneOutline,
     },
     {
       route: "/dashboard/doctor/inativation",
       text: "Inativação de Profissional da Saúde",
-      icon: LuClipboardList,
+      icon: MdOutlineCancel,
     },
   ],
 

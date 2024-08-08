@@ -137,3 +137,29 @@ export interface TreatmentData {
     pendencyDescription: string;
   };
 }
+
+export interface TreatmentDataProfissional {
+  id: string;
+  patientName: string;
+  cpf: string;
+  medicamentId: string;
+  email: string;
+  telephone: string;
+  doctorName: string;
+  licenseNumber: string;
+  licenseState: string;
+  programCode: string;
+  medicalPrescriptionAttach: {
+    fileName: string;
+    contentType: string;
+    documentBody: string;
+    fileSize: string;
+    fileType: string;
+    annotationTypeStringMapCode: string;
+    annotationTypeStringMapId: string;
+    healthProgramCode: string;
+    name: string;
+    annotationTypeName: string;
+    pendencyDescription: string;
+  };
+}

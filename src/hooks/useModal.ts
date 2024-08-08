@@ -69,3 +69,8 @@ export const useSolicitation = create<ModalProps>((set) => ({
   isModalOpen: false,
   openModal: (action) => set(() => ({ isModalOpen: action })),
 }));
+
+export const useInsufficientSample = create<ModalProps>((set) => ({
+  isModalOpen: false,
+  openModal: (action) => set(() => ({ isModalOpen: action })),
+}));

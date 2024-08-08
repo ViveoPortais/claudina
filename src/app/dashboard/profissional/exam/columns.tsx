@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/button";
 import { downlaodLaudoPatient } from "@/services/doctor";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaCheckDouble } from "react-icons/fa";
-import { useSendLaudo } from "@/hooks/useModal";
+import {
+  useInsufficientSample,
+  useSendLaudo,
+  useSolicitation,
+} from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
 
 export type Report2 = {
@@ -40,6 +44,32 @@ export const columns: ColumnDef<Report2>[] = [
   {
     accessorKey: "logisticsStatus",
     header: "Status do Protocolo",
+    cell: ({ row }) => {
+      const params = row.original;
+      const dataStorage = useSession();
+      const insufficientSample = useInsufficientSample();
+
+      const handleSaveName = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        insufficientSample.openModal(true);
+      };
+
+      return (
+        <>
+          {params.logisticsStatus === "Amostra insuficiente" ? (
+            <div
+              className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+              onClick={handleSaveName}
+            >
+              <span className="text-main-orange">{params.logisticsStatus}</span>
+            </div>
+          ) : (
+            <>{params.logisticsStatus}</>
+          )}
+        </>
+      );
+    },
   },
   {
     accessorKey: "createdOn",

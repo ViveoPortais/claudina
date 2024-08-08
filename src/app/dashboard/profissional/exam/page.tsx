@@ -8,15 +8,17 @@ import { maskedField } from "@/components/custom/MaskedField";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getExam } from "@/services/diagnostic";
-import { useSendLaudo } from "@/hooks/useModal";
-import { Dialog } from "@radix-ui/react-dialog";
+import { useInsufficientSample, useSendLaudo } from "@/hooks/useModal";
+import { Dialog, DialogContent } from "@radix-ui/react-dialog";
 import { SendLaudo } from "@/components/SendLaudo";
+import { InsufficientSample } from "@/components/insufficientSample";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const sendLaudo = useSendLaudo();
+  const insufficientSample = useInsufficientSample();
   const [filter, setFilter] = useState("");
 
   const otherProfissional = () => {
@@ -100,7 +102,14 @@ export default function Diagnostic() {
       </div>
 
       <DataTable columns={columns} isLoading={isLoading} data={filteredData} />
-
+      <div>
+        <Dialog
+          open={insufficientSample.isModalOpen}
+          onOpenChange={insufficientSample.openModal}
+        >
+          <InsufficientSample />
+        </Dialog>
+      </div>
       <div>
         <Dialog open={sendLaudo.isModalOpen} onOpenChange={sendLaudo.openModal}>
           <SendLaudo />

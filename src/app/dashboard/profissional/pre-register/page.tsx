@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import validarCPF from "@/helpers/ValidateCPF";
 import { sendSms } from "@/services/diagnostic";
-import { addTreatment } from "@/services/treatment";
+import { addTreatment, addTreatmentProfissional } from "@/services/treatment";
 import {
   Tooltip,
   TooltipContent,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/tooltip";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TbCheck,
   TbCircleNumber1,
@@ -34,6 +34,8 @@ import { Dialog } from "@/components/ui/dialog";
 import { SucessExam } from "@/components/SucessExam";
 import { useSucessExam } from "@/hooks/useModal";
 import { Loading } from "@/components/custom/Loading";
+import { getDoctorVinculed } from "@/services/representative";
+import { Value } from "@radix-ui/react-select";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -44,6 +46,7 @@ export default function PreRegister() {
   const [mobilephone, setMobilephone] = useState("");
   const useSucess = useSucessExam();
   const [isLoading, setIsLoading] = useState(false);
+  const [doctorId, setDoctorId] = useState([]);
 
   const [preRegisterData, setPreRegisterData] = useState<any>({
     AccountSettingsByProgram: {
@@ -79,7 +82,33 @@ export default function PreRegister() {
     CPF: "",
     DiseaseName: "",
     Mobilephone: "",
+    DoctorId: "",
   });
+
+  useEffect(() => {
+    getDoctorId();
+  }, []);
+
+  const getDoctorId = () => {
+    getDoctorVinculed()
+      .then((res) => {
+        if (res.data) {
+          const validDoctors = res.data.filter(
+            (doctor: any) => doctor?.id && doctor?.name
+          );
+
+          setDoctorId(
+            validDoctors.map((doctor: any) => ({
+              id: doctor.id,
+              value: doctor.name,
+            }))
+          );
+        }
+      })
+      .catch(() => {
+        toast.error("Erro ao buscar médico");
+      });
+  };
 
   const sendSmsPhone = () => {
     sendSms(mobilephone)
@@ -108,7 +137,7 @@ export default function PreRegister() {
       },
     };
     setIsLoading(true);
-    addTreatment(dataToSend)
+    addTreatmentProfissional(dataToSend)
       .then((res) => {
         if (res.isValidData) {
           useSucess.openModal(true);
@@ -165,6 +194,7 @@ export default function PreRegister() {
       CPF: "",
       DiseaseName: "",
       Mobilephone: "",
+      DoctorId: "",
     });
   };
 
@@ -194,10 +224,14 @@ export default function PreRegister() {
       } else {
         updatedData.AccountSettingsByProgram.CustomString1 = "";
       }
-    } else if (name === "Name") {
+    } else if (name === "Name" || name === "ResponsibleForReceiving") {
       const lettersOnly = /^[A-Za-zÀ-ÿ\s]+$/;
       if (lettersOnly.test(value) || value === "") {
-        updatedData[name] = value;
+        if (name === "Name") {
+          updatedData[name] = value;
+        } else {
+          updatedData.LogisticsSchedule.ResponsibleForReceiving = value;
+        }
       }
     } else if (name === "Mobilephone") {
       updatedData[name] = value;
@@ -479,7 +513,7 @@ export default function PreRegister() {
         <div className="mt-14">
           {step === 1 && (
             <>
-              <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid md:grid-cols-3 gap-5">
                 <CustomSelect
                   name="doneHER2"
                   label="Paciente já realizou HER2?"
@@ -503,6 +537,14 @@ export default function PreRegister() {
                     preRegisterData.doneHER2 === "Não" ||
                     !preRegisterData.doneHER2
                   }
+                />
+                <CustomSelect
+                  name="DoctorId"
+                  label="Médico Solicitante"
+                  onChange={handleChange}
+                  options={doctorId}
+                  value={preRegisterData.DoctorId}
+                  disabled={isHER2Positive || !preRegisterData.doneHER2}
                 />
               </div>
               {isHER2Positive ? (
@@ -705,15 +747,7 @@ export default function PreRegister() {
                   value={
                     preRegisterData.LogisticsSchedule.ResponsibleForReceiving
                   }
-                  onChange={(e) =>
-                    setPreRegisterData({
-                      ...preRegisterData,
-                      LogisticsSchedule: {
-                        ...preRegisterData.LogisticsSchedule,
-                        ResponsibleForReceiving: e.target.value,
-                      },
-                    })
-                  }
+                  onChange={handleChange}
                   required
                 />
                 <ReactInputMask

@@ -1,29 +1,21 @@
 "use client";
 
-import { CustomSelect } from "@/components/custom/CustomSelect";
-import { Button } from "@/components/ui/button";
-import {
-  useModalInativePartial,
-  useModalTotalPartial,
-  useSolicitation,
-} from "@/hooks/useModal";
+import { useSolicitation } from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
 import { downloadingLaudo } from "@/services/diagnostic";
-import { inactiveDoctor } from "@/services/doctor";
 import { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import { FaDownload, FaHandPointer } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 export type Report2 = {
-  doctorId: any;
-  doctorName: string;
-  doctorCRMUF: string;
-  inactivationType: string;
-  motivo: string;
+  licenseState: any;
+  nameDoctor: string;
+  licenseNumber: string;
   namePatient: string;
   cpf: string;
   patientBirthDate: string;
+  diseaseName: string;
   logisticsDateForecast: string;
 };
 
@@ -31,14 +23,76 @@ export const columns: ColumnDef<Report2>[] = [
   {
     accessorKey: "nameDoctor",
     header: "Médico",
+    cell: ({ row }) => {
+      const params = row.original;
+      const dataStorage = useSession();
+      const solicitation = useSolicitation();
+
+      const handleSaveName = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        solicitation.openModal(true);
+      };
+
+      return (
+        <div
+          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+          onClick={handleSaveName}
+        >
+          <span className="hover:text-enzimaisBlue">{params.nameDoctor}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "licenseNumber",
     header: "CRM",
+    cell: ({ row }) => {
+      const params = row.original;
+      const dataStorage = useSession();
+      const solicitation = useSolicitation();
+
+      const handleSaveName = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        solicitation.openModal(true);
+      };
+
+      return (
+        <div
+          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+          onClick={handleSaveName}
+        >
+          <span className="hover:text-enzimaisBlue">
+            {params.licenseNumber}
+          </span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "licenseState",
     header: "UF",
+    cell: ({ row }) => {
+      const params = row.original;
+      const dataStorage = useSession();
+      const solicitation = useSolicitation();
+
+      const handleSaveName = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        solicitation.openModal(true);
+      };
+
+      return (
+        <div
+          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+          onClick={handleSaveName}
+        >
+          <span className="hover:text-enzimaisBlue">{params.licenseState}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "namePatient",
@@ -57,11 +111,10 @@ export const columns: ColumnDef<Report2>[] = [
 
       return (
         <div
-          className="cursor-pointer flex items-center gap-2 hover:scale-110 transition-transform duration-200"
+          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
           onClick={handleSaveName}
         >
           <span className="hover:text-enzimaisBlue">{params.namePatient}</span>
-          <FaHandPointer className="text-main-orange" size={16} />
         </div>
       );
     },
@@ -69,6 +122,26 @@ export const columns: ColumnDef<Report2>[] = [
   {
     accessorKey: "cpf",
     header: "CPF",
+    cell: ({ row }) => {
+      const params = row.original;
+      const dataStorage = useSession();
+      const solicitation = useSolicitation();
+
+      const handleSaveName = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        solicitation.openModal(true);
+      };
+
+      return (
+        <div
+          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+          onClick={handleSaveName}
+        >
+          <span className="hover:text-enzimaisBlue">{params.cpf}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "patientBirthDate",
@@ -84,6 +157,26 @@ export const columns: ColumnDef<Report2>[] = [
   {
     accessorKey: "diseaseName",
     header: "Patologia",
+    cell: ({ row }) => {
+      const params = row.original;
+      const dataStorage = useSession();
+      const solicitation = useSolicitation();
+
+      const handleSaveName = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        solicitation.openModal(true);
+      };
+
+      return (
+        <div
+          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+          onClick={handleSaveName}
+        >
+          <span className="hover:text-enzimaisBlue">{params.diseaseName}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "logisticsDateForecast",

@@ -87,7 +87,7 @@ export function Header() {
         </div>
         <div className="flex items-center justify-center gap-6">
           <span className="text-main-orange font-semibold text-base">
-            {auth.name.includes(" ") ? auth.name.split(" ")[0] : auth.name}
+            {auth.name?.includes(" ") ? auth.name.split(" ")[0] : auth.name}
           </span>
           <div
             className="hover:opacity-70 cursor-pointer"
@@ -125,25 +125,29 @@ export function Header() {
                 </Link>
               );
             })}
-
-          <Link
-            href={`/dashboard/profile`}
-            className={`flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 ${
-              pathname === `/dashboard/profile` &&
-              "text-main-orange hover:text-zinc-800"
-            }`}
-          >
-            <BsPersonBadge size={24} />
-            Meus Dados
-          </Link>
-          <Link
-            href={`/`}
-            className={`flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 `}
-            onClick={handleLogout}
-          >
-            <LuLogOut size={24} />
-            Logout
-          </Link>
+          {role === "doctor" ||
+          role === "laboratory" ||
+          role === "profissional" ? (
+            <Link
+              href={`/`}
+              className={`flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 `}
+              onClick={handleLogout}
+            >
+              <LuLogOut size={24} />
+              Logout
+            </Link>
+          ) : (
+            <Link
+              href={`/dashboard/profile`}
+              className={`flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 ${
+                pathname === `/dashboard/profile` &&
+                "text-main-orange hover:text-zinc-800"
+              }`}
+            >
+              <BsPersonBadge size={24} />
+              Meus Dados
+            </Link>
+          )}
         </ul>
       </nav>
 
@@ -178,7 +182,7 @@ export function Header() {
 
             <div className="text-zinc-700">
               {role === "doctor" ||
-              role === "operation" ||
+              role === "laboratory" ||
               role === "profissional" ? (
                 <>
                   <Link
