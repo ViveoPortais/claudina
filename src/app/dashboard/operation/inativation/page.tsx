@@ -6,8 +6,7 @@ import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog } from "@/components/ui/dialog";
-import { getSolicitation } from "@/services/diagnostic";
+import { getDiagnosticsLaboratory } from "@/services/diagnostic";
 import { useSolicitation } from "@/hooks/useModal";
 import { Solicitation } from "@/components/Solicitation";
 
@@ -20,7 +19,7 @@ export default function Diagnostic() {
 
   const otherProfissional = () => {
     setIsLoading(true);
-    getSolicitation()
+    getDiagnosticsLaboratory()
       .then((res) => {
         const mapId = res.data.map((item: any) => {
           return {

@@ -61,6 +61,10 @@ export default function SignIn() {
     return "treatment";
   }
 
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    auth.setCode(e.target.value);
+  };
+
   async function handleLogin(data: SignInValidationProps) {
     setIsLoading(true);
 
@@ -117,6 +121,7 @@ export default function SignIn() {
             placeholder="Senha"
             className="w-full"
             {...register("password", { required: true })}
+            onChange={handlePasswordChange}
           />
           {errors.password && (
             <span className="w-full text-xs text-red-400 mt-1">

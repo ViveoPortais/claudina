@@ -8,6 +8,13 @@ export interface ILoginData {
   // healthProgramCode: string;
 }
 
+export interface IChangePasswordData {
+  Email: string;
+  OldPassword: string;
+  NewPassword: string;
+  ConfirmPassword: string;
+}
+
 export interface IForgetPasswordData {
   email: string;
 }

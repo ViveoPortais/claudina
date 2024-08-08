@@ -41,6 +41,15 @@ export const getSolicitation = async () => {
   return response.data;
 };
 
+export const getDiagnosticsLaboratory = async () => {
+  const response = await api.get("/Diagnostic/getdiagnosticslaboratory", {
+    params: {
+      programcode: "985",
+    },
+  });
+  return response.data;
+};
+
 export const downloadingLaudo = async (data: any) => {
   const response = await api.get("/Diagnostic/getdocattchmentbycpf", {
     params: {

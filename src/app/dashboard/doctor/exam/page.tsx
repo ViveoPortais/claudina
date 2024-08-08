@@ -15,7 +15,7 @@ import {
 } from "@/hooks/useModal";
 import { Dialog } from "@radix-ui/react-dialog";
 import { SendLaudo } from "@/components/SendLaudo";
-import { InsufficientSample } from "@/components/insufficientSample";
+import { InsufficientSample } from "@/components/InsufficientSample";
 import { UnidentifiedSample } from "@/components/UnidentifiedSample";
 
 export default function Diagnostic() {

@@ -8,10 +8,15 @@ import { maskedField } from "@/components/custom/MaskedField";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getExam } from "@/services/diagnostic";
-import { useInsufficientSample, useSendLaudo } from "@/hooks/useModal";
+import {
+  useInsufficientSample,
+  useSendLaudo,
+  useUnidentifiedSample,
+} from "@/hooks/useModal";
 import { Dialog, DialogContent } from "@radix-ui/react-dialog";
 import { SendLaudo } from "@/components/SendLaudo";
-import { InsufficientSample } from "@/components/insufficientSample";
+import { InsufficientSample } from "@/components/InsufficientSample";
+import { UnidentifiedSample } from "@/components/UnidentifiedSample";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
@@ -19,6 +24,7 @@ export default function Diagnostic() {
   const [filteredData, setFilteredData] = useState([]);
   const sendLaudo = useSendLaudo();
   const insufficientSample = useInsufficientSample();
+  const unidentifiedSample = useUnidentifiedSample();
   const [filter, setFilter] = useState("");
 
   const otherProfissional = () => {
@@ -102,6 +108,14 @@ export default function Diagnostic() {
       </div>
 
       <DataTable columns={columns} isLoading={isLoading} data={filteredData} />
+      <div>
+        <Dialog
+          open={unidentifiedSample.isModalOpen}
+          onOpenChange={unidentifiedSample.openModal}
+        >
+          <UnidentifiedSample />
+        </Dialog>
+      </div>
       <div>
         <Dialog
           open={insufficientSample.isModalOpen}
