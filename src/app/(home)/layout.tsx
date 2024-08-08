@@ -56,14 +56,14 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
         <div
           className={`w-full h-screen grid grid-cols-1 xl:grid-cols-3 py-2 xl:py-8 xl:px-20 bg-[#F7F7F7] ${
             !isSpecialRoute
-              ? 'lg:bg-[url("/SVG-CLAUDI.svg")] lg:bg-left lg:bg-no-repeat '
+              ? 'lg:bg-[url("/SVG-CLAUDI2.svg")] lg:bg-left lg:bg-no-repeat '
               : "bg-[#F7F7F7]"
           }`}
         >
           <div className="hidden xl:flex items-center justify-center text-white p-12">
             {isSpecialRoute && (
               <Image
-                src="/SVG-CLAUDI.svg"
+                src="/SVG-CLAUDI2.svg"
                 width={1000}
                 height={80}
                 alt="bg"

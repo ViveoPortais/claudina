@@ -96,7 +96,7 @@ export const columns: ColumnDef<Report2>[] = [
   },
   {
     accessorKey: "namePatient",
-    header: "Nome do Paciente",
+    header: "Nome Completo do Paciente",
 
     cell: ({ row }) => {
       const params = row.original;
@@ -111,7 +111,7 @@ export const columns: ColumnDef<Report2>[] = [
 
       return (
         <div
-          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+          className="cursor-pointer flex hover:scale-110 transition-transform duration-200"
           onClick={handleSaveName}
         >
           <span className="hover:text-enzimaisBlue">{params.namePatient}</span>
@@ -170,7 +170,7 @@ export const columns: ColumnDef<Report2>[] = [
 
       return (
         <div
-          className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+          className="cursor-pointer flex hover:scale-110 transition-transform duration-200"
           onClick={handleSaveName}
         >
           <span className="hover:text-enzimaisBlue">{params.diseaseName}</span>

@@ -74,3 +74,8 @@ export const useInsufficientSample = create<ModalProps>((set) => ({
   isModalOpen: false,
   openModal: (action) => set(() => ({ isModalOpen: action })),
 }));
+
+export const useUnidentifiedSample = create<ModalProps>((set) => ({
+  isModalOpen: false,
+  openModal: (action) => set(() => ({ isModalOpen: action })),
+}));

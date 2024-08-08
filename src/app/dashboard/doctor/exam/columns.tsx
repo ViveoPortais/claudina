@@ -11,6 +11,7 @@ import {
   useInsufficientSample,
   useSendLaudo,
   useSolicitation,
+  useUnidentifiedSample,
 } from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
 
@@ -48,27 +49,41 @@ export const columns: ColumnDef<Report2>[] = [
       const params = row.original;
       const dataStorage = useSession();
       const insufficientSample = useInsufficientSample();
+      const unidentifiedSample = useUnidentifiedSample();
 
-      const handleSaveName = () => {
+      const handleModalInsufficientSample = () => {
         dataStorage.setNamePatient(params.namePatient);
         dataStorage.setCpfPatient(params.cpf);
         insufficientSample.openModal(true);
       };
 
-      return (
-        <>
-          {params.logisticsStatus === "Amostra insuficiente" ? (
-            <div
-              className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
-              onClick={handleSaveName}
-            >
-              <span className="text-main-orange">{params.logisticsStatus}</span>
-            </div>
-          ) : (
-            <>{params.logisticsStatus}</>
-          )}
-        </>
-      );
+      const handleModalUnidentifiedSample = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setCpfPatient(params.cpf);
+        unidentifiedSample.openModal(true);
+      };
+
+      if (params.logisticsStatus === "Amostra insuficiente") {
+        return (
+          <div
+            className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+            onClick={handleModalInsufficientSample}
+          >
+            <span className="text-main-orange">{params.logisticsStatus}</span>
+          </div>
+        );
+      } else if (params.logisticsStatus === "Amostra não identificada") {
+        return (
+          <div
+            className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
+            onClick={handleModalUnidentifiedSample}
+          >
+            <span className="text-main-orange">{params.logisticsStatus}</span>
+          </div>
+        );
+      } else {
+        return <span>{params.logisticsStatus}</span>;
+      }
     },
   },
   {
