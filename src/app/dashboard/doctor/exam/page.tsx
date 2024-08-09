@@ -15,7 +15,7 @@ import {
 import { Dialog } from "@radix-ui/react-dialog";
 import { SendLaudo } from "@/components/SendLaudo";
 import { UnidentifiedSample } from "@/components/UnidentifiedSample";
-import { InsufficientSample } from "@/components/InsufficientSample";
+import { Insufficient } from "@/components/Insufficient";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
@@ -112,7 +112,7 @@ export default function Diagnostic() {
           open={insufficientSample.isModalOpen}
           onOpenChange={insufficientSample.openModal}
         >
-          <InsufficientSample />
+          <Insufficient />
         </Dialog>
       </div>
       <div>

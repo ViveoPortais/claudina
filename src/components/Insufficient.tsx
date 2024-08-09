@@ -6,7 +6,7 @@ import useSession from "@/hooks/useSession";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
-export function InsufficientSample() {
+export function Insufficient() {
   const auth = useSession();
   const insufficientSample = useInsufficientSample();
   const router = useRouter();
