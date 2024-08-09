@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { maskedField } from "@/components/custom/MaskedField";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getExam } from "@/services/diagnostic";
@@ -13,10 +12,10 @@ import {
   useSendLaudo,
   useUnidentifiedSample,
 } from "@/hooks/useModal";
-import { Dialog, DialogContent } from "@radix-ui/react-dialog";
+import { Dialog } from "@radix-ui/react-dialog";
 import { SendLaudo } from "@/components/SendLaudo";
-import { InsufficientSample } from "@/components/InsufficientSample";
 import { UnidentifiedSample } from "@/components/UnidentifiedSample";
+import { Insufficient } from "@/components/Insufficient";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
@@ -110,18 +109,18 @@ export default function Diagnostic() {
       <DataTable columns={columns} isLoading={isLoading} data={filteredData} />
       <div>
         <Dialog
-          open={unidentifiedSample.isModalOpen}
-          onOpenChange={unidentifiedSample.openModal}
+          open={insufficientSample.isModalOpen}
+          onOpenChange={insufficientSample.openModal}
         >
-          <UnidentifiedSample />
+          <Insufficient />
         </Dialog>
       </div>
       <div>
         <Dialog
-          open={insufficientSample.isModalOpen}
-          onOpenChange={insufficientSample.openModal}
+          open={unidentifiedSample.isModalOpen}
+          onOpenChange={unidentifiedSample.openModal}
         >
-          <InsufficientSample />
+          <UnidentifiedSample />
         </Dialog>
       </div>
       <div>
