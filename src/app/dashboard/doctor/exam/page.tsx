@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
-import { maskedField } from "@/components/custom/MaskedField";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getExam } from "@/services/diagnostic";
@@ -15,8 +14,8 @@ import {
 } from "@/hooks/useModal";
 import { Dialog } from "@radix-ui/react-dialog";
 import { SendLaudo } from "@/components/SendLaudo";
-import { InsufficientSample } from "@/components/InsufficientSample";
 import { UnidentifiedSample } from "@/components/UnidentifiedSample";
+import { InsufficientSample } from "@/components/InsufficientSample";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
