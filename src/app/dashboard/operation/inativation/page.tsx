@@ -15,12 +15,18 @@ export default function Diagnostic() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState("");
-  const solicitation = useSolicitation();
 
   const otherProfissional = () => {
     setIsLoading(true);
     getDiagnosticsLaboratory()
       .then((res) => {
+        if (res.data === null || res.totalSize === 0) {
+          setData([]);
+          setFilteredData([]);
+          toast.info("Nenhuma solicitação encontrada.");
+          return;
+        }
+
         const mapId = res.data.map((item: any) => {
           return {
             ...item,
@@ -101,8 +107,7 @@ export default function Diagnostic() {
       </div>
 
       <DataTable columns={columns} isLoading={isLoading} data={filteredData} />
-
-      {solicitation.isModalOpen && <Solicitation />}
+      <Solicitation />
     </div>
   );
 }

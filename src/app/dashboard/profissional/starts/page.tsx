@@ -15,12 +15,14 @@ const Page = () => {
   const changePassword = useChangePassword();
 
   useEffect(() => {
-    validate(auth.code as string).then((res) => {
-      if (!res.isValid) {
-        changePassword.openModal(true);
-      }
-    });
-  }, [auth]);
+    if (auth.isLogged) {
+      validate().then((res) => {
+        if (!res.isValid) {
+          changePassword.openModal(true);
+        }
+      });
+    }
+  }, [auth.isLogged]);
 
   return (
     <div className="p-2">

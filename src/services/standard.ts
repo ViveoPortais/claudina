@@ -3,11 +3,7 @@ import { api } from "./api";
 
 const programCode = "985";
 
-export const validate = async (password: string) => {
-  const res = await api.post("/standard/validate", null, {
-    params: {
-      password: password,
-    },
-  });
+export const validate = async () => {
+  const res = await api.post("/Standard/ValidatebyUser", null, {});
   return res.data;
 };

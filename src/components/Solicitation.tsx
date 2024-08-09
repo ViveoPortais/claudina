@@ -13,16 +13,16 @@ import { Dialog } from "@radix-ui/react-dialog";
 
 export function Solicitation() {
   const auth = useSession();
-  const [hasPendingNo, setHasPendingNo] = useState(false);
-  const [hasPendingYes, setHasPendingYes] = useState(false);
+  const [hasPending, setHasPending] = useState<boolean | null>(null);
   const [logisticsStatus, setLogisticsStatus] = useState("");
   const solicitation = useSolicitation();
   const [her2Result, setHer2Result] = useState("");
   const [claudinaResult, setClaudinaResult] = useState("");
 
   interface DataItem {
-    CPF: string;
+    CPF: any;
     ProgramCode: string;
+    HasPending: boolean;
     LogisticsSchedule: {
       DateReceivingBlock: string;
       ScheduleStatusStringMap: {
@@ -44,8 +44,9 @@ export function Solicitation() {
   }
 
   const [data, setData] = useState<DataItem>({
-    CPF: auth.cpfPatient as string,
+    CPF: auth.cpfPatient,
     ProgramCode: "985",
+    HasPending: false,
     LogisticsSchedule: {
       DateReceivingBlock: "",
       ScheduleStatusStringMap: {
@@ -94,10 +95,15 @@ export function Solicitation() {
   });
 
   const handlePendingChange = (value: string) => {
-    setHasPendingNo(value === "Não");
-    setHasPendingYes(value === "Sim");
+    const hasPendingValue = value === "Sim";
+    setHasPending(hasPendingValue);
 
-    if (value === "Não") {
+    setData((prevData) => ({
+      ...prevData,
+      HasPending: hasPendingValue,
+    }));
+
+    if (!hasPendingValue) {
       setData((prevData) => ({
         ...prevData,
         Exams: prevData.Exams.map((exam) => ({
@@ -110,16 +116,23 @@ export function Solicitation() {
   };
 
   const clearFilds = () => {
+    hasPending !== null && setHasPending(null);
     setHer2Result("");
     setClaudinaResult("");
     setLogisticsStatus("");
+
     setData((prevData) => ({
       ...prevData,
       Exams: prevData.Exams.map((exam) => ({
         ...exam,
         ExamStatusStringMap: { OptionName: "" },
       })),
+      LogisticsSchedule: {
+        DateReceivingBlock: "",
+        ScheduleStatusStringMap: { OptionName: "" },
+      },
     }));
+
     solicitation.openModal(false);
   };
 
@@ -129,16 +142,7 @@ export function Solicitation() {
         if (res.isValidData) {
           toast.success("Solicitação enviada com sucesso");
 
-          setHer2Result("");
-          setClaudinaResult("");
-          setLogisticsStatus("");
-          setData((prevData) => ({
-            ...prevData,
-            Exams: prevData.Exams.map((exam) => ({
-              ...exam,
-              ExamStatusStringMap: { OptionName: "" },
-            })),
-          }));
+          clearFilds();
           solicitation.openModal(false);
         }
         if (res.isValidData === false) {
@@ -250,11 +254,11 @@ export function Solicitation() {
               { value: "Não", id: "Não" },
             ]}
             onChange={(e: any) => handlePendingChange(e.target.value)}
-            value={hasPendingNo ? "Não" : hasPendingYes ? "Sim" : ""}
+            value={hasPending !== null ? (hasPending ? "Sim" : "Não") : ""}
           />
         </div>
 
-        {hasPendingNo && (
+        {hasPending !== null && !hasPending && (
           <>
             <div className="mt-5 grid grid-cols-1 gap-4">
               <div>
@@ -306,7 +310,7 @@ export function Solicitation() {
             </div>
           </>
         )}
-        {hasPendingYes && (
+        {hasPending && (
           <div className="mt-5 grid grid-cols-2 gap-4">
             <CustomSelect
               name="logisticsStatus"

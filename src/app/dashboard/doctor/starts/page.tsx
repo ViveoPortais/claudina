@@ -8,7 +8,6 @@ import { validate } from "@/services/standard";
 import { Dialog } from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { toast } from "react-toastify";
 
 const Page = () => {
   const router = useRouter();
@@ -16,12 +15,14 @@ const Page = () => {
   const changePassword = useChangePassword();
 
   useEffect(() => {
-    validate(auth.code as string).then((res) => {
-      if (!res.isValid) {
-        changePassword.openModal(true);
-      }
-    });
-  }, [auth]);
+    if (auth.isLogged) {
+      validate().then((res) => {
+        if (!res.isValid) {
+          changePassword.openModal(true);
+        }
+      });
+    }
+  }, [auth.isLogged]);
 
   return (
     <div className="p-2">

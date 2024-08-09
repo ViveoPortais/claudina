@@ -20,8 +20,6 @@ type SessionStore = {
   cpfLaudo?: string;
   namePatient?: string;
   cpfPatient?: string;
-  code?: string;
-  setCode: (code: string) => void;
   setNamePatient: (namePatient: string) => void;
   setCpfPatient: (cpfPatient: string) => void;
   setNameLaudo: (nameLaudo: string) => void;
@@ -62,8 +60,6 @@ const useSession = create(
       cpfLaudo: "",
       namePatient: "",
       cpfPatient: "",
-      code: "",
-      setCode: (code) => set({ code: code }),
       setNamePatient: (namePatient) => set({ namePatient: namePatient }),
       setCpfPatient: (cpfPatient) => set({ cpfPatient: cpfPatient }),
       setNameLaudo: (nameLaudo) => set({ nameLaudo: nameLaudo }),
@@ -99,7 +95,6 @@ const useSession = create(
           cpfLaudo: "",
           namePatient: "",
           cpfPatient: "",
-          code: "",
         }),
       setChangePassword: (changePassword) =>
         set({ changePassword: changePassword }),
