@@ -3,16 +3,10 @@
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
-
 import { routes } from "@/helpers/routes";
 import { useLateralMenu } from "@/hooks/useMenus";
 import useSession from "@/hooks/useSession";
-
-import { Footer } from "@/components/Footer";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import path from "path";
-import { Ebook } from "@/components/Ebook";
-import { Documents } from "@/components/Documents";
 import Home from "./page";
 
 interface HomeLayoutProps {
