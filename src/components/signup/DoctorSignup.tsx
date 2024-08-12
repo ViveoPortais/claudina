@@ -32,7 +32,7 @@ const doctorSignUpSchema = z.object({
   licenseState: z.string().min(1, { message: "Insira um UF válido" }),
   medicalSpecialty: z.string().min(1, { message: "Campo obrigatório" }),
   emailAddress1: z.string().email({ message: `Insira um e-mail válido` }),
-  telephoneNumber: z.string().min(1, { message: "Informe o número" }),
+  telephoneNumber: z.string().optional(),
   mobileNumber: z.string().min(1, { message: "Informe o número" }),
   addressPostalCode: z.string().min(1, { message: "Informe o número" }),
   addressCity: z.string().min(1, { message: "Informe o número" }),
@@ -154,7 +154,7 @@ export function DoctorSignUp() {
         licenseState: data.licenseState,
         medicalSpecialty: data.medicalSpecialty,
         emailAddress1: data.emailAddress1,
-        telephoneNumber: data.telephoneNumber,
+        telephoneNumber: data.telephoneNumber ?? "",
         mobileNumber: data.mobileNumber,
         addressCity: data.addressCity,
         addressState: data.addressState,
@@ -164,6 +164,9 @@ export function DoctorSignUp() {
 
       if (res.isValidData === true) {
         modalAccept.openModal(true);
+        termsModal.acceptMedicDiagnosticTerms(false);
+        termsModal.acceptMedicTreatmentTerms(false);
+        termsModal.acceptPatientTerms(false);
         setTimeout(() => {
           modalAccept.openModal(false);
           router.push("/signin");

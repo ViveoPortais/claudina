@@ -94,6 +94,15 @@ export function Solicitation() {
     ],
   });
 
+  useEffect(() => {
+    if (auth.cpfPatient) {
+      setData((prevData) => ({
+        ...prevData,
+        CPF: auth.cpfPatient,
+      }));
+    }
+  }, [auth.cpfPatient]);
+
   const handlePendingChange = (value: string) => {
     const hasPendingValue = value === "Sim";
     setHasPending(hasPendingValue);

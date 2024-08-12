@@ -56,7 +56,7 @@ const Page = () => {
           subtitleTwo="Clique no botão abaixo para acompanhar as solicitações profissionais de saúde."
           bgColor="bg-main-blue"
           buttonText="Ver Mais"
-          onButtonClick={() => router.push("/")}
+          onButtonClick={() => router.push("/dashboard/doctor/solicitation")}
         />
         <ContentCard
           title="Inativação de Profissionais de Saúde"
@@ -64,7 +64,7 @@ const Page = () => {
           subtitleTwo="Clique no botão abaixo para inativar um Profissional de Saúde."
           bgColor="bg-main-blue"
           buttonText="Ver Mais"
-          onButtonClick={() => router.push("/")}
+          onButtonClick={() => router.push("/dashboard/doctor/inativation")}
         />
       </div>
       <Dialog

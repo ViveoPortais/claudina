@@ -7,6 +7,9 @@ import {
   activateHeathProfessional,
   rescueHeathProfessional,
 } from "@/services/representative";
+import { useState } from "react";
+import { set } from "date-fns";
+import useSession from "@/hooks/useSession";
 
 export type Report2 = {
   name: string;
@@ -28,8 +31,10 @@ export const columns: ColumnDef<Report2>[] = [
     header: "Validação do Cadastro",
     cell: ({ row }) => {
       const report = row.original;
+      const loading = useSession();
 
       const handleACcept = () => {
+        loading.setRefresh(true);
         const data = {
           ProgramCode: "985",
           Name: report.name,
@@ -47,10 +52,14 @@ export const columns: ColumnDef<Report2>[] = [
           })
           .catch((error) => {
             toast.error("Erro ao ativar profissional de saúde!");
+          })
+          .finally(() => {
+            loading.setRefresh(false);
           });
       };
 
       const handleRescue = () => {
+        loading.setRefresh(true);
         const data = {
           ProgramCode: "985",
           Name: report.name,
@@ -66,6 +75,9 @@ export const columns: ColumnDef<Report2>[] = [
           })
           .catch((error) => {
             toast.error("Erro ao ativar profissional de saúde!");
+          })
+          .finally(() => {
+            loading.setRefresh(false);
           });
       };
 

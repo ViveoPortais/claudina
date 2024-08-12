@@ -35,7 +35,7 @@ const doctorSignUpSchema = z.object({
   DoctorLicenseNumber: z.string().min(1, { message: "Insira seu nome" }),
   DoctorLicenseState: z.string().min(1, { message: "Insira seu nome" }),
   Mobilephone: z.string().min(1, { message: "Insira seu nome" }),
-  Telefone: z.string().min(1, { message: "Insira seu nome" }),
+  Telefone: z.string().optional(),
 
   // regulation: z.boolean().default(false).refine((val) => val === true, {
   //     message: "É necessário aceitar os termos de Consentimento e de Privacidade",
@@ -87,12 +87,15 @@ export function OtherProfessionalModal() {
         DoctorLicenseNumber: data.DoctorLicenseNumber,
         DoctorLicenseState: data.DoctorLicenseState,
         Mobilephone: data.Mobilephone,
-        Telefone: data.Telefone,
+        Telefone: data.Telefone ?? "",
         ProgramCode: "985",
       });
 
       if (res.isValidData === true) {
         modalAccept.openModal(true);
+        termsModal.acceptMedicDiagnosticTerms(false);
+        termsModal.acceptMedicTreatmentTerms(false);
+        termsModal.acceptPatientTerms(false);
         setTimeout(() => {
           modalAccept.openModal(false);
           router.push("/signin");

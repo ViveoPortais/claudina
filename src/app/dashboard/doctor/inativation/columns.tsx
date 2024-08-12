@@ -36,8 +36,10 @@ export const columns: ColumnDef<Report2>[] = [
     header: "Validação do Cadastro",
     cell: ({ row }) => {
       const report = row.original;
+      const loading = useSession();
 
       const handleInativation = () => {
+        loading.setRefresh(true);
         const data = {
           ProgramCode: "985",
           Name: report.name,
@@ -55,6 +57,9 @@ export const columns: ColumnDef<Report2>[] = [
           })
           .catch((error) => {
             toast.error("Erro ao ativar profissional de saúde!");
+          })
+          .finally(() => {
+            loading.setRefresh(false);
           });
       };
 

@@ -7,11 +7,13 @@ import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getHealthProfessionalsActivated } from "@/services/representative";
+import useSession from "@/hooks/useSession";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState("");
+  const loading = useSession();
 
   const otherProfissionalActive = () => {
     getHealthProfessionalsActivated()
@@ -52,6 +54,12 @@ export default function Diagnostic() {
     otherProfissionalActive();
   }, []);
 
+  useEffect(() => {
+    if (!loading.refresh) {
+      otherProfissionalActive();
+    }
+  }, [loading.refresh]);
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">
       <div className="flex justify-start text-xl md:text-2xl text-main-blue">
@@ -88,7 +96,11 @@ export default function Diagnostic() {
           </div>
         </div>
 
-        <DataTable columns={columns} data={filteredData} />
+        <DataTable
+          isLoading={loading.refresh}
+          columns={columns}
+          data={filteredData}
+        />
       </div>
     </div>
   );

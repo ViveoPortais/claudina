@@ -34,6 +34,7 @@ import { Dialog } from "@/components/ui/dialog";
 import { SucessExam } from "@/components/SucessExam";
 import { useSucessExam } from "@/hooks/useModal";
 import { Loading } from "@/components/custom/Loading";
+import { FaFilePdf } from "react-icons/fa";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -904,19 +905,28 @@ export default function PreRegister() {
           )}
           {step === 4 && (
             <>
-              <div className="mb-20">
+              <div className="mb-10">
                 <span className="text-base font-bold  text-main-blue">
                   Documentos
                 </span>
               </div>
-              <div className="w-full flex justify-center mb-24">
-                <Image
-                  src="/logo-removebg-preview.png"
-                  width={600}
-                  height={150}
-                  priority
-                  alt="logo"
-                />
+              <div className="w-full flex flex-col justify-start mb-20 gap-4">
+                <div>
+                  <span className="text-main-blue font-bold">
+                    Abaixo você encontra o download do termo do paciente.
+                  </span>
+                </div>
+                <div>
+                  <a
+                    href="/Programa Claudinova- Termo de Consentimento - Pacientes.pdf"
+                    download
+                  >
+                    <FaFilePdf
+                      size={100}
+                      className="text-main-orange cursor-pointer transition-transform transform hover:scale-110 hover:text-main-blue"
+                    />
+                  </a>
+                </div>
               </div>
               <div className="w-full flex flex-col items-center">
                 <div className="flex flex-col md:flex md:flex-row items-start md:items-center md:mb-2 mb-5 gap-2">
