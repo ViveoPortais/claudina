@@ -35,6 +35,7 @@ import { SucessExam } from "@/components/SucessExam";
 import { useSucessExam } from "@/hooks/useModal";
 import { Loading } from "@/components/custom/Loading";
 import { jsPDF } from "jspdf";
+import { FiPrinter } from "react-icons/fi";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -517,7 +518,7 @@ export default function PreRegister() {
           ))}
         </div>
         <div className="mt-14">
-          {step === 1 && (
+          {step === 4 && (
             <>
               <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-5">
                 <CustomSelect
@@ -931,7 +932,7 @@ export default function PreRegister() {
               </div>
             </>
           )}
-          {step === 4 && (
+          {step === 1 && (
             <>
               <div className="mb-5">
                 <span className="text-base font-bold  text-main-blue">
@@ -953,7 +954,7 @@ export default function PreRegister() {
                 </div>
               </div>
               <div className="w-full flex flex-col items-center">
-                <div className="flex flex-col md:flex md:flex-row items-start md:items-center md:mb-2 mb-5 gap-2">
+                <div className="flex flex-col md:flex md:flex-row items-start md:items-center md:mb-2 mb-5 gap-3">
                   <div>
                     <span>Deseja enviar o termo ao Paciente via SMS ?</span>
                   </div>
@@ -972,6 +973,13 @@ export default function PreRegister() {
                       checked={checkersFalse}
                     />
                     <span className="ml-2">Não</span>
+                  </div>
+                  <div>
+                    <FiPrinter
+                      size={23}
+                      className="hover:text-main-orange cursor-pointer"
+                      onClick={printPDF}
+                    />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid md:grid-cols-2 items-center gap-2 mt-5">

@@ -36,6 +36,7 @@ import { Loading } from "@/components/custom/Loading";
 import { getDoctorVinculed } from "@/services/representative";
 import { jsPDF } from "jspdf";
 import Image from "next/image";
+import { FiPrinter } from "react-icons/fi";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -1007,6 +1008,13 @@ export default function PreRegister() {
                       checked={checkersFalse}
                     />
                     <span className="ml-2">Não</span>
+                  </div>
+                  <div>
+                    <FiPrinter
+                      size={23}
+                      className="hover:text-main-orange cursor-pointer"
+                      onClick={printPDF}
+                    />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid md:grid-cols-2 items-center gap-2 mt-5">
