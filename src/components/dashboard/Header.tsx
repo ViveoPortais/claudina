@@ -87,7 +87,13 @@ export function Header() {
         </div>
         <div className="flex items-center justify-center gap-6">
           <span className="text-main-orange font-semibold text-base">
-            {auth.name?.includes(" ") ? auth.name.split(" ")[0] : auth.name}
+            {auth.role === "laboratory"
+              ? auth.userNameLab?.includes(" ")
+                ? auth.userNameLab.split(" ")[0]
+                : auth.userNameLab
+              : auth.name?.includes(" ")
+              ? auth.name.split(" ")[0]
+              : auth.name}
           </span>
           <div
             className="hover:opacity-70 cursor-pointer"
@@ -157,7 +163,8 @@ export function Header() {
       >
         <div>
           <h1 className="text-lg lg:text-2xl font-semibold text-main-orange flex mt-5">
-            Bem vindo {auth.role === "doctor" && "Dr(a)"} {auth.name}!
+            Bem vindo {auth?.role === "doctor" && "Dr(a)"}{" "}
+            {auth?.role === "laboratory" ? auth?.userNameLab : auth?.name}!
           </h1>
           <span className="text-main-blue text-xs lg:text-base font-normal">
             {currentRoute}
@@ -174,7 +181,7 @@ export function Header() {
           <SheetContent className="m-4 rounded-lg h-auto">
             <SheetHeader>
               <SheetTitle className="text-main-orange text-xl  border-b-2 border-main-blue p-2">
-                {auth.name}
+                {auth.role === "laboratory" ? auth.userNameLab : auth.name}
               </SheetTitle>
             </SheetHeader>
 

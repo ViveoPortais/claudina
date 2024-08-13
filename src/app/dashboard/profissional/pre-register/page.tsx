@@ -34,7 +34,6 @@ import { SucessExam } from "@/components/SucessExam";
 import { useSucessExam } from "@/hooks/useModal";
 import { Loading } from "@/components/custom/Loading";
 import { getDoctorVinculed } from "@/services/representative";
-import { FaFilePdf } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import Image from "next/image";
 
@@ -46,6 +45,7 @@ export default function PreRegister() {
   const [checkersTrue, setCheckersTrue] = useState(false);
   const [checkersFalse, setCheckersFalse] = useState(false);
   const [mobilephone, setMobilephone] = useState("");
+  const [cpfPhone, setCpfPhone] = useState("");
   const useSucess = useSucessExam();
   const [isLoading, setIsLoading] = useState(false);
   const [doctorId, setDoctorId] = useState([]);
@@ -113,7 +113,7 @@ export default function PreRegister() {
   };
 
   const sendSmsPhone = () => {
-    sendSms(mobilephone)
+    sendSms(mobilephone, cpfPhone)
       .then((res) => {
         if (res.isValidData) {
           toast.success("SMS enviado com sucesso");
@@ -203,6 +203,11 @@ export default function PreRegister() {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     const updatedData = { ...preRegisterData };
+
+    if (name === "CPF") {
+      setCpfPhone(value);
+      updatedData.CPF = value;
+    }
 
     if (name === "doneHER2") {
       updatedData[name] = value;
@@ -485,17 +490,6 @@ export default function PreRegister() {
     return `${year}-${month}-${day}`;
   };
 
-  const validateDate = (date: any) => {
-    const selectedDate = new Date(date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return selectedDate >= today;
-  };
-
-  const showError = (message: any) => {
-    toast.error(message);
-  };
-
   return (
     <div className="w-full h-full flex flex-col mt-8 lg:mt-0">
       <div className="px-5">
@@ -584,7 +578,7 @@ export default function PreRegister() {
               {isHER2Positive ? (
                 <div className="w-full mt-16 md:mt-32">
                   <p className="text-main-orange font-semibold md:text-xl text-sm text-center">
-                    &quot;O paciente não é elegivel ao programa, em caso de
+                    &quot;O paciente não é elegível ao programa, em caso de
                     dúvidas entre em
                   </p>
                   <p className="text-main-orange font-semibold md:text-xl text-sm text-center">
@@ -680,7 +674,7 @@ export default function PreRegister() {
 
               <div className="w-full mt-16 md:mt-32">
                 <p className="text-main-orange font-semibold md:text-xl text-sm text-center">
-                  &quot;A analise não poderá ser realizada caso o laboratório
+                  &quot;A análise não poderá ser realizada caso o laboratório
                   não
                 </p>
                 <p className="text-main-orange font-semibold md:text-xl text-sm text-center">
@@ -931,21 +925,10 @@ export default function PreRegister() {
                       },
                     })
                   }
-                  onBlur={(e) => {
-                    if (!validateDate(e.target.value)) {
-                      setPreRegisterData({
-                        ...preRegisterData,
-                        LogisticsSchedule: {
-                          ...preRegisterData.LogisticsSchedule,
-                          DateForCollecting: "",
-                        },
-                      });
-                      showError(
-                        "A data para previsão de entrega, não pode ser anterior à data de hoje."
-                      );
-                    }
-                  }}
                   min={getCurrentDate()}
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                  }}
                 />
                 <CustomSelect
                   name="LaboratoryName"
@@ -1001,14 +984,20 @@ export default function PreRegister() {
                     <span>Deseja enviar o termo ao Paciente via SMS ?</span>
                   </div>
                   <div className="flex items-center">
-                    <div>
-                      <Checkbox
-                        name="yes"
-                        onCheckedChange={handleCheckersTrue}
-                        checked={checkersTrue}
-                      />
-                      <span className="ml-2">Sim</span>
-                    </div>
+                    <Checkbox
+                      name="yes"
+                      onCheckedChange={handleCheckersTrue}
+                      checked={checkersTrue}
+                    />
+                    <span className="ml-2">Sim</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Checkbox
+                      name="no"
+                      onCheckedChange={handleCheckersFalse}
+                      checked={checkersFalse}
+                    />
+                    <span className="ml-2">Não</span>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid md:grid-cols-2 items-center gap-2 mt-5">

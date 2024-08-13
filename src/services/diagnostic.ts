@@ -3,7 +3,7 @@ import { api } from "./api";
 
 const programCode = "985";
 
-export const sendSms = async (mobilePhone: any) => {
+export const sendSms = async (mobilePhone: any, cpf: any) => {
   const response = await api.post(
     `/Diagnostic/sendsmsdiagnosticpatient`,
     null,
@@ -11,7 +11,8 @@ export const sendSms = async (mobilePhone: any) => {
       params: {
         mobilephone: mobilePhone,
         programcode: "985",
-        templatename: "#TesteClaudinova",
+        templatename: "#SOLICITAÇÃOEXAMECLAUDINOVA",
+        cpf: cpf,
       },
     }
   );

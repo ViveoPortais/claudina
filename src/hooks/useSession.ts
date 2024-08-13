@@ -6,6 +6,7 @@ type SessionStore = {
   email: string;
   role: string;
   name: string;
+  userNameLab?: string;
   token: string;
   changePassword: boolean;
   currentPassword: string;
@@ -20,6 +21,7 @@ type SessionStore = {
   cpfLaudo?: string;
   namePatient?: string;
   cpfPatient?: string;
+  setUserNameLab: (userNameLab: string) => void;
   setNamePatient: (namePatient: string) => void;
   setCpfPatient: (cpfPatient: string) => void;
   setNameLaudo: (nameLaudo: string) => void;
@@ -60,6 +62,8 @@ const useSession = create(
       cpfLaudo: "",
       namePatient: "",
       cpfPatient: "",
+      userNameLab: "",
+      setUserNameLab: (userNameLab) => set({ userNameLab: userNameLab }),
       setNamePatient: (namePatient) => set({ namePatient: namePatient }),
       setCpfPatient: (cpfPatient) => set({ cpfPatient: cpfPatient }),
       setNameLaudo: (nameLaudo) => set({ nameLaudo: nameLaudo }),

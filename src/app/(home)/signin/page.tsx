@@ -68,6 +68,7 @@ export default function SignIn() {
       const response = await login(data);
       const role = handleUserRole(response.role);
       auth.setName(response.name);
+      auth.setUserNameLab(response.userName);
       auth.setEmail(response.email);
       auth.setToken(response.token);
       api.defaults.headers.Authorization = `Bearer ${response.token}`;
