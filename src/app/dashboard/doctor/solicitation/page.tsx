@@ -97,11 +97,7 @@ export default function Diagnostic() {
           </div>
         </div>
 
-        <DataTable
-          isLoading={loading.refresh}
-          columns={columns}
-          data={filteredData}
-        />
+        <DataTable columns={columns} data={filteredData} />
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import {
@@ -35,8 +34,9 @@ import { SucessExam } from "@/components/SucessExam";
 import { useSucessExam } from "@/hooks/useModal";
 import { Loading } from "@/components/custom/Loading";
 import { getDoctorVinculed } from "@/services/representative";
-import { Value } from "@radix-ui/react-select";
 import { FaFilePdf } from "react-icons/fa";
+import { jsPDF } from "jspdf";
+import Image from "next/image";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -44,6 +44,7 @@ export default function PreRegister() {
   const [localType, setLocalType] = useState("");
   const router = useRouter();
   const [checkersTrue, setCheckersTrue] = useState(false);
+  const [checkersFalse, setCheckersFalse] = useState(false);
   const [mobilephone, setMobilephone] = useState("");
   const useSucess = useSucessExam();
   const [isLoading, setIsLoading] = useState(false);
@@ -246,8 +247,40 @@ export default function PreRegister() {
 
   const handleCheckersTrue = (checked: any) => {
     setCheckersTrue(checked);
+    if (checked) {
+      setCheckersFalse(false);
+    }
   };
 
+  const handleCheckersFalse = (checked: any) => {
+    setCheckersFalse(checked);
+    if (checked) {
+      setCheckersTrue(false);
+      printPDF();
+    }
+  };
+
+  const printPDF = () => {
+    const doc = new jsPDF();
+    doc.addImage(
+      "/Programa Claudinova- Termo de Consentimento - Pacientes_page-0001.jpg",
+      "JPEG",
+      0,
+      0,
+      210,
+      297
+    );
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    const pdfWindow = window.open(pdfUrl);
+
+    if (pdfWindow) {
+      pdfWindow.onload = () => {
+        pdfWindow.print();
+      };
+    }
+  };
   const fileBase64 = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
 
@@ -943,27 +976,23 @@ export default function PreRegister() {
           )}
           {step === 4 && (
             <>
-              <div className="mb-10">
+              <div className="mb-5">
                 <span className="text-base font-bold  text-main-blue">
                   Documentos
                 </span>
               </div>
-              <div className="w-full flex flex-col justify-start mb-20 gap-4">
-                <div>
-                  <span className="text-main-blue font-bold">
-                    Abaixo você encontra o download do termo do paciente.
-                  </span>
-                </div>
-                <div>
-                  <a
-                    href="/Programa Claudinova- Termo de Consentimento - Pacientes.pdf"
-                    download
-                  >
-                    <FaFilePdf
-                      size={100}
-                      className="text-main-orange cursor-pointer transition-transform transform hover:scale-110 hover:text-main-blue"
-                    />
-                  </a>
+              <div
+                className="w-full flex justify-center mb-10 overflow-auto border border-gray-300 rounded-lg"
+                style={{ maxHeight: "45vh" }}
+              >
+                <div className="min-w-[600px]">
+                  <Image
+                    src="/Programa Claudinova- Termo de Consentimento - Pacientes_page-0001.jpg"
+                    alt="Termo de Consentimento"
+                    width={900}
+                    height={100}
+                    className="w-full"
+                  />
                 </div>
               </div>
               <div className="w-full flex flex-col items-center">

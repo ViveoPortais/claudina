@@ -12,8 +12,17 @@ export function Insufficient() {
   const router = useRouter();
 
   const handleSendLaudo = () => {
-    router.push("/dashboard/profissional/pre-register");
-    insufficientSample.openModal(false);
+    if (auth.role === "doctor") {
+      router.push("/dashboard/doctor/pre-register");
+      insufficientSample.openModal(false);
+      return;
+    }
+
+    if (auth.role === "profissional") {
+      router.push("/dashboard/profissional/pre-register");
+      insufficientSample.openModal(false);
+      return;
+    }
   };
 
   return (

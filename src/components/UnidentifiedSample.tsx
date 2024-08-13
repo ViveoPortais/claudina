@@ -12,8 +12,17 @@ export function UnidentifiedSample() {
   const router = useRouter();
 
   const handleSendLaudo = () => {
-    router.push("/dashboard/profissional/pre-register");
-    unidentifiedSample.openModal(false);
+    if (auth.role === "doctor") {
+      router.push("/dashboard/doctor/pre-register");
+      unidentifiedSample.openModal(false);
+      return;
+    }
+
+    if (auth.role === "profissional") {
+      router.push("/dashboard/profissional/pre-register");
+      unidentifiedSample.openModal(false);
+      return;
+    }
   };
 
   return (
@@ -23,7 +32,7 @@ export function UnidentifiedSample() {
           <p className="text-main-orange font-semibold md:text-xl text-sm text-start">
             Foi identificada uma pendência na solicitação do exame do paciente{" "}
             <span className="text-main-blue">"{auth?.namePatient}"</span>, pelo
-            motivo de amostra identificada.
+            motivo de amostra não identificada.
           </p>
         </div>
         <div>
