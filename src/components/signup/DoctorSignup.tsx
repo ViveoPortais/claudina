@@ -23,11 +23,14 @@ import { AcceptRegister } from "./AcceptRegister";
 import { RescueRegisterEmail } from "./RescueRegisterEmail";
 import { getAddressByCep } from "@/services/address";
 import { InputLoading } from "../custom/InputLoading";
-import { TreatmentTerms } from "./TreatmentTerms";
+import validarCPF from "@/helpers/ValidateCPF";
 
 const doctorSignUpSchema = z.object({
   doctorName: z.string().min(1, { message: "Insira seu nome" }),
-  cpf: z.string().min(1, { message: "Insira seu CPF" }),
+  cpf: z
+    .string()
+    .min(1, { message: "Insira um CPF" })
+    .refine((cpf) => validarCPF(cpf), { message: "CPF inválido" }),
   licenseNumber: z.string().min(1, { message: "Insira um CRM válido" }),
   licenseState: z.string().min(1, { message: "Insira um UF válido" }),
   medicalSpecialty: z.string().min(1, { message: "Campo obrigatório" }),

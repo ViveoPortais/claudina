@@ -335,20 +335,23 @@ export default function PreRegister() {
       });
   };
 
-  const checkCPF = () => {
-    if (validarCPF(preRegisterData.CPF) === false) {
+  const checkCPF = (cpf: any) => {
+    const isCpfValid = validarCPF(cpf);
+    if (!isCpfValid) {
       toast.error("CPF inválido");
-      return setDisableSave(true);
+      setDisableSave(true);
+    } else {
+      setDisableSave(false);
     }
   };
 
-  const checkCPFTwo = () => {
-    if (
-      validarCPF(preRegisterData.AccountSettingsByProgram.CustomString1) ===
-      false
-    ) {
+  const checkCPFTwo = (cpfTwo: string) => {
+    const isCpfValid = validarCPF(cpfTwo);
+    if (!isCpfValid) {
       toast.error("CPF inválido");
-      return setDisableSave(true);
+      setDisableSave(true);
+    } else {
+      setDisableSave(false);
     }
   };
 
@@ -452,8 +455,10 @@ export default function PreRegister() {
 
     const isMinor = age < 18 || (age === 18 && !hasBirthdayOccurredThisYear);
 
+    const isCpfValid = validarCPF(preRegisterData.CPF);
+
     return (
-      preRegisterData.CPF &&
+      isCpfValid &&
       preRegisterData.Name &&
       preRegisterData.Birthdate &&
       preRegisterData.DiseaseName &&
@@ -465,9 +470,10 @@ export default function PreRegister() {
     const isCnpjValid =
       localType === "Hospital/Clínica" &&
       preRegisterData.AccountSettingsByProgram.Cnpj;
+
     const isCpfValid =
       localType === "Pessoa Física" &&
-      preRegisterData.AccountSettingsByProgram.CustomString1;
+      validarCPF(preRegisterData.AccountSettingsByProgram.CustomString1);
 
     return (
       (isCnpjValid || isCpfValid) &&
@@ -609,8 +615,7 @@ export default function PreRegister() {
                   mask="999.999.999-99"
                   value={preRegisterData.CPF}
                   onChange={handleChange}
-                  onBlur={checkCPF}
-                  required
+                  onBlur={() => checkCPF(preRegisterData.CPF)}
                 >
                   <Input placeholder="CPF" name="CPF" />
                 </ReactInputMask>
@@ -764,7 +769,11 @@ export default function PreRegister() {
                         },
                       })
                     }
-                    onBlur={checkCPFTwo}
+                    onBlur={() =>
+                      checkCPFTwo(
+                        preRegisterData.AccountSettingsByProgram.CustomString1
+                      )
+                    }
                   >
                     <Input placeholder="CPF" name="CustomString1" />
                   </ReactInputMask>
@@ -1048,7 +1057,7 @@ export default function PreRegister() {
               variant={`tertiary`}
               onClick={handleNextStep}
               className="md:w-60 w-full md:mb-0 mb-5"
-              disabled={step === 1 ? !isStep1Valid() : false || !isStep2Valid()}
+              disabled={step === 1 ? !isStep1Valid() : !isStep2Valid()}
             >
               Próximo
             </Button>

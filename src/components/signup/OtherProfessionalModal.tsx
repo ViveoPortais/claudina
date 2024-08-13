@@ -20,6 +20,7 @@ import { AcceptRegisterOther } from "./AcceptRegisterOther";
 import { RescueRegisterEmailOther } from "./RescueRegisterEmailOther";
 import { RescueRegisterOther } from "./RescueRegisterOther";
 import { AddOtherProfessional } from "@/services/representative";
+import validarCPF from "@/helpers/ValidateCPF";
 
 const doctorSignUpSchema = z.object({
   ProfessionalName: z
@@ -29,9 +30,11 @@ const doctorSignUpSchema = z.object({
       message: "O nome deve conter apenas letras.",
     }),
   LicenseNumberCoren: z.string().min(1, { message: "Insira seu nome" }),
-
   EmailAddress: z.string().min(1, { message: "Insira seu nome" }),
-  Cpf: z.string().min(1, { message: "Insira seu nome" }),
+  Cpf: z
+    .string()
+    .min(1, { message: "Insira um CPF" })
+    .refine((Cpf) => validarCPF(Cpf), { message: "CPF inválido" }),
   DoctorLicenseNumber: z.string().min(1, { message: "Insira seu nome" }),
   DoctorLicenseState: z.string().min(1, { message: "Insira seu nome" }),
   Mobilephone: z.string().min(1, { message: "Insira seu nome" }),

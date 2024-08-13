@@ -127,19 +127,17 @@ export const columns: ColumnDef<Report2>[] = [
 
       return (
         <div>
-          {report.logisticsStatus === "Pendente Confirmação de Agendamento" && (
+          {report.logisticsStatus === "Ausência de Laudo anatomopatológico" ? (
             <>
               <Button size="sm" onClick={handleOpen}>
                 <MdOutlineFileUpload size={19} />
               </Button>
             </>
-          )}
-
-          <div>
+          ) : (
             <Button size="sm" disabled className="bg-green-600">
               <FaCheckDouble size={19} />
             </Button>
-          </div>
+          )}
         </div>
       );
     },
