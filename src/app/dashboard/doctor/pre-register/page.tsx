@@ -518,7 +518,7 @@ export default function PreRegister() {
           ))}
         </div>
         <div className="mt-14">
-          {step === 4 && (
+          {step === 1 && (
             <>
               <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-5">
                 <CustomSelect
@@ -675,8 +675,8 @@ export default function PreRegister() {
                             <MdInfo className="text-main-blue" size={20} />
                           </TooltipTrigger>
                           <TooltipContent>
-                            O médico deverá indicar o endreço para a retirada da
-                            amostra do paciente e a logística do Programa
+                            O médico deverá indicar o endereço para a retirada
+                            da amostra do paciente e a logística do Programa
                             providenciará a entrega no laboratório parceiro para
                             análise
                           </TooltipContent>
@@ -932,7 +932,7 @@ export default function PreRegister() {
               </div>
             </>
           )}
-          {step === 1 && (
+          {step === 4 && (
             <>
               <div className="mb-5">
                 <span className="text-base font-bold  text-main-blue">

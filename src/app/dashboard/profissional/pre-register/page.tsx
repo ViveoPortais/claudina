@@ -710,8 +710,8 @@ export default function PreRegister() {
                             <MdInfo className="text-main-blue" size={20} />
                           </TooltipTrigger>
                           <TooltipContent>
-                            O médico deverá indicar o endreço para a retirada da
-                            amostra do paciente e a logística do Programa
+                            O médico deverá indicar o endereço para a retirada
+                            da amostra do paciente e a logística do Programa
                             providenciará a entrega no laboratório parceiro para
                             análise
                           </TooltipContent>
