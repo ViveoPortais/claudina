@@ -16,6 +16,7 @@ import { Dialog } from "@radix-ui/react-dialog";
 import { SendLaudo } from "@/components/SendLaudo";
 import { UnidentifiedSample } from "@/components/UnidentifiedSample";
 import { Insufficient } from "@/components/Insufficient";
+import useSession from "@/hooks/useSession";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
@@ -25,6 +26,7 @@ export default function Diagnostic() {
   const insufficientSample = useInsufficientSample();
   const unidentifiedSample = useUnidentifiedSample();
   const [filter, setFilter] = useState("");
+  const loading = useSession();
 
   const otherProfissional = () => {
     getExam()
@@ -66,6 +68,12 @@ export default function Diagnostic() {
     otherProfissional();
   }, []);
 
+  useEffect(() => {
+    if (!loading.refresh) {
+      otherProfissional();
+    }
+  }, [loading.refresh]);
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">
       <div className="flex justify-start text-xl md:text-2xl text-main-blue">
@@ -106,7 +114,11 @@ export default function Diagnostic() {
         </div>
       </div>
 
-      <DataTable columns={columns} isLoading={isLoading} data={filteredData} />
+      <DataTable
+        columns={columns}
+        isLoading={loading.refresh}
+        data={filteredData}
+      />
       <div>
         <Dialog
           open={insufficientSample.isModalOpen}

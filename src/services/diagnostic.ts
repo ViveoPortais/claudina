@@ -29,7 +29,7 @@ export const getExam = async () => {
 };
 
 export const sendLaudoPatient = async (data: ISendLaudo) => {
-  const response = await api.post("/Diagnostic/addattachment", data);
+  const response = await api.post("/Diagnostic/addattachmentdoctor", data);
   return response.data;
 };
 
@@ -53,6 +53,17 @@ export const getDiagnosticsLaboratory = async () => {
 
 export const downloadingLaudo = async (data: any) => {
   const response = await api.get("/Diagnostic/getdocattchmentbycpf", {
+    params: {
+      programcode: data.programcode,
+      cpf: data.cpf,
+      flagStringMap: data.flagStringMap,
+    },
+  });
+  return response.data;
+};
+
+export const downloadingLaudoCPf = async (data: any) => {
+  const response = await api.get("/Diagnostic/getdocsattchmentbycpf", {
     params: {
       programcode: data.programcode,
       cpf: data.cpf,

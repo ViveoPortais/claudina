@@ -5,8 +5,8 @@ import dayjs from "dayjs";
 import { LuDownload } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { downlaodLaudoPatient } from "@/services/doctor";
-import { MdOutlineFileUpload } from "react-icons/md";
-import { FaCheckDouble } from "react-icons/fa";
+import { MdOutlineDescription, MdOutlineFileUpload } from "react-icons/md";
+import { FaCheckDouble, FaDownload, FaUpload } from "react-icons/fa";
 import {
   useInsufficientSample,
   useSendLaudo,
@@ -14,6 +14,8 @@ import {
   useUnidentifiedSample,
 } from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
+import { downloadingLaudo, downloadingLaudoCPf } from "@/services/diagnostic";
+import { toast } from "react-toastify";
 
 export type Report2 = {
   id: string;
@@ -125,14 +127,72 @@ export const columns: ColumnDef<Report2>[] = [
         }
       };
 
+      const handleDownloadCPF = () => {
+        const data = {
+          programcode: "985",
+          cpf: "633.345.808-22",
+          flagStringMap: "#REPORT_TKC",
+        };
+        downloadingLaudoCPf(data as any)
+          .then((response) => {
+            if (
+              !response ||
+              !Array.isArray(response) ||
+              response.length === 0
+            ) {
+              toast.error("Erro no download dos laudos");
+              return;
+            }
+
+            response.forEach((laudo, index) => {
+              if (!laudo.documentBody) {
+                toast.error(`Erro no download do laudo ${index + 1}`);
+                return;
+              }
+
+              const base64String = laudo.documentBody;
+              const byteCharacters = atob(base64String);
+              const byteNumbers = new Array(byteCharacters.length);
+              for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+              }
+              const byteArray = new Uint8Array(byteNumbers);
+              const blob = new Blob([byteArray], {
+                type: laudo.contentType || "application/octet-stream",
+              });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = laudo.fileName || `downloaded_file_${index + 1}.pdf`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            });
+
+            toast.success("Laudos baixados com sucesso");
+          })
+          .catch((error) => {
+            toast.error("Erro no download dos laudos");
+          });
+      };
+
       return (
         <div>
           {report.logisticsStatus === "Ausência de Laudo anatomopatológico" ? (
             <>
               <Button size="sm" onClick={handleOpen}>
-                <MdOutlineFileUpload size={19} />
+                <FaUpload size={19} />
               </Button>
             </>
+          ) : report.logisticsStatus === "Laudo disponível" ? (
+            <Button
+              size="sm"
+              className="bg-main-blue hover:bg-main-blue-dark"
+              onClick={handleDownloadCPF}
+            >
+              <FaDownload size={19} />
+            </Button>
           ) : (
             <Button size="sm" disabled className="bg-green-600">
               <FaCheckDouble size={19} />
