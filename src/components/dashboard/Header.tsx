@@ -24,6 +24,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Separator } from "../ui/separator";
+import { ModeToggle } from "../custom/Toggle-theme";
+import { useTheme } from "next-themes";
 
 export function Header() {
   const router = useRouter();
@@ -32,9 +34,13 @@ export function Header() {
   const { isMobileMenuOpen, changeMobileMenu } = useMobilelMenu();
   const { isMenuOpen, changeMenu } = useLateralRightMenu();
   const [currentRoute, setCurrentRoute] = useState("");
+  const { theme, setTheme } = useTheme();
   const role = auth.role;
 
   function handleLogout() {
+    if (theme !== "light") {
+      setTheme("light");
+    }
     router.push("/");
     auth.onLogout();
     api.defaults.headers.Authorization = "";
@@ -172,15 +178,21 @@ export function Header() {
         </div>
 
         <Sheet open={isMenuOpen} onOpenChange={changeMenu}>
-          <SheetTrigger>
-            <div className="hover:opacity-70">
-              <PiDotsThreeVerticalBold size={32} className="text-main-orange" />
-            </div>
-          </SheetTrigger>
+          <div className="flex items-center gap-4">
+            <SheetTrigger asChild>
+              <div className="hover:opacity-70 cursor-pointer">
+                <PiDotsThreeVerticalBold
+                  size={32}
+                  className="text-main-orange"
+                />
+              </div>
+            </SheetTrigger>
+            <ModeToggle />
+          </div>
 
           <SheetContent className="m-4 rounded-lg h-auto">
             <SheetHeader>
-              <SheetTitle className="text-main-orange text-xl  border-b-2 border-main-blue p-2">
+              <SheetTitle className="text-main-orange text-xl border-b-2 border-main-blue p-2">
                 {auth.role === "laboratory" ? auth.userNameLab : auth.name}
               </SheetTitle>
             </SheetHeader>
@@ -194,7 +206,7 @@ export function Header() {
                 <>
                   <Link
                     href={`/`}
-                    className={` text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 `}
+                    className={`text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4`}
                     onClick={handleLogout}
                   >
                     <LuLogOut size={28} />
@@ -205,7 +217,7 @@ export function Header() {
                 <>
                   <Link
                     href={`/dashboard/profile`}
-                    className={` text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 ${
+                    className={`text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 ${
                       pathname === `/dashboard/profile` &&
                       "text-main-orange hover:text-zinc-800"
                     }`}
@@ -215,7 +227,7 @@ export function Header() {
                   </Link>
                   <Link
                     href={`/`}
-                    className={` text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 `}
+                    className={`text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4`}
                     onClick={handleLogout}
                   >
                     <LuLogOut size={28} />

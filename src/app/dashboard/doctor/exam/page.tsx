@@ -114,11 +114,7 @@ export default function Diagnostic() {
         </div>
       </div>
 
-      <DataTable
-        columns={columns}
-        isLoading={loading.refresh}
-        data={filteredData}
-      />
+      <DataTable columns={columns} data={filteredData} />
       <div>
         <Dialog
           open={insufficientSample.isModalOpen}

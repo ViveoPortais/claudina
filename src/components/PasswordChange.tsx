@@ -8,10 +8,13 @@ import { toast } from "react-toastify";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { changePassword } from "@/services/auth";
+import { useTheme } from "next-themes";
+import { Loading } from "./custom/Loading";
 
 export function PasswordChange() {
   const auth = useSession();
   const changedPassword = useChangePassword();
+  const { theme, setTheme } = useTheme();
   const [sendQuestions, setSendQuestions] = useState({
     Email: auth.email as string,
     OldPassword: "",
@@ -36,9 +39,12 @@ export function PasswordChange() {
           toast.success("Senha alterada com sucesso, Favor logar novamente!");
           setTimeout(() => {
             changedPassword.openModal(false);
+            if (theme !== "light") {
+              setTheme("light");
+            }
             auth.onLogout();
             clearFields();
-          }, 4000);
+          }, 3000);
         }
       })
       .catch((err) => {

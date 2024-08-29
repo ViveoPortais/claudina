@@ -101,7 +101,7 @@ export function TreatmentTerms() {
           (“Central de Atendimento”); e
         </p>
         <p className="text-sm">
-          O Paciente ou o responsável legal deverá assinar o Termo de
+          (e) O Paciente ou o responsável legal deverá assinar o Termo de
           Consentimento e os Profissionais deverão entregálo ao Programa.
         </p>
         <p className="text-sm">
@@ -189,6 +189,25 @@ export function TreatmentTerms() {
           (iv) pedido ou prescrição para realização dos testes, assinado e
           carimbado pelo Profissional Médico com o número do seu CRM;
         </p>
+        <p className="text-sm">
+          (e) Todos os documentos referidos no item (d) precisam estar
+          devidamente assinados pelo Médico solicitante da análise do teste e
+          devem ser entregues ao operador logístico juntamente com a amostra.
+        </p>
+        <p className="text-sm">
+          (f) A amostra é de inteira responsabilidade do profissional
+          solicitante sem custo adicional pelo Programa;
+        </p>
+        <p className="text-sm">(i) Declaração de Transporte</p>
+        <p className="text-sm">(ii) Ficha de Emergência</p>
+        <p className="text-sm">
+          (iii) Termo de Consentimento Livre e Esclarecido assinado pelo
+          Paciente e
+        </p>
+        <p className="text-sm">
+          (iv) pedido ou prescrição para realização dos testes, assinado e
+          carimbado pelo Profissional Médico com o número do seu CRM;
+        </p>
 
         <p className="text-sm">
           (e) Todos os documentos referidos no item (d) precisam estar
@@ -230,10 +249,10 @@ export function TreatmentTerms() {
           Profissional Médico via SMS.
         </p>
         <p className="text-sm">
-          O Profissional Médico também poderá optar por entregar a amostra no
-          laboratório responsável pela análise, esse cenário ocorrerá quando o
-          laboratório credenciado estiver instalado na parte interna do hospital
-          em que a amostra for coletada.
+          (e) O Profissional Médico também poderá optar por entregar a amostra
+          no laboratório responsável pela análise, esse cenário ocorrerá quando
+          o laboratório credenciado estiver instalado na parte interna do
+          hospital em que a amostra for coletada
         </p>
         <p className="text-sm">2.4. Realização dos Testes</p>
         <p className="text-sm">
@@ -471,7 +490,7 @@ export function TreatmentTerms() {
         </p>
       </div>
       <div className="flex justify-center gap-5 mt-36">
-        <p className="text-base font-bold">MAT-BR-ZOL-2024-00062 | AGOSTO/24</p>
+        <p className="text-base font-bold">MAT-BR-ZOL-2024-00071 | AGOSTO/24</p>
       </div>
     </>
   );
