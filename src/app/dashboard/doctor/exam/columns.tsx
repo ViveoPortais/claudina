@@ -45,6 +45,14 @@ export const columns: ColumnDef<Report2>[] = [
   },
 
   {
+    accessorKey: "statusSms",
+    header: "Status do Aceite",
+  },
+  {
+    accessorKey: "examDefinition",
+    header: "Nome do Exame",
+  },
+  {
     accessorKey: "logisticsStatus",
     header: "Status do Protocolo",
     cell: ({ row }) => {
@@ -89,6 +97,10 @@ export const columns: ColumnDef<Report2>[] = [
     },
   },
   {
+    accessorKey: "numberProtocol",
+    header: "Número do Protocolo",
+  },
+  {
     accessorKey: "createdOn",
     header: "Data de Solicitação do Laudo",
     cell: ({ row }) => {
@@ -101,7 +113,7 @@ export const columns: ColumnDef<Report2>[] = [
   },
   {
     accessorKey: "logisticsDateForecast",
-    header: "Data Prevista do Laudo",
+    header: "Data da Liberação do Laudo",
     cell: ({ row }) => {
       const report = row.original;
       if (report.logisticsDateForecast) {
@@ -110,6 +122,7 @@ export const columns: ColumnDef<Report2>[] = [
       return "";
     },
   },
+
   {
     accessorKey: "Laudos",
     header: "Laudos",

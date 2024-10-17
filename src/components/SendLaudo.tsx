@@ -115,7 +115,7 @@ export function SendLaudo() {
       </div>
       <div className="mt-5">
         <Input
-          placeholder="Insira a Receita Médica"
+          placeholder="Insira o laudo anatomopatológico"
           name="DocumentBody"
           type="file"
           onChange={fileBase64}

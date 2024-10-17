@@ -127,7 +127,9 @@ export default function PreRegister() {
         }
       })
       .catch(() => {
-        toast.error("Erro ao cadastrar");
+        toast.error(
+          "Paciente ainda possui logistica em andamento. Favor cancelar as logisticas atuais para solicitar um novo!"
+        );
       })
       .finally(() => {
         setIsLoading(false);
@@ -607,7 +609,7 @@ export default function PreRegister() {
                   value={preRegisterData.Mobilephone}
                   onChange={handleChange}
                 >
-                  <Input placeholder="Celular" name="Mobilephone" />
+                  <Input placeholder="Celular do Paciente" name="Mobilephone" />
                 </ReactInputMask>
                 <CustomSelect
                   required
@@ -739,7 +741,7 @@ export default function PreRegister() {
                       checkCPFTwo(
                         preRegisterData.AccountSettingsByProgram.CustomString1
                       )
-                    } // Chama checkCPFTwo
+                    }
                   >
                     <Input placeholder="CPF" name="CustomString1" />
                   </ReactInputMask>
@@ -806,32 +808,6 @@ export default function PreRegister() {
                 />
                 <Input
                   required
-                  name="AddressDistrict"
-                  placeholder="Bairro"
-                  value={
-                    preRegisterData.AccountSettingsByProgram.AddressDistrict
-                  }
-                  onChange={handleChange}
-                  disabled
-                />
-                <Input
-                  required
-                  name="AddressCity"
-                  placeholder="Cidade"
-                  value={preRegisterData.AccountSettingsByProgram.AddressCity}
-                  onChange={handleChange}
-                  disabled
-                />
-                <Input
-                  required
-                  name="AddressState"
-                  placeholder="UF"
-                  value={preRegisterData.AccountSettingsByProgram.AddressState}
-                  onChange={handleChange}
-                  disabled
-                />
-                <Input
-                  required
                   name="AddressNumber"
                   placeholder="Número"
                   value={preRegisterData.AccountSettingsByProgram.AddressNumber}
@@ -861,6 +837,33 @@ export default function PreRegister() {
                     })
                   }
                 />
+                <Input
+                  required
+                  name="AddressDistrict"
+                  placeholder="Bairro"
+                  value={
+                    preRegisterData.AccountSettingsByProgram.AddressDistrict
+                  }
+                  onChange={handleChange}
+                  disabled
+                />
+                <Input
+                  required
+                  name="AddressCity"
+                  placeholder="Cidade"
+                  value={preRegisterData.AccountSettingsByProgram.AddressCity}
+                  onChange={handleChange}
+                  disabled
+                />
+                <Input
+                  required
+                  name="AddressState"
+                  placeholder="UF"
+                  value={preRegisterData.AccountSettingsByProgram.AddressState}
+                  onChange={handleChange}
+                  disabled
+                />
+
                 <CustomSelect
                   name="OptionName"
                   label="Horário de preferência para retirada"
@@ -943,7 +946,7 @@ export default function PreRegister() {
                 className="w-full flex justify-center mb-10 overflow-auto border border-gray-300 rounded-lg"
                 style={{ maxHeight: "45vh" }}
               >
-                <div className="min-w-[600px]">
+                <div className="md:min-w-[600px] w-[350px]">
                   <Image
                     src="/Programa Claudinova- Termo de Consentimento - Pacientes_page-0001.jpg"
                     alt="Termo de Consentimento"
@@ -993,7 +996,7 @@ export default function PreRegister() {
                     >
                       <Input
                         name="mobilephone"
-                        placeholder="Informe o celular"
+                        placeholder="Informe o celular do paciente"
                       />
                     </ReactInputMask>
                   </div>
@@ -1009,6 +1012,13 @@ export default function PreRegister() {
                     </Button>
                   </div>
                 </div>
+              </div>
+              <div className="w-full mt-16">
+                <p className="text-main-orange font-semibold md:text-xl text-sm text-center">
+                  &quot;O aceite do termo pelo paciente é obrigatório para a
+                  realização do exame. Ele pode ser feito via SMS ou impresso
+                  para conferência.&quot;
+                </p>
               </div>
             </>
           )}
