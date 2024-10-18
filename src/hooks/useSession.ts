@@ -3,6 +3,8 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 type SessionStore = {
   isLogged: boolean;
+  hasPending: boolean;
+  date: string;
   email: string;
   role: string;
   name: string;
@@ -21,6 +23,8 @@ type SessionStore = {
   cpfLaudo?: string;
   namePatient?: string;
   cpfPatient?: string;
+  setDateTime: (date: string) => void;
+  setHasPending: (hasPending: boolean) => void;
   setUserNameLab: (userNameLab: string) => void;
   setNamePatient: (namePatient: string) => void;
   setCpfPatient: (cpfPatient: string) => void;
@@ -47,6 +51,8 @@ const useSession = create(
   persist<SessionStore>(
     (set) => ({
       isLogged: false,
+      hasPending: false,
+      date: "",
       email: "",
       role: "",
       name: "",
@@ -63,6 +69,8 @@ const useSession = create(
       namePatient: "",
       cpfPatient: "",
       userNameLab: "",
+      setDateTime: (date) => set({ date: date }),
+      setHasPending: (hasPending) => set({ hasPending: hasPending }),
       setUserNameLab: (userNameLab) => set({ userNameLab: userNameLab }),
       setNamePatient: (namePatient) => set({ namePatient: namePatient }),
       setCpfPatient: (cpfPatient) => set({ cpfPatient: cpfPatient }),
@@ -99,6 +107,9 @@ const useSession = create(
           cpfLaudo: "",
           namePatient: "",
           cpfPatient: "",
+          date: "",
+          hasPending: false,
+          userNameLab: "",
         }),
       setChangePassword: (changePassword) =>
         set({ changePassword: changePassword }),

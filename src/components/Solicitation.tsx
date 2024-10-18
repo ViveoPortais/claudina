@@ -10,6 +10,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { CustomSelect } from "./custom/CustomSelect";
 import { Dialog } from "@radix-ui/react-dialog";
+import { formatDate } from "date-fns";
 
 export function Solicitation() {
   const auth = useSession();
@@ -18,6 +19,7 @@ export function Solicitation() {
   const solicitation = useSolicitation();
   const [her2Result, setHer2Result] = useState("");
   const [claudinaResult, setClaudinaResult] = useState("");
+  const dateValue = auth?.date ? new Date(auth.date) : null;
 
   interface DataItem {
     CPF: any;
@@ -48,7 +50,7 @@ export function Solicitation() {
     ProgramCode: "985",
     HasPending: false,
     LogisticsSchedule: {
-      DateReceivingBlock: "",
+      DateReceivingBlock: dateValue ? formatDate(dateValue, "yyyy-MM-dd") : "",
       ScheduleStatusStringMap: {
         OptionName: "",
       },
@@ -102,6 +104,18 @@ export function Solicitation() {
       }));
     }
   }, [auth.cpfPatient]);
+
+  useEffect(() => {
+    if (auth.date) {
+      setData((prevData) => ({
+        ...prevData,
+        LogisticsSchedule: {
+          ...prevData.LogisticsSchedule,
+          DateReceivingBlock: formatDate(new Date(auth.date), "yyyy-MM-dd"),
+        },
+      }));
+    }
+  }, [auth.date]);
 
   const handlePendingChange = (value: string) => {
     const hasPendingValue = value === "Sim";
@@ -205,15 +219,16 @@ export function Solicitation() {
     }
   };
 
-  const handleDateChange = (e: any) => {
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDate = e.target.value;
+
+    useSession.getState().setDateTime(newDate);
+
     setData((prevData) => ({
       ...prevData,
       LogisticsSchedule: {
-        DateReceivingBlock: e.target.value,
-        ScheduleStatusStringMap: {
-          OptionName:
-            prevData.LogisticsSchedule.ScheduleStatusStringMap.OptionName,
-        },
+        ...prevData.LogisticsSchedule,
+        DateReceivingBlock: newDate,
       },
     }));
   };
@@ -254,7 +269,9 @@ export function Solicitation() {
             value={data.LogisticsSchedule.DateReceivingBlock}
             max={getCurrentDate()}
             className="mt-1"
+            disabled={!!data.LogisticsSchedule.DateReceivingBlock}
           />
+
           <CustomSelect
             name="hasPending"
             label="Possui alguma pendência?"

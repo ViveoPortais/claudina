@@ -17,6 +17,8 @@ export type Report2 = {
   patientBirthDate: string;
   diseaseName: string;
   logisticsDateForecast: string;
+  hasPending: boolean;
+  customDateTime2: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -31,6 +33,8 @@ export const columns: ColumnDef<Report2>[] = [
       const handleSaveName = () => {
         dataStorage.setNamePatient(params.namePatient);
         dataStorage.setCpfPatient(params.cpf);
+        dataStorage.setHasPending(params.hasPending);
+        dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
       };
 

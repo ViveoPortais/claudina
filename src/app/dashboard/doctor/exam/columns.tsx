@@ -28,6 +28,7 @@ export type Report2 = {
   laudos: string;
   logisticsStatus: string;
   logisticsDateForecast: string;
+  statusSms: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -47,6 +48,14 @@ export const columns: ColumnDef<Report2>[] = [
   {
     accessorKey: "statusSms",
     header: "Status do Aceite",
+    cell: ({ row }) => {
+      const report = row.original;
+      if (report.statusSms === "Pendente de aceite via SMS") {
+        return <span>{report.statusSms}</span>;
+      } else {
+        return <span>{report.statusSms}</span>;
+      }
+    },
   },
   {
     accessorKey: "examDefinition",
