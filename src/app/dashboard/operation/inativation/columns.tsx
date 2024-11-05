@@ -59,6 +59,8 @@ export const columns: ColumnDef<Report2>[] = [
       const handleSaveName = () => {
         dataStorage.setNamePatient(params.namePatient);
         dataStorage.setCpfPatient(params.cpf);
+        dataStorage.setHasPending(params.hasPending);
+        dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
       };
 
@@ -85,6 +87,8 @@ export const columns: ColumnDef<Report2>[] = [
       const handleSaveName = () => {
         dataStorage.setNamePatient(params.namePatient);
         dataStorage.setCpfPatient(params.cpf);
+        dataStorage.setHasPending(params.hasPending);
+        dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
       };
 
@@ -110,6 +114,8 @@ export const columns: ColumnDef<Report2>[] = [
       const handleSaveName = () => {
         dataStorage.setNamePatient(params.namePatient);
         dataStorage.setCpfPatient(params.cpf);
+        dataStorage.setHasPending(params.hasPending);
+        dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
       };
 
@@ -134,9 +140,10 @@ export const columns: ColumnDef<Report2>[] = [
       const handleSaveName = () => {
         dataStorage.setNamePatient(params.namePatient);
         dataStorage.setCpfPatient(params.cpf);
+        dataStorage.setHasPending(params.hasPending);
+        dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
       };
-
       return (
         <div
           className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
@@ -169,6 +176,8 @@ export const columns: ColumnDef<Report2>[] = [
       const handleSaveName = () => {
         dataStorage.setNamePatient(params.namePatient);
         dataStorage.setCpfPatient(params.cpf);
+        dataStorage.setHasPending(params.hasPending);
+        dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
       };
 

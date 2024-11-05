@@ -59,7 +59,7 @@ export const columns: ColumnDef<Report2>[] = [
   },
   {
     accessorKey: "examDefinition",
-    header: "Nome do Exame",
+    header: "Nome do Exame Solicitado",
   },
   {
     accessorKey: "logisticsStatus",

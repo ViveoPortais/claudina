@@ -111,7 +111,9 @@ export function Solicitation() {
         ...prevData,
         LogisticsSchedule: {
           ...prevData.LogisticsSchedule,
-          DateReceivingBlock: formatDate(new Date(auth.date), "yyyy-MM-dd"),
+          DateReceivingBlock: dateValue
+            ? formatDate(dateValue, "yyyy-MM-dd")
+            : "",
         },
       }));
     }
@@ -157,6 +159,7 @@ export function Solicitation() {
     }));
 
     solicitation.openModal(false);
+    auth.setDateTime("");
   };
 
   const sendDocument = () => {
