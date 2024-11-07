@@ -926,7 +926,7 @@ export default function PreRegister() {
                   type="date"
                   value={preRegisterData.LogisticsSchedule.DateForCollecting}
                   name="dateForCollecting"
-                  placeholder="Data Prevista de Coleta"
+                  placeholder="Data Prevista Para Retirada"
                   onChange={(e) =>
                     setPreRegisterData({
                       ...preRegisterData,
