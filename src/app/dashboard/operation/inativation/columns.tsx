@@ -19,6 +19,7 @@ export type Report2 = {
   logisticsDateForecast: string;
   hasPending: boolean;
   customDateTime2: string;
+  createdOn: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -189,6 +190,25 @@ export const columns: ColumnDef<Report2>[] = [
           <span className="hover:text-enzimaisBlue">{params.diseaseName}</span>
         </div>
       );
+    },
+  },
+  {
+    accessorKey: "voucher",
+    header: "Protocolo",
+  },
+  {
+    accessorKey: "examDefinition",
+    header: "Nome do Exame",
+  },
+  {
+    accessorKey: "createdOn",
+    header: "Criação da Solicitação ",
+    cell: ({ row }) => {
+      const report = row.original;
+      if (report.createdOn) {
+        return dayjs(report.createdOn).format("DD/MM/YYYY");
+      }
+      return "";
     },
   },
   {

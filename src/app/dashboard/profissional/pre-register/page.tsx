@@ -642,7 +642,11 @@ export default function PreRegister() {
                   value={preRegisterData.Mobilephone}
                   onChange={handleChange}
                 >
-                  <Input placeholder="Celular do Paciente" name="Mobilephone" />
+                  <Input
+                    placeholder="Celular do Paciente"
+                    name="Mobilephone"
+                    required
+                  />
                 </ReactInputMask>
                 <CustomSelect
                   required

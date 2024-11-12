@@ -437,6 +437,7 @@ export default function PreRegister() {
       preRegisterData.Name &&
       preRegisterData.Birthdate &&
       preRegisterData.DiseaseName &&
+      preRegisterData.Mobilephone &&
       !isMinor
     );
   };
@@ -609,7 +610,11 @@ export default function PreRegister() {
                   value={preRegisterData.Mobilephone}
                   onChange={handleChange}
                 >
-                  <Input placeholder="Celular do Paciente" name="Mobilephone" />
+                  <Input
+                    placeholder="Celular do Paciente"
+                    name="Mobilephone"
+                    required
+                  />
                 </ReactInputMask>
                 <CustomSelect
                   required
