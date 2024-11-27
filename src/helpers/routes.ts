@@ -75,4 +75,31 @@ export const routes: IRouteProps = {
       icon: LuClipboardList,
     },
   ],
+  oncoclinica: [
+    {
+      route: "/dashboard/oncoclinica/starts",
+      text: "Início",
+      icon: IoHomeOutline,
+    },
+    {
+      route: "/dashboard/oncoclinica/pre-register",
+      text: "Solicitar Exames",
+      icon: HiOutlineDocumentAdd,
+    },
+    {
+      route: "/dashboard/oncoclinica/exam",
+      text: "Acompanhamento de Solicitação de Exames",
+      icon: LuClipboardList,
+    },
+    {
+      route: "/dashboard/oncoclinica/solicitation",
+      text: "Solicitação de Profissional da Saúde",
+      icon: IoMegaphoneOutline,
+    },
+    {
+      route: "/dashboard/oncoclinica/inativation",
+      text: "Inativação de Profissional da Saúde",
+      icon: MdOutlineCancel,
+    },
+  ],
 };

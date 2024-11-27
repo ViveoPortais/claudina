@@ -108,9 +108,7 @@ export default function PreRegister() {
           );
         }
       })
-      .catch(() => {
-        toast.error("Erro ao buscar médico");
-      });
+      .catch(() => {});
   };
 
   const sendSmsPhone = () => {
@@ -309,7 +307,7 @@ export default function PreRegister() {
   };
 
   const handleRouter = () => {
-    router.push("/dashboard/profissional/exam");
+    router.push("/dashboard/oncoclinica/exam");
   };
 
   const getAddress = async () => {
@@ -548,7 +546,7 @@ export default function PreRegister() {
         <div className="mt-14">
           {step === 1 && (
             <>
-              <div className="grid grid-cols-1 md:grid md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-5">
                 <CustomSelect
                   name="doneHER2"
                   label="Paciente já realizou HER2?"
@@ -572,14 +570,6 @@ export default function PreRegister() {
                     preRegisterData.doneHER2 === "Não" ||
                     !preRegisterData.doneHER2
                   }
-                />
-                <CustomSelect
-                  name="DoctorId"
-                  label="Médico Solicitante"
-                  onChange={handleChange}
-                  options={doctorId}
-                  value={preRegisterData.DoctorId}
-                  disabled={isHER2Positive || !preRegisterData.doneHER2}
                 />
               </div>
               {isHER2Positive ? (
@@ -729,7 +719,7 @@ export default function PreRegister() {
                     </span>
                   </div>
                 </div>
-                <CustomSelect
+                {/* <CustomSelect
                   name="localType"
                   label="Local de retirada da amostra"
                   onChange={handleChange}
@@ -739,8 +729,8 @@ export default function PreRegister() {
                   ]}
                   value={localType}
                   required
-                />
-                {localType === "Hospital/Clínica" && (
+                /> */}
+                {/* {localType === "Hospital/Clínica" && (
                   <ReactInputMask
                     required
                     mask="99.999.999/9999-99"
@@ -757,8 +747,8 @@ export default function PreRegister() {
                   >
                     <Input placeholder="CNPJ" name="Cnpj" />
                   </ReactInputMask>
-                )}
-                {localType === "Pessoa Física" && (
+                )} */}
+                {/* {localType === "Pessoa Física" && (
                   <ReactInputMask
                     required
                     mask="999.999.999-99"
@@ -782,39 +772,17 @@ export default function PreRegister() {
                   >
                     <Input placeholder="CPF" name="CustomString1" />
                   </ReactInputMask>
-                )}
-                <Input
-                  name="ResponsibleForReceiving"
-                  placeholder="Nome da pessoa responsável"
-                  value={
-                    preRegisterData.LogisticsSchedule.ResponsibleForReceiving
-                  }
+                )} */}
+                <CustomSelect
+                  name=""
+                  label="Clínica Grupo Oncoclínica"
                   onChange={handleChange}
+                  options={[
+                    { value: "Grupo Oncoclínica", id: "Grupo Oncoclínica" },
+                  ]}
+                  value={() => {}}
                   required
                 />
-                <ReactInputMask
-                  required
-                  mask="(99) 99999-9999"
-                  value={
-                    preRegisterData.LogisticsSchedule
-                      .ResponsibleTelephoneWithdrawal
-                  }
-                  onChange={(e) =>
-                    setPreRegisterData({
-                      ...preRegisterData,
-                      LogisticsSchedule: {
-                        ...preRegisterData.LogisticsSchedule,
-                        ResponsibleTelephoneWithdrawal: e.target.value,
-                      },
-                    })
-                  }
-                  onBlur={checkPhone}
-                >
-                  <Input
-                    name="ResponsibleTelephoneWithdrawal"
-                    placeholder="Telefone da pessoa responsável"
-                  />
-                </ReactInputMask>
 
                 <ReactInputMask
                   required
@@ -926,6 +894,73 @@ export default function PreRegister() {
                   }
                 />
 
+                <CustomSelect
+                  name="LaboratoryName"
+                  label="Laboratório de análise"
+                  onChange={handleChange}
+                  options={[
+                    {
+                      value: "Fleury (Matriz) - 5 dias corridos",
+                      id: "FLEURY (MATRIZ) (H27848)",
+                    },
+                    {
+                      value: "Dasa - 7 dias úteis",
+                      id: "Bronstein - Botafogo II",
+                    },
+                  ]}
+                  value={preRegisterData.LaboratoryName}
+                />
+                <CustomSelect
+                  name=""
+                  label="Setor"
+                  onChange={handleChange}
+                  options={[{ value: "Oncologia", id: "Oncologia" }]}
+                  value={() => {}}
+                />
+
+                <Input
+                  name="ResponsibleForReceiving"
+                  placeholder="Responsável"
+                  value={
+                    preRegisterData.LogisticsSchedule.ResponsibleForReceiving
+                  }
+                  onChange={handleChange}
+                  required
+                />
+
+                <ReactInputMask
+                  required
+                  mask="(99) 99999-9999"
+                  value={
+                    preRegisterData.LogisticsSchedule
+                      .ResponsibleTelephoneWithdrawal
+                  }
+                  onChange={(e) =>
+                    setPreRegisterData({
+                      ...preRegisterData,
+                      LogisticsSchedule: {
+                        ...preRegisterData.LogisticsSchedule,
+                        ResponsibleTelephoneWithdrawal: e.target.value,
+                      },
+                    })
+                  }
+                  onBlur={checkPhone}
+                >
+                  <Input
+                    name="ResponsibleTelephoneWithdrawal"
+                    placeholder="Contato"
+                  />
+                </ReactInputMask>
+
+                <CustomSelect
+                  name="DoctorId"
+                  label="Médico Solicitante"
+                  onChange={handleChange}
+                  options={doctorId}
+                  value={preRegisterData.DoctorId}
+                  disabled={isHER2Positive || !preRegisterData.doneHER2}
+                />
+
                 <Input
                   type="date"
                   value={preRegisterData.LogisticsSchedule.DateForCollecting}
@@ -945,23 +980,16 @@ export default function PreRegister() {
                     e.preventDefault();
                   }}
                 />
-                <CustomSelect
-                  name="LaboratoryName"
-                  label="Laboratório de análise"
-                  onChange={handleChange}
-                  options={[
-                    {
-                      value: "Fleury (Matriz) - 5 dias corridos",
-                      id: "FLEURY (MATRIZ) (H27848)",
-                    },
-                    {
-                      value: "Dasa - 7 dias úteis",
-                      id: "Bronstein - Botafogo II",
-                    },
-                  ]}
-                  value={preRegisterData.LaboratoryName}
-                />
+
+                <div className="flex gap-1 text-sm font-semibold uppercase tracking-wide text-main-blue mt-5">
+                  <Checkbox
+                    name="check"
+                    onCheckedChange={(checked) => console.log(checked)}
+                  />
+                  <span>amostra já está no laboratório?</span>
+                </div>
               </div>
+
               <div>
                 <Dialog
                   open={useSucess.isModalOpen}

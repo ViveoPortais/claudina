@@ -70,13 +70,13 @@ export default function Home() {
                   >
                     <path
                       strokeLinecap="round"
-                      stroke-linejoin="round"
+                      // stroke-linejoin="round"
                       strokeWidth="2"
                       d="M20 4H4a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z"
                     ></path>
                     <path
                       strokeLinecap="round"
-                      stroke-linejoin="round"
+                      // stroke-linejoin="round"
                       strokeWidth="2"
                       d="M8 2v4m0 0V2a2 2 0 012-2h4a2 2 0 012 2v4m0-4v4m0 0H8m4 0h4m-4 0v4m4 0v4m-4 0H8m0 0h4m4 0a2 2 0 002-2V8a2 2 0 00-2-2m0 0a2 2 0 00-2 2v4"
                     ></path>
@@ -98,8 +98,8 @@ export default function Home() {
                   >
                     <path
                       strokeLinecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      // stroke-linejoin="round"
+                      // stroke-width="2"
                       d="M12 9c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3zM20 22h-3v-2a4.992 4.992 0 00-3.5-4.749V13a6.002 6.002 0 00-6-6 6.002 6.002 0 00-6 6v2a4.992 4.992 0 00-3.5 4.749V22H4v-2a6 6 0 0111.46-2.25C13.862 17.176 12.956 17 12 17s-1.862.176-2.46.75A6.002 6.002 0 0118 20v2h-1.5z"
                     ></path>
                   </svg>
@@ -120,8 +120,8 @@ export default function Home() {
                   >
                     <path
                       strokeLinecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      // stroke-linejoin="round"
+                      // stroke-width="2"
                       d="M15 15.5l5.5 5.5M9 17C5.686 17 3 14.314 3 11s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6zm0 0V9"
                     ></path>
                     <circle cx="9" cy="9" r="3"></circle>
@@ -143,8 +143,8 @@ export default function Home() {
                   >
                     <path
                       strokeLinecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      // stroke-linejoin="round"
+                      // stroke-width="2"
                       d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5M4 8l8 5 8-5"
                     ></path>
                   </svg>
@@ -165,14 +165,14 @@ export default function Home() {
                   >
                     <path
                       strokeLinecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      // stroke-linejoin="round"
+                      // stroke-width="2"
                       d="M12 14l9-5-9-5-9 5 9 5z"
                     ></path>
                     <path
                       strokeLinecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      // stroke-linejoin="round"
+                      // stroke-width="2"
                       d="M9 17l-4 2m0 0l4-2m-4 2V3"
                     ></path>
                   </svg>

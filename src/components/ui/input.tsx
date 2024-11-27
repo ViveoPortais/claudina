@@ -39,7 +39,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       maxLength,
       tooltip,
       textTooltip,
-      required, // Adiciona a prop required
+      required,
       ...props
     },
     ref

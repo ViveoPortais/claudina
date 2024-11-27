@@ -1021,8 +1021,8 @@ export default function PreRegister() {
               <div className="w-full mt-16">
                 <p className="text-main-orange font-semibold md:text-xl text-sm text-center">
                   &quot;O aceite do termo pelo paciente é obrigatório para a
-                  realização do exame. Ele pode ser feito via SMS ou impresso
-                  para conferência.&quot;
+                  realização do exame. Ele pode ser feito via SMS ou impresso e
+                  devidamente assinado pelo paciente.&quot;
                 </p>
               </div>
             </>

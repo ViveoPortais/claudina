@@ -139,10 +139,11 @@ export function Header() {
             })}
           {role === "doctor" ||
           role === "laboratory" ||
+          role === "oncoclinica" ||
           role === "profissional" ? (
             <Link
               href={`/`}
-              className={`flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4 `}
+              className={`flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg px-4 `}
               onClick={handleLogout}
             >
               <LuLogOut size={24} />
@@ -202,11 +203,12 @@ export function Header() {
             <div className="text-zinc-700">
               {role === "doctor" ||
               role === "laboratory" ||
+              role === "oncoclinica" ||
               role === "profissional" ? (
                 <>
                   <Link
                     href={`/`}
-                    className={`text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg p-4`}
+                    className={`text-lg flex gap-x-2 cursor-pointer hover:bg-zinc-100 rounded-lg px-4`}
                     onClick={handleLogout}
                   >
                     <LuLogOut size={28} />

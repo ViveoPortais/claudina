@@ -48,14 +48,22 @@ export default function SignIn() {
   };
 
   function handleUserRole(role: string) {
-    if (role.toLowerCase().includes("doctor")) {
+    const normalizedRole = role
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    if (normalizedRole.includes("doctor")) {
       return "doctor";
     }
-    if (role.toLowerCase().includes("laboratory")) {
+    if (normalizedRole.includes("laboratory")) {
       return "laboratory";
     }
-    if (role.toLowerCase().includes("professional")) {
-      return "profissional";
+    if (normalizedRole.includes("professional")) {
+      return "professional";
+    }
+    if (normalizedRole.includes("oncoclinica")) {
+      return "oncoclinica";
     }
 
     return "treatment";
