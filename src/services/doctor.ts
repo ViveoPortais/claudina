@@ -1,5 +1,6 @@
 import {
   IDoctorData,
+  IDoctorDataCrm,
   IDoctorInfoByCRM,
   IInactiveDoctor,
   IOtherData,
@@ -63,6 +64,13 @@ export const downlaodLaudoPatient = async (id: string) => {
     params: {
       programCode: programCode,
     },
+  });
+  return res.data;
+};
+
+export const addDoctorCrm = async (data: IDoctorDataCrm) => {
+  const res = await api.post("/Doctor/adddoctorbylaboratory", {
+    ...data,
   });
   return res.data;
 };

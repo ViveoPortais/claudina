@@ -13,3 +13,15 @@ export const getClinics = async (filters?: any) => {
   );
   return response.data.data;
 };
+
+export const getOncoclinica = async () => {
+  const response = await api.get(
+    "/AccountSettingsByProgram/getaccountsbyprogrambyuser",
+    {
+      params: {
+        programcode: "985",
+      },
+    }
+  );
+  return response.data;
+};

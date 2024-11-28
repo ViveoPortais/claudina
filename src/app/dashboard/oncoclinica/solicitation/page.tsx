@@ -6,7 +6,10 @@ import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getHealthProfessionals } from "@/services/representative";
+import {
+  getDoctorVinculed,
+  getHealthProfessionals,
+} from "@/services/representative";
 import useSession from "@/hooks/useSession";
 import { useRegisterOncoCRM } from "@/hooks/useModal";
 import { Dialog } from "@radix-ui/react-dialog";
@@ -20,7 +23,7 @@ export default function Diagnostic() {
   const loading = useSession();
 
   const otherProfissional = () => {
-    getHealthProfessionals()
+    getDoctorVinculed()
       .then((res) => {
         const mapId = res.data.map((item: any) => {
           return {

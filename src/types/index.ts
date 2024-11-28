@@ -59,6 +59,15 @@ export interface IDoctorData {
   [key: string]: string | number | undefined;
 }
 
+export interface IDoctorDataCrm {
+  DoctorName: string;
+  LicenseNumber: string;
+  LicenseState: string;
+  EmailAddress1: string;
+  HealthProgramCode: string;
+  MobileNumber: string;
+}
+
 export interface IOtherData {
   LicenseNumberCoren: string;
   Cpf: string;

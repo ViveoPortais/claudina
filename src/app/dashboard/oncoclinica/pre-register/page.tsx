@@ -37,6 +37,7 @@ import { getDoctorVinculed } from "@/services/representative";
 import { jsPDF } from "jspdf";
 import Image from "next/image";
 import { FiPrinter } from "react-icons/fi";
+import { getOncoclinica } from "@/services/account";
 
 export default function PreRegister() {
   const [disableSave, setDisableSave] = useState(true);
@@ -50,6 +51,17 @@ export default function PreRegister() {
   const useSucess = useSucessExam();
   const [isLoading, setIsLoading] = useState(false);
   const [doctorId, setDoctorId] = useState([]);
+  const [formData, setFormData] = useState({
+    clinicName: "",
+    addressPostalCode: "",
+    addressName: "",
+    addressNumber: "",
+    addressCity: "",
+    addressState: "",
+    addressComplement: "",
+    addressCountry: "",
+    addressDistrict: "",
+  });
 
   const [preRegisterData, setPreRegisterData] = useState<any>({
     AccountSettingsByProgram: {
@@ -86,10 +98,14 @@ export default function PreRegister() {
     DiseaseName: "",
     Mobilephone: "",
     DoctorId: "",
+    Contact: "",
+    Sector: "",
+    SampleInLaboratory: false,
   });
 
   useEffect(() => {
     getDoctorId();
+    getCepOncoclinica();
   }, []);
 
   const getDoctorId = () => {
@@ -109,6 +125,38 @@ export default function PreRegister() {
         }
       })
       .catch(() => {});
+  };
+
+  const getCepOncoclinica = () => {
+    getOncoclinica()
+      .then((res) => {
+        if (res.data) {
+          const clinicData = res;
+
+          setPreRegisterData((prevData: any) => ({
+            ...prevData,
+            AccountSettingsByProgram: {
+              ...prevData.AccountSettingsByProgram,
+              AddressPostalCode: clinicData.addressPostalCode,
+              AddressName: clinicData.addressName,
+              AddressNumber: clinicData.addressNumber,
+              AddressCity: clinicData.addressCity,
+              AddressState: clinicData.addressState,
+              AddressComplement: clinicData.addressComplement,
+              AddressCountry: clinicData.addressCountry,
+              AddressDistrict: clinicData.addressDistrict,
+            },
+          }));
+
+          setFormData((prevData) => ({
+            ...prevData,
+            clinicName: clinicData.clinicName,
+          }));
+        }
+      })
+      .catch(() => {
+        console.error("Erro ao carregar dados da clínica");
+      });
   };
 
   const sendSmsPhone = () => {
@@ -131,6 +179,19 @@ export default function PreRegister() {
 
     const dataToSend = {
       ...filteredData,
+      AccountSettingsByProgram: {
+        ...filteredData.AccountSettingsByProgram,
+        AddressPostalCode:
+          preRegisterData.AccountSettingsByProgram.AddressPostalCode,
+        AddressName: preRegisterData.AccountSettingsByProgram.AddressName,
+        AddressNumber: preRegisterData.AccountSettingsByProgram.AddressNumber,
+        AddressCity: preRegisterData.AccountSettingsByProgram.AddressCity,
+        AddressState: preRegisterData.AccountSettingsByProgram.AddressState,
+        AddressComplement:
+          preRegisterData.AccountSettingsByProgram.AddressComplement,
+        AddressDistrict:
+          preRegisterData.AccountSettingsByProgram.AddressDistrict,
+      },
       Birthdate: preRegisterData.Birthdate,
       LogisticsSchedule: {
         ...preRegisterData.LogisticsSchedule,
@@ -196,6 +257,9 @@ export default function PreRegister() {
       DiseaseName: "",
       Mobilephone: "",
       DoctorId: "",
+      Contact: "",
+      Sector: "",
+      SampleInLaboratory: false,
     });
   };
 
@@ -310,42 +374,8 @@ export default function PreRegister() {
     router.push("/dashboard/oncoclinica/exam");
   };
 
-  const getAddress = async () => {
-    await fetch(
-      `https://viacep.com.br/ws/${preRegisterData.AccountSettingsByProgram.AddressPostalCode}/json/`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setPreRegisterData({
-          ...preRegisterData,
-          AccountSettingsByProgram: {
-            ...preRegisterData.AccountSettingsByProgram,
-            AddressCity: data.localidade,
-            AddressDistrict: data.bairro,
-            AddressName: data.logradouro,
-            AddressState: data.uf,
-          },
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const checkCPF = (cpf: any) => {
     const isCpfValid = validarCPF(cpf);
-    if (!isCpfValid) {
-      toast.error("CPF inválido");
-      setDisableSave(true);
-    } else {
-      setDisableSave(false);
-    }
-  };
-
-  const checkCPFTwo = (cpfTwo: string) => {
-    const isCpfValid = validarCPF(cpfTwo);
     if (!isCpfValid) {
       toast.error("CPF inválido");
       setDisableSave(true);
@@ -719,69 +749,11 @@ export default function PreRegister() {
                     </span>
                   </div>
                 </div>
-                {/* <CustomSelect
-                  name="localType"
-                  label="Local de retirada da amostra"
-                  onChange={handleChange}
-                  options={[
-                    { value: "Hospital/Clínica", id: "Hospital/Clínica" },
-                    { value: "Pessoa Física", id: "Pessoa Física" },
-                  ]}
-                  value={localType}
-                  required
-                /> */}
-                {/* {localType === "Hospital/Clínica" && (
-                  <ReactInputMask
-                    required
-                    mask="99.999.999/9999-99"
-                    value={preRegisterData.AccountSettingsByProgram.Cnpj}
-                    onChange={(e) =>
-                      setPreRegisterData({
-                        ...preRegisterData,
-                        AccountSettingsByProgram: {
-                          ...preRegisterData.AccountSettingsByProgram,
-                          Cnpj: e.target.value,
-                        },
-                      })
-                    }
-                  >
-                    <Input placeholder="CNPJ" name="Cnpj" />
-                  </ReactInputMask>
-                )} */}
-                {/* {localType === "Pessoa Física" && (
-                  <ReactInputMask
-                    required
-                    mask="999.999.999-99"
-                    value={
-                      preRegisterData.AccountSettingsByProgram.CustomString1
-                    }
-                    onChange={(e) =>
-                      setPreRegisterData({
-                        ...preRegisterData,
-                        AccountSettingsByProgram: {
-                          ...preRegisterData.AccountSettingsByProgram,
-                          CustomString1: e.target.value,
-                        },
-                      })
-                    }
-                    onBlur={() =>
-                      checkCPFTwo(
-                        preRegisterData.AccountSettingsByProgram.CustomString1
-                      )
-                    }
-                  >
-                    <Input placeholder="CPF" name="CustomString1" />
-                  </ReactInputMask>
-                )} */}
-                <CustomSelect
-                  name=""
-                  label="Clínica Grupo Oncoclínica"
-                  onChange={handleChange}
-                  options={[
-                    { value: "Grupo Oncoclínica", id: "Grupo Oncoclínica" },
-                  ]}
-                  value={() => {}}
-                  required
+                <Input
+                  placeholder="Clínica Grupo Oncoclínica"
+                  name="clinicName"
+                  value={"Grupo Oncoclínicas"}
+                  disabled
                 />
 
                 <ReactInputMask
@@ -799,7 +771,7 @@ export default function PreRegister() {
                       },
                     })
                   }
-                  onBlur={getAddress}
+                  disabled
                 >
                   <Input required placeholder="CEP" name="AddressPostalCode" />
                 </ReactInputMask>
@@ -825,6 +797,7 @@ export default function PreRegister() {
                       },
                     })
                   }
+                  disabled
                 />
                 <Input
                   name="AddressComplement"
@@ -892,6 +865,7 @@ export default function PreRegister() {
                     preRegisterData.LogisticsSchedule.PreferredTimeStringMap
                       .OptionName
                   }
+                  required
                 />
 
                 <CustomSelect
@@ -900,22 +874,19 @@ export default function PreRegister() {
                   onChange={handleChange}
                   options={[
                     {
-                      value: "Fleury (Matriz) - 5 dias corridos",
+                      value: "Oncoclinica - 4 dias úteis",
                       id: "FLEURY (MATRIZ) (H27848)",
-                    },
-                    {
-                      value: "Dasa - 7 dias úteis",
-                      id: "Bronstein - Botafogo II",
                     },
                   ]}
                   value={preRegisterData.LaboratoryName}
+                  required
                 />
-                <CustomSelect
-                  name=""
-                  label="Setor"
+                <Input
+                  name="Sector"
+                  placeholder="Setor"
                   onChange={handleChange}
-                  options={[{ value: "Oncologia", id: "Oncologia" }]}
-                  value={() => {}}
+                  value={preRegisterData.Sector}
+                  required
                 />
 
                 <Input
@@ -931,25 +902,16 @@ export default function PreRegister() {
                 <ReactInputMask
                   required
                   mask="(99) 99999-9999"
-                  value={
-                    preRegisterData.LogisticsSchedule
-                      .ResponsibleTelephoneWithdrawal
-                  }
+                  value={preRegisterData.Contact}
                   onChange={(e) =>
                     setPreRegisterData({
                       ...preRegisterData,
-                      LogisticsSchedule: {
-                        ...preRegisterData.LogisticsSchedule,
-                        ResponsibleTelephoneWithdrawal: e.target.value,
-                      },
+                      Contact: e.target.value,
                     })
                   }
                   onBlur={checkPhone}
                 >
-                  <Input
-                    name="ResponsibleTelephoneWithdrawal"
-                    placeholder="Contato"
-                  />
+                  <Input name="Contact" placeholder="Contato" />
                 </ReactInputMask>
 
                 <CustomSelect
@@ -959,6 +921,7 @@ export default function PreRegister() {
                   options={doctorId}
                   value={preRegisterData.DoctorId}
                   disabled={isHER2Positive || !preRegisterData.doneHER2}
+                  required
                 />
 
                 <Input
@@ -979,12 +942,18 @@ export default function PreRegister() {
                   onKeyDown={(e) => {
                     e.preventDefault();
                   }}
+                  required
                 />
 
                 <div className="flex gap-1 text-sm font-semibold uppercase tracking-wide text-main-blue mt-5">
                   <Checkbox
-                    name="check"
-                    onCheckedChange={(checked) => console.log(checked)}
+                    name="SampleInLaboratory"
+                    onCheckedChange={() =>
+                      setPreRegisterData({
+                        ...preRegisterData,
+                        SampleInLaboratory: !preRegisterData.SampleInLaboratory,
+                      })
+                    }
                   />
                   <span>amostra já está no laboratório?</span>
                 </div>
@@ -1115,7 +1084,7 @@ export default function PreRegister() {
               variant={`tertiary`}
               className="md:w-60 w-full md:mb-0 mb-5"
               onClick={resgisterPatient}
-              disabled={step === 3 ? !isStep3Valid() : false || isLoading}
+              // disabled={step === 3 ? !isStep3Valid() : false || isLoading}
             >
               {isLoading ? <Loading /> : "Solicitar Exame"}
             </Button>
