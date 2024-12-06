@@ -20,6 +20,7 @@ export type Report2 = {
   hasPending: boolean;
   customDateTime2: string;
   createdOn: string;
+  examDefinition: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -37,6 +38,7 @@ export const columns: ColumnDef<Report2>[] = [
         dataStorage.setHasPending(params.hasPending);
         dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
+        dataStorage.setExamDefinition(params.examDefinition);
       };
 
       return (
@@ -63,6 +65,7 @@ export const columns: ColumnDef<Report2>[] = [
         dataStorage.setHasPending(params.hasPending);
         dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
+        dataStorage.setExamDefinition(params.examDefinition);
       };
 
       return (
@@ -91,6 +94,7 @@ export const columns: ColumnDef<Report2>[] = [
         dataStorage.setHasPending(params.hasPending);
         dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
+        dataStorage.setExamDefinition(params.examDefinition);
       };
 
       return (
@@ -118,6 +122,7 @@ export const columns: ColumnDef<Report2>[] = [
         dataStorage.setHasPending(params.hasPending);
         dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
+        dataStorage.setExamDefinition(params.examDefinition);
       };
 
       return (
@@ -144,7 +149,9 @@ export const columns: ColumnDef<Report2>[] = [
         dataStorage.setHasPending(params.hasPending);
         dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
+        dataStorage.setExamDefinition(params.examDefinition);
       };
+
       return (
         <div
           className="cursor-pointer flex justify-center gap-2 hover:scale-110 transition-transform duration-200"
@@ -180,6 +187,7 @@ export const columns: ColumnDef<Report2>[] = [
         dataStorage.setHasPending(params.hasPending);
         dataStorage.setDateTime(params.customDateTime2);
         solicitation.openModal(true);
+        dataStorage.setExamDefinition(params.examDefinition);
       };
 
       return (
@@ -193,8 +201,12 @@ export const columns: ColumnDef<Report2>[] = [
     },
   },
   {
-    accessorKey: "voucher",
+    accessorKey: "numberProtocol",
     header: "Protocolo",
+  },
+  {
+    accessorKey: "logisticsStatus",
+    header: "Status do Protocolo",
   },
   {
     accessorKey: "examDefinition",
@@ -202,7 +214,7 @@ export const columns: ColumnDef<Report2>[] = [
   },
   {
     accessorKey: "createdOn",
-    header: "Criação da Solicitação ",
+    header: "Data de criação da solicitação",
     cell: ({ row }) => {
       const report = row.original;
       if (report.createdOn) {

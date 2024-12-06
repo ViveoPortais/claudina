@@ -1,22 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getDiagnosticsLaboratory } from "@/services/diagnostic";
-import { useSolicitation } from "@/hooks/useModal";
 import { Solicitation } from "@/components/Solicitation";
+import useSession from "@/hooks/useSession";
+import { set } from "date-fns";
 
 export default function Diagnostic() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState("");
+  const reloading = useSession();
 
   const otherProfissional = () => {
+    reloading.setRefresh(true);
     setIsLoading(true);
     getDiagnosticsLaboratory()
       .then((res) => {
@@ -40,6 +43,7 @@ export default function Diagnostic() {
         toast.error("Erro ao carregar os dados");
       })
       .finally(() => {
+        reloading.setRefresh(false);
         setIsLoading(false);
       });
   };
@@ -69,6 +73,12 @@ export default function Diagnostic() {
   useEffect(() => {
     otherProfissional();
   }, []);
+
+  useEffect(() => {
+    if (reloading.refresh) {
+      otherProfissional();
+    }
+  }, [reloading.refresh]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">

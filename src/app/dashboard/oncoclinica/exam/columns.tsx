@@ -111,7 +111,7 @@ export const columns: ColumnDef<Report2>[] = [
   },
   {
     accessorKey: "createdOn",
-    header: "Data de Solicitação do Laudo",
+    header: "Data de criação da solicitação",
     cell: ({ row }) => {
       const report = row.original;
       if (report.createdOn) {

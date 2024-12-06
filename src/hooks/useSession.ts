@@ -23,6 +23,8 @@ type SessionStore = {
   cpfLaudo?: string;
   namePatient?: string;
   cpfPatient?: string;
+  examDefinition?: string;
+  setExamDefinition: (examDefinition: string) => void;
   setDateTime: (date: string) => void;
   setHasPending: (hasPending: boolean) => void;
   setUserNameLab: (userNameLab: string) => void;
@@ -69,6 +71,9 @@ const useSession = create(
       namePatient: "",
       cpfPatient: "",
       userNameLab: "",
+      examDefinition: "",
+      setExamDefinition: (examDefinition) =>
+        set({ examDefinition: examDefinition }),
       setDateTime: (date) => set({ date: date }),
       setHasPending: (hasPending) => set({ hasPending: hasPending }),
       setUserNameLab: (userNameLab) => set({ userNameLab: userNameLab }),

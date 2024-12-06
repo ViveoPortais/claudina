@@ -6,7 +6,7 @@ import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getExam } from "@/services/diagnostic";
+import { getDiagnosticsLaboratory, getExam } from "@/services/diagnostic";
 import {
   useInsufficientSample,
   useSendLaudo,
@@ -29,7 +29,7 @@ export default function Diagnostic() {
   const loading = useSession();
 
   const otherProfissional = () => {
-    getExam()
+    getDiagnosticsLaboratory()
       .then((res) => {
         const mapId = res.data.map((item: any) => {
           return {

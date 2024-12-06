@@ -170,6 +170,7 @@ export function Solicitation() {
 
           clearFilds();
           solicitation.openModal(false);
+          auth.setRefresh(true);
         }
         if (res.isValidData === false) {
           toast.error("Erro ao enviar solicitação");
@@ -298,45 +299,69 @@ export function Solicitation() {
                   onChange={(e: any) => handleFileChange(e, "#DOCTOR_REQUEST")}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              {(auth.examDefinition === "HER2" ||
+                auth.examDefinition === "Claudina 18.2 + HER2") && (
+                <div className="grid grid-cols-2 gap-4">
+                  <Input
+                    placeholder="Upload do laudo HER2"
+                    name="her2Report"
+                    type="file"
+                    onChange={(e: any) => handleFileChange(e, "#REPORT_TKC")}
+                    disabled={
+                      auth.examDefinition !== "HER2" &&
+                      auth.examDefinition !== "Claudina 18.2 + HER2"
+                    }
+                  />
+                  <CustomSelect
+                    name="her2Result"
+                    label="Resultado do laudo HER2"
+                    options={[
+                      { value: "Positivo", id: "Positivo" },
+                      { value: "Negativo", id: "Negativo" },
+                      { value: "Inconclusivo", id: "Inconclusivo" },
+                    ]}
+                    onChange={(e: any) => handleSelectChange(e, "HER2")}
+                    value={her2Result}
+                    disabled={
+                      (auth.examDefinition !== "HER2" &&
+                        auth.examDefinition !== "Claudina 18.2 + HER2") ||
+                      auth.hasPending
+                    }
+                  />
+                </div>
+              )}
+            </div>
+            {(auth.examDefinition === "Claudina 18.2" ||
+              auth.examDefinition === "Claudina 18.2 + HER2") && (
+              <div className="mt-5 grid grid-cols-2 gap-4">
                 <Input
-                  placeholder="Upload do laudo HER2"
-                  name="her2Report"
+                  placeholder="Upload do laudo Claudina 18.2"
+                  name="claudinaReport"
                   type="file"
                   onChange={(e: any) => handleFileChange(e, "#REPORT_TKC")}
+                  disabled={
+                    auth.examDefinition !== "Claudina 18.2" &&
+                    auth.examDefinition !== "Claudina 18.2 + HER2"
+                  }
                 />
                 <CustomSelect
-                  name="her2Result"
-                  label="Resultado do laudo HER2"
+                  name="claudinaResult"
+                  label="Resultado do laudo Claudina 18.2"
                   options={[
                     { value: "Positivo", id: "Positivo" },
                     { value: "Negativo", id: "Negativo" },
                     { value: "Inconclusivo", id: "Inconclusivo" },
                   ]}
-                  onChange={(e: any) => handleSelectChange(e, "HER2")}
-                  value={her2Result}
+                  onChange={(e: any) => handleSelectChange(e, "Claudina 18.2")}
+                  value={claudinaResult}
+                  disabled={
+                    (auth.examDefinition !== "Claudina 18.2" &&
+                      auth.examDefinition !== "Claudina 18.2 + HER2") ||
+                    auth.hasPending
+                  }
                 />
               </div>
-            </div>
-            <div className="mt-5 grid grid-cols-2 gap-4">
-              <Input
-                placeholder="Upload do laudo Claudina 18.2"
-                name="claudinaReport"
-                type="file"
-                onChange={(e: any) => handleFileChange(e, "#REPORT_TKC")}
-              />
-              <CustomSelect
-                name="claudinaResult"
-                label="Resultado do laudo Claudina 18.2"
-                options={[
-                  { value: "Positivo", id: "Positivo" },
-                  { value: "Negativo", id: "Negativo" },
-                  { value: "Inconclusivo", id: "Inconclusivo" },
-                ]}
-                onChange={(e: any) => handleSelectChange(e, "Claudina 18.2")}
-                value={claudinaResult}
-              />
-            </div>
+            )}
           </>
         )}
         {hasPending && (

@@ -130,7 +130,7 @@ export default function PreRegister() {
   const getCepOncoclinica = () => {
     getOncoclinica()
       .then((res) => {
-        if (res.data) {
+        if (res) {
           const clinicData = res;
 
           setPreRegisterData((prevData: any) => ({
@@ -875,7 +875,7 @@ export default function PreRegister() {
                   options={[
                     {
                       value: "Oncoclinica - 4 dias úteis",
-                      id: "FLEURY (MATRIZ) (H27848)",
+                      id: "Grupo Oncoclínicas",
                     },
                   ]}
                   value={preRegisterData.LaboratoryName}
