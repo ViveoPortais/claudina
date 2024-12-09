@@ -58,7 +58,7 @@ export const routes: IRouteProps = {
       icon: LuClipboardList,
     },
   ],
-  profissional: [
+  professional: [
     {
       route: "/dashboard/profissional/starts",
       text: "Início",
