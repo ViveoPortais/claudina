@@ -90,8 +90,9 @@ export default function SignIn() {
       });
       setCodeSent(true);
       toast.success("Código enviado com sucesso");
-    } catch (err) {
-      toast.error("Erro ao enviar código");
+    } catch (err: any) {
+      console.log(err);
+      toast.error(err.response.data);
       setIsLoading(false);
     }
   };
@@ -116,8 +117,8 @@ export default function SignIn() {
       auth.onLogin();
       router.push(`/dashboard/${role}`);
       toast.success("Login efetuado com sucesso");
-    } catch (err) {
-      toast.error("Email ou senha incorretos");
+    } catch (err: any) {
+      toast.error(err.response.data);
       setIsLoading(false);
     }
   }
@@ -155,16 +156,28 @@ export default function SignIn() {
                   <div className="flex gap-2 items-center">
                     <Checkbox
                       checked={email}
-                      onCheckedChange={() => setEmailCode(!email)}
+                      onCheckedChange={(checked) => {
+                        const isChecked = checked === true;
+                        setEmailCode(isChecked);
+                        if (isChecked) {
+                          setSms(false);
+                        }
+                      }}
                     />
                     <span className="text-main-blue text-base">
-                      Enivar código por E-mail
+                      Enviar código por E-mail
                     </span>
                   </div>
                   <div className="flex gap-2 items-center">
                     <Checkbox
                       checked={sms}
-                      onCheckedChange={() => setSms(!sms)}
+                      onCheckedChange={(checked) => {
+                        const isChecked = checked === true;
+                        setSms(isChecked);
+                        if (checked) {
+                          setEmailCode(false);
+                        }
+                      }}
                     />
                     <span className="text-main-blue text-base">
                       Enviar código por SMS
@@ -181,7 +194,6 @@ export default function SignIn() {
                   <InputOTPDemo
                     onChange={(value) => {
                       if (value.length <= 6) {
-                        // Limita o máximo de dígitos a 6
                         setCodeToken(value);
                       }
                     }}
