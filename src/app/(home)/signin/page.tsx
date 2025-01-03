@@ -15,6 +15,11 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InputOTPDemo } from "@/components/custom/Input-OTP";
 import { login } from "@/services/auth";
+import { BsChatLeftText } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
+import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
+import { set } from "date-fns";
+import { Loading } from "@/components/custom/Loading";
 
 const signInValidationSchema = z.object({
   email: z.string().min(1, { message: "Insira seu email" }).email({
@@ -39,7 +44,10 @@ export default function SignIn() {
   const [email, setEmailCode] = useState(false);
   const [sms, setSms] = useState(false);
   const [code, setCodeToken] = useState("");
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [selectedOption, setSelectedOption] = useState<"email" | "sms" | null>(
+    null
+  );
+  const [timeLeft, setTimeLeft] = useState(5);
 
   const {
     register,
@@ -76,7 +84,6 @@ export default function SignIn() {
   }
 
   const handleTwoFactorAuth = () => {
-    setIsLoading(true);
     setTwoFa(true);
   };
 
@@ -89,15 +96,15 @@ export default function SignIn() {
         token: code || "",
       });
       setCodeSent(true);
-      toast.success("Código enviado com sucesso");
+      toast.success(response.token);
     } catch (err: any) {
       console.log(err);
       toast.error(err.response.data);
-      setIsLoading(false);
     }
   };
 
   async function handleLogin(data: SignInValidationProps) {
+    setIsLoading(true);
     try {
       const response = await login({
         ...data,
@@ -119,6 +126,7 @@ export default function SignIn() {
       toast.success("Login efetuado com sucesso");
     } catch (err: any) {
       toast.error(err.response.data);
+    } finally {
       setIsLoading(false);
     }
   }
@@ -135,7 +143,8 @@ export default function SignIn() {
 
   const handleResendCode = () => {
     setCodeSent(false);
-    setTimeLeft(60);
+    setTimeLeft(5);
+    setCodeToken("");
   };
 
   return (
@@ -148,41 +157,65 @@ export default function SignIn() {
           <>
             {codeSent === false ? (
               <>
-                <span className="text-base text-main-orange">
-                  Escolha uma das opções abaixo para continuar com a
-                  autenticação em duas etapas:
-                </span>
                 <div className="flex flex-col gap-2">
-                  <div className="flex gap-2 items-center">
-                    <Checkbox
-                      checked={email}
-                      onCheckedChange={(checked) => {
-                        const isChecked = checked === true;
-                        setEmailCode(isChecked);
-                        if (isChecked) {
-                          setSms(false);
-                        }
+                  <span className="text-xl text-main-orange">
+                    Acesse sua conta
+                  </span>
+                  <span className="text-sm text-gray-700 ">
+                    Escolha como deseja obter seu código de acesso:
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label
+                    className={`flex gap-4 items-center w-full p-5 border rounded-md cursor-pointer shadow-md ${
+                      selectedOption === "email"
+                        ? "border-blue-500"
+                        : "border-gray-300"
+                    } hover:border-blue-500`}
+                  >
+                    <input
+                      type="radio"
+                      name="codeDelivery"
+                      onChange={() => {
+                        setSelectedOption("email");
+                        setEmailCode(true);
+                        setSms(false);
                       }}
+                      className="hidden"
                     />
-                    <span className="text-main-blue text-base">
+                    <div className="w-10 h-10 rounded-full border border-main-orange flex items-center justify-center">
+                      <MdEmail size={24} className="text-main-orange" />
+                    </div>
+                    <span className="text-gray-700">
                       Enviar código por E-mail
                     </span>
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    <Checkbox
-                      checked={sms}
-                      onCheckedChange={(checked) => {
-                        const isChecked = checked === true;
-                        setSms(isChecked);
-                        if (checked) {
-                          setEmailCode(false);
-                        }
+                  </label>
+                  <label
+                    className={`flex gap-4 items-center w-full p-5 border rounded-md cursor-pointer shadow-md ${
+                      selectedOption === "sms"
+                        ? "border-blue-500"
+                        : "border-gray-300"
+                    } hover:border-blue-500`}
+                  >
+                    <input
+                      type="radio"
+                      name="codeDelivery"
+                      onChange={() => {
+                        setSelectedOption("sms");
+                        setEmailCode(false);
+                        setSms(true);
                       }}
+                      className="hidden"
                     />
-                    <span className="text-main-blue text-base">
-                      Enviar código por SMS
-                    </span>
-                  </div>
+                    <div className="w-10 h-10 rounded-full border border-main-orange flex items-center justify-center">
+                      <IoChatbubbleEllipsesSharp
+                        size={22}
+                        className="text-main-orange"
+                      />
+                    </div>
+                    <span className="text-gray-700">Enviar código por SMS</span>
+                  </label>
                 </div>
               </>
             ) : (
@@ -217,23 +250,33 @@ export default function SignIn() {
                 )}
               </>
             )}
+            {!codeSent && (
+              <Button
+                size="lg"
+                className="w-full mt-4"
+                type="submit"
+                onClick={() => {
+                  handleSubmit(handleSendCode)();
+                }}
+                disabled={codeSent || !selectedOption}
+              >
+                {isLoading ? <Loading /> : "Enviar código"}
+              </Button>
+            )}
 
-            <Button
-              size={`lg`}
-              className={`w-full mt-4`}
-              type="submit"
-              onClick={
-                codeSent === false
-                  ? () => handleSubmit(handleSendCode)()
-                  : () => handleSubmit(handleLogin)()
-              }
-              disabled={
-                (codeSent === false && !email && !sms) ||
-                (codeSent && code.length < 4)
-              }
-            >
-              {codeSent === false ? "Enviar código" : "Acessar"}
-            </Button>
+            {codeSent && (
+              <Button
+                size="lg"
+                className="w-full mt-4"
+                type="submit"
+                onClick={() => {
+                  handleSubmit(handleLogin)();
+                }}
+                disabled={code.length < 4 || isLoading}
+              >
+                {isLoading ? <Loading /> : "Acessar"}
+              </Button>
+            )}
           </>
         ) : (
           <>
