@@ -91,7 +91,7 @@ export default function SignIn() {
       setCodeSent(true);
       toast.success("Código enviado com sucesso");
     } catch (err) {
-      toast.error("Email ou senha incorretos");
+      toast.error("Erro ao enviar código");
       setIsLoading(false);
     }
   };
@@ -178,7 +178,14 @@ export default function SignIn() {
                   Insira o código de autenticação enviado:
                 </span>
                 <div className="w-full">
-                  <InputOTPDemo onChange={setCodeToken} />
+                  <InputOTPDemo
+                    onChange={(value) => {
+                      if (value.length <= 6) {
+                        // Limita o máximo de dígitos a 6
+                        setCodeToken(value);
+                      }
+                    }}
+                  />
                 </div>
 
                 {codeSent && timeLeft > 0 && (
@@ -208,7 +215,10 @@ export default function SignIn() {
                   ? () => handleSubmit(handleSendCode)()
                   : () => handleSubmit(handleLogin)()
               }
-              disabled={codeSent === false && !email && !sms}
+              disabled={
+                (codeSent === false && !email && !sms) ||
+                (codeSent && code.length < 4)
+              }
             >
               {codeSent === false ? "Enviar código" : "Acessar"}
             </Button>
