@@ -5,6 +5,9 @@ export interface FormInputData {
 export interface ILoginData {
   email: string;
   password: string;
+  tokenBySms: boolean;
+  tokenByEmail: boolean;
+  token: string;
   // healthProgramCode: string;
 }
 

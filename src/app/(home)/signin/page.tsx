@@ -1,23 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
-import { CgSpinner } from "react-icons/cg";
-
 import useSession from "@/hooks/useSession";
-import { login } from "@/services/auth";
 import api from "@/services/api";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { InputOTPDemo } from "@/components/custom/Input-OTP";
+import { login } from "@/services/auth";
 
 const signInValidationSchema = z.object({
   email: z.string().min(1, { message: "Insira seu email" }).email({
@@ -26,6 +23,9 @@ const signInValidationSchema = z.object({
   password: z
     .string()
     .min(3, { message: "A senha deve conter pelo menos 3 caracteres" }),
+  tokenBySms: z.boolean().optional(),
+  tokenByEmail: z.boolean().optional(),
+  token: z.string().optional(),
 });
 
 type SignInValidationProps = z.infer<typeof signInValidationSchema>;
@@ -33,7 +33,13 @@ type SignInValidationProps = z.infer<typeof signInValidationSchema>;
 export default function SignIn() {
   const router = useRouter();
   const auth = useSession();
+  const [twoFa, setTwoFa] = useState(false);
+  const [codeSent, setCodeSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmailCode] = useState(false);
+  const [sms, setSms] = useState(false);
+  const [code, setCodeToken] = useState("");
+  const [timeLeft, setTimeLeft] = useState(60);
 
   const {
     register,
@@ -69,93 +75,196 @@ export default function SignIn() {
     return "treatment";
   }
 
-  async function handleLogin(data: SignInValidationProps) {
+  const handleTwoFactorAuth = () => {
     setIsLoading(true);
+    setTwoFa(true);
+  };
 
+  const handleSendCode = async (data: SignInValidationProps) => {
     try {
-      const response = await login(data);
+      const response = await login({
+        ...data,
+        tokenBySms: sms,
+        tokenByEmail: email,
+        token: code || "",
+      });
+      setCodeSent(true);
+      toast.success("Código enviado com sucesso");
+    } catch (err) {
+      toast.error("Email ou senha incorretos");
+      setIsLoading(false);
+    }
+  };
+
+  async function handleLogin(data: SignInValidationProps) {
+    try {
+      const response = await login({
+        ...data,
+        tokenBySms: sms,
+        tokenByEmail: email,
+        token: code || "",
+      });
+
       const role = handleUserRole(response.role);
       auth.setName(response.name);
       auth.setUserNameLab(response.userName);
-      auth.setEmail(response.email);
+      auth.setEmail(response.userName);
       auth.setToken(response.token);
       api.defaults.headers.Authorization = `Bearer ${response.token}`;
       auth.setRole(role);
-      console.log(auth.role);
       auth.setSession(dayjs().format("YYYY-MM-DD HH:mm:ss"));
       auth.onLogin();
       router.push(`/dashboard/${role}`);
+      toast.success("Login efetuado com sucesso");
     } catch (err) {
       toast.error("Email ou senha incorretos");
       setIsLoading(false);
     }
   }
 
+  useEffect(() => {
+    if (codeSent && timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [codeSent, timeLeft]);
+
+  const handleResendCode = () => {
+    setCodeSent(false);
+    setTimeLeft(60);
+  };
+
   return (
-    <div className="flex flex-col gap-4 w-full items-center">
-      <div className="mb-4 flex items-center">
-        <h1 className=" text-lg md:text-xl mr-2 text-main-orange">
-          Acesse com seu e-mail e senha abaixo:
-        </h1>
-      </div>
-
+    <div className="flex flex-col gap-4 w-full items-center px-1">
       <form
-        className="flex flex-col items-center gap-3 w-full h-full"
-        onSubmit={handleSubmit(handleLogin)}
+        className="flex flex-col  gap-3 w-full h-full"
+        onSubmit={handleSubmit(handleTwoFactorAuth)}
       >
-        <div className="w-full">
-          <Input
-            type="text"
-            icon="email"
-            placeholder="E-mail"
-            className="w-full"
-            {...register("email", { required: true })}
-            maxLength={100}
-          />
-          {errors.email && (
-            <span className="w-full text-xs text-red-400 mt-1">
-              {errors.email.message}
+        {twoFa === true ? (
+          <>
+            {codeSent === false ? (
+              <>
+                <span className="text-base text-main-orange">
+                  Escolha uma das opções abaixo para continuar com a
+                  autenticação em duas etapas:
+                </span>
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2 items-center">
+                    <Checkbox
+                      checked={email}
+                      onCheckedChange={() => setEmailCode(!email)}
+                    />
+                    <span className="text-main-blue text-base">
+                      Enivar código por E-mail
+                    </span>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <Checkbox
+                      checked={sms}
+                      onCheckedChange={() => setSms(!sms)}
+                    />
+                    <span className="text-main-blue text-base">
+                      Enviar código por SMS
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <span className="text-base text-main-orange">
+                  Insira o código de autenticação enviado:
+                </span>
+                <div className="w-full">
+                  <InputOTPDemo onChange={setCodeToken} />
+                </div>
+
+                {codeSent && timeLeft > 0 && (
+                  <span className="text-sm font-semibold text-viveo-primary mt-2">
+                    Se você não recebeu o código, aguarde {timeLeft} segundos
+                  </span>
+                )}
+
+                {codeSent && timeLeft === 0 && (
+                  <Link
+                    href="#"
+                    onClick={handleResendCode}
+                    className="text-sm text-viveo-primary mt-2 underline"
+                  >
+                    Reenviar código
+                  </Link>
+                )}
+              </>
+            )}
+
+            <Button
+              size={`lg`}
+              className={`w-full mt-4`}
+              type="submit"
+              onClick={
+                codeSent === false
+                  ? () => handleSubmit(handleSendCode)()
+                  : () => handleSubmit(handleLogin)()
+              }
+              disabled={codeSent === false && !email && !sms}
+            >
+              {codeSent === false ? "Enviar código" : "Acessar"}
+            </Button>
+          </>
+        ) : (
+          <>
+            <div className="mb-4 flex items-center">
+              <h1 className=" text-lg md:text-xl mr-2 text-main-orange">
+                Acesse com seu e-mail e senha abaixo:
+              </h1>
+            </div>
+            <div className="w-full">
+              <Input
+                type="text"
+                icon="email"
+                placeholder="E-mail"
+                className="w-full"
+                {...register("email", { required: true })}
+                maxLength={100}
+              />
+              {errors.email && (
+                <span className="w-full text-xs text-red-400 mt-1">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
+
+            <div className="w-full">
+              <Input
+                type="password"
+                icon="password"
+                placeholder="Senha"
+                className="w-full"
+                {...register("password", { required: true })}
+              />
+              {errors.password && (
+                <span className="w-full text-xs text-red-400 mt-1">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+
+            <span
+              className="text-xs self-end underline cursor-pointer"
+              onClick={handleForgetPassword}
+            >
+              Esqueci minha senha
             </span>
-          )}
-        </div>
-
-        <div className="w-full">
-          <Input
-            type="password"
-            icon="password"
-            placeholder="Senha"
-            className="w-full"
-            {...register("password", { required: true })}
-          />
-          {errors.password && (
-            <span className="w-full text-xs text-red-400 mt-1">
-              {errors.password.message}
-            </span>
-          )}
-        </div>
-
-        <span
-          className="text-xs self-end underline cursor-pointer"
-          onClick={handleForgetPassword}
-        >
-          Esqueci minha senha
-        </span>
-
-        <Button
-          size={`lg`}
-          className={`w-full mt-4 ${isLoading && "bg-zinc-500"}`}
-          type="submit"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <CgSpinner size={20} className="text-white animate-spin" />
-          ) : (
-            "Acessar"
-          )}
-        </Button>
+            <Button size={`lg`} className={`w-full mt-4`} type="submit">
+              Entrar
+            </Button>
+          </>
+        )}
       </form>
 
-      <Link href="/login" className="w-full">
+      <Link href="/" className="w-full">
         <Button size={`lg`} variant={`tertiary`} className="w-full">
           Voltar
         </Button>

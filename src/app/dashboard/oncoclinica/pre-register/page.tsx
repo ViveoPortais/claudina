@@ -865,7 +865,6 @@ export default function PreRegister() {
                     preRegisterData.LogisticsSchedule.PreferredTimeStringMap
                       .OptionName
                   }
-                  required
                 />
 
                 <CustomSelect
@@ -886,7 +885,6 @@ export default function PreRegister() {
                   placeholder="Setor"
                   onChange={handleChange}
                   value={preRegisterData.Sector}
-                  required
                 />
 
                 <Input
@@ -896,7 +894,6 @@ export default function PreRegister() {
                     preRegisterData.LogisticsSchedule.ResponsibleForReceiving
                   }
                   onChange={handleChange}
-                  required
                 />
 
                 <ReactInputMask
