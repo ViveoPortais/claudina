@@ -56,7 +56,7 @@ export default function ForgetPassword() {
   return (
     <div className="flex flex-col gap-4 w-full items-center">
       <div className="mb-4 flex flex-col">
-        <span className="text-lg md:text-xl mr-2 text-main-orange">
+        <span className="text-lg md:text-xl lg:text-sm xl:text-xl mr-2 text-main-orange">
           Por favor, insira o endereço de e-mail:
         </span>
       </div>

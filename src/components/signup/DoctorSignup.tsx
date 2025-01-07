@@ -199,7 +199,7 @@ export function DoctorSignUp() {
         onSubmit={handleSubmit(registerDoctor)}
         className="w-full flex flex-col gap-4"
       >
-        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 lg:grid-cols-2  xl:grid-cols-2 2xl:grid-cols-4 gap-4">
           <div className="w-full">
             <Input
               type="text"
@@ -270,7 +270,7 @@ export function DoctorSignUp() {
           )}
         </div>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 lg:grid-cols-2  xl:grid-cols-2 gap-4 2xl:grid-cols-4">
           <div className="w-full">
             <Input
               type="email"
@@ -354,7 +354,7 @@ export function DoctorSignUp() {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 lg:grid-cols-2  xl:grid-cols-2 gap-4 2xl:grid-cols-4">
           <div className="w-full">
             {getLocationInfoLoading ? (
               <InputLoading />

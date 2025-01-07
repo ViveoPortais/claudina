@@ -280,8 +280,8 @@ export default function SignIn() {
           </>
         ) : (
           <>
-            <div className="mb-4 flex items-center">
-              <h1 className=" text-lg md:text-xl mr-2 text-main-orange">
+            <div className="mb-4 lg:mb-0 xl:mb-4 flex items-center">
+              <h1 className=" text-lg md:text-xl lg:text-[12px] xl:text-base mr-2 text-main-orange">
                 Acesse com seu e-mail e senha abaixo:
               </h1>
             </div>
@@ -317,7 +317,7 @@ export default function SignIn() {
             </div>
 
             <span
-              className="text-xs self-end underline cursor-pointer"
+              className="text-sm lg:text-[10px] xl:text-xs self-end underline cursor-pointer"
               onClick={handleForgetPassword}
             >
               Esqueci minha senha

@@ -213,7 +213,7 @@ export function OtherProfessionalModal() {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 lg:grid-cols-2  xl:grid-cols-2 2xl:grid-cols-4 gap-4">
           <div className="w-full">
             <Controller
               name="Telefone"

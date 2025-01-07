@@ -65,10 +65,12 @@ const ContentCard = ({
       } `}
     >
       <div className={`${isCustomBg && "scale-x-[-1]"} flex flex-col h-full`}>
-        <div className="text-white md:w-full ml-3 2xl:ml-5 mt-5 md:mt-8 xl:mt-4 text-3xl flex flex-col">
-          <span>{title}</span>
-          <span className="text-sm mt-2 ml-1 opacity-95 w-3/4">{subtitle}</span>
-          <span className="text-base font-medium mt-3 ml-1 opacity-95">
+        <div className="text-white md:w-full ml-3 2xl:ml-5 mt-5 md:mt-8 lg:mt-3 xl:mt-4 text-3xl flex flex-col">
+          <span className="text-base lg:text-base xl:text-3xl">{title}</span>
+          <span className="text-xs mt-2 ml-1 opacity-95 w-full md:w-3/4 lg:w-full xl:w-3/4">
+            {subtitle}
+          </span>
+          <span className="text-xs font-medium mt-3 ml-1 opacity-95">
             {subtitleTwo}
           </span>
           <span className="flex flex-col text-base font-medium mt-3 ml-1 opacity-95">

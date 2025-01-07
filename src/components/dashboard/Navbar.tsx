@@ -38,38 +38,42 @@ export function Navbar() {
         />
       </div>
 
-      <ul
-        className={`flex flex-col mt-12 ${
-          !isMenuOpen && "items-center"
-        } gap-4 w-full px-4`}
-      >
-        {role !== "" &&
-          routes[role].map((profileRoutes) => {
-            return (
-              <Link
-                key={profileRoutes.route}
-                href={`${profileRoutes.route}`}
-                className={`flex gap-x-2 items-center cursor-pointer hover:bg-zinc-100 rounded-lg p-6 ${
-                  pathname === `${profileRoutes.route}` &&
-                  "bg-main-orange text-white hover:text-zinc-800"
-                }`}
-              >
-                <MenuIcon icon={profileRoutes.icon} size={24} />
-                {isMenuOpen && profileRoutes.text}
-              </Link>
-            );
-          })}
-      </ul>
+      <div className="flex flex-col w-full h-full lg:overflow-y-auto lg:overflow-x-hidden lg:max-h-[calc(100vh-140px)]">
+        <ul
+          className={`flex flex-col mt-12 ${
+            !isMenuOpen && "items-center"
+          } gap-4 w-full px-4`}
+        >
+          {role !== "" &&
+            routes[role].map((profileRoutes) => {
+              return (
+                <Link
+                  key={profileRoutes.route}
+                  href={`${profileRoutes.route}`}
+                  className={`flex gap-x-2 items-center cursor-pointer hover:bg-zinc-100 rounded-lg p-6 text-base lg:text-xs xl:text-base ${
+                    pathname === `${profileRoutes.route}` &&
+                    "bg-main-orange text-white hover:text-zinc-800"
+                  }`}
+                >
+                  <MenuIcon icon={profileRoutes.icon} size={24} />
+                  {isMenuOpen && profileRoutes.text}
+                </Link>
+              );
+            })}
+        </ul>
 
-      <div
-        className="absolute bottom-10 flex items-center gap-2 cursor-pointer text-zinc-800 p-6 rounded-lg bg-white hover:bg-zinc-100"
-        onClick={() => changeMenu(isMenuOpen)}
-      >
-        <HiChevronDoubleLeft
-          size={24}
-          className={` ${!isMenuOpen && "rotate-180"} transition-all`}
-        />
-        {isMenuOpen && <span>Fechar</span>}
+        <div
+          className="flex items-center justify-center gap-2 cursor-pointer text-zinc-800 p-6 rounded-lg bg-white hover:bg-zinc-100 mt-auto"
+          onClick={() => changeMenu(isMenuOpen)}
+        >
+          <HiChevronDoubleLeft
+            size={24}
+            className={` ${!isMenuOpen && "rotate-180"} transition-all`}
+          />
+          {isMenuOpen && (
+            <span className="text-base lg:text-xs xl:text-base">Fechar</span>
+          )}
+        </div>
       </div>
     </nav>
   );

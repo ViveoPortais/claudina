@@ -73,7 +73,7 @@ const CustomSelect = forwardRef<
         disabled={disabled}
       >
         <div className="w-full">
-          <label className="w-full flex gap-1 text-start mb-1 text-sm font-bold uppercase tracking-wide text-main-blue">
+          <label className="w-full flex gap-1 text-start mb-1 text-sm lg:text-[10px] xl:text-base font-bold uppercase tracking-wide text-main-blue">
             {label}
             {required && <span className="text-red-500">*</span>}
           </label>
@@ -89,7 +89,7 @@ const CustomSelect = forwardRef<
                 });
               }
             }}
-            className={`md:col-span-3 py-6 md:px-4 md:py-8 ${customClass} focus:outline-none focus:ring-transparent`}
+            className={`md:col-span-3 py-6 md:px-4 md:py-8 lg:py-6 xl:py-8 ${customClass} focus:outline-none focus:ring-transparent`}
           >
             <SelectValue placeholder="Selecione..." />
           </SelectTrigger>

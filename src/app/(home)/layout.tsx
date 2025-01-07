@@ -48,33 +48,25 @@ export default function HomeLayout({ children }: HomeLayoutProps) {
         </>
       ) : (
         <div
-          className={`w-full h-screen grid grid-cols-1 xl:grid-cols-3 py-2 xl:py-8 xl:px-20 bg-[#F7F7F7] ${
-            !isSpecialRoute
-              ? 'lg:bg-[url("/SVG-CLAUDI2.svg")] lg:bg-left lg:bg-no-repeat '
-              : "bg-[#F7F7F7]"
-          }`}
+          className={`w-full h-screen grid grid-cols-1 xl:grid-cols-3 py-2 xl:py-8 xl:px-20 bg-[#F7F7F7] ${'bg-[url("/SVG-CLAUDI2.svg")] bg-left bg-no-repeat bg-contain '}`}
         >
           <div className="hidden xl:flex items-center justify-center text-white p-12">
-            {isSpecialRoute && (
-              <Image
-                src="/SVG-CLAUDI2.svg"
-                width={1000}
-                height={80}
-                alt="bg"
-                className="absolute ml-10"
-              />
-            )}
+            {isSpecialRoute && <div></div>}
           </div>
 
-          <div className="flex items-center justify-center xl:col-span-2 xl:justify-end">
-            <ScrollArea className="bg-white border border-gray-200 rounded-xl flex flex-col items-center justify-center p-4 md:p-8 mx-4 max-h-[90vh] md:max-h-[85vh]">
+          <div className="flex items-center justify-center sm:col-span-2 sm:justify-end">
+            <ScrollArea
+              className={`bg-white border border-gray-200 rounded-xl flex flex-col items-center justify-center p-4 md:p-8 mx-4 max-h-[90vh] md:max-h-[85vh] sm:w-[90%] lg:w-[500px] xl:w-[480px] 2xl:w-[550px] ${
+                isSpecialRoute ? "2xl:w-[700px]" : ""
+              }`}
+            >
               <div className="w-full flex items-center justify-center">
                 <Image
                   src="/logo-removebg-preview.png"
-                  width={400}
-                  height={80}
+                  width={200}
+                  height={40}
                   alt="logo"
-                  className="mb-16"
+                  className="mb-16 sm:w-2/3 lg:w-[300px] xl:w-[400px] 2xl:w-[500px] md:w-auto"
                 />
               </div>
               {children}

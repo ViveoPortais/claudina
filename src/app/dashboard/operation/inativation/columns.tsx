@@ -174,6 +174,10 @@ export const columns: ColumnDef<Report2>[] = [
     },
   },
   {
+    accessorKey: "statusSms",
+    header: "Status do Aceite",
+  },
+  {
     accessorKey: "diseaseName",
     header: "Patologia",
     cell: ({ row }) => {
