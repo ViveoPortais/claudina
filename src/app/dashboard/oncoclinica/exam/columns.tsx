@@ -16,6 +16,7 @@ import {
 import useSession from "@/hooks/useSession";
 import { downloadingLaudo, downloadingLaudoCPf } from "@/services/diagnostic";
 import { toast } from "react-toastify";
+import { TbReportAnalytics } from "react-icons/tb";
 
 export type Report2 = {
   id: string;
@@ -216,7 +217,7 @@ export const columns: ColumnDef<Report2>[] = [
             </Button>
           ) : (
             <Button size="sm" disabled className="bg-green-600">
-              <FaCheckDouble size={19} />
+              <TbReportAnalytics size={19} />
             </Button>
           )}
         </div>

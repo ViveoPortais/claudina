@@ -3,8 +3,8 @@ export function PatientTerms() {
     <>
       <div className="flex flex-col gap-5">
         <h1 className="text-center font-bold">
-          Consentimento Específico de PROFISSIONAL MÉDICO e PROFISSIONAIS DE
-          SAÚDE para tratamento de dados sensíveis
+          Consentimento Específico de PROFISSIONAL MÉDICO, PROFISSIONAIS DE
+          SAÚDE E INSTITUIÇÕES para tratamento de dados sensíveis
         </h1>
         <p className="text-center text-sm">
           Atendimento à Lei Geral de Proteção de Dados (Lei Nº 13.709/2018)
@@ -26,8 +26,8 @@ export function PatientTerms() {
           </span>
           , inclusive por meio de sua{" "}
           <span className="text-sm font-bold">“Parceira”</span> Grupo VIVEO
-          (Azimute Med) sempre e quando vinculados aos de meus pacientes, quando
-          aplicável (ou para seu benefício) para cumprir com a finalidade
+          (Humania Saúde) sempre e quando vinculados aos de meus pacientes,
+          quando aplicável (ou para seu benefício) para cumprir com a finalidade
           específica de realizar todo o processo necessário ao cumprimento do
           Programa Claudinova{" "}
           <span className="text-sm font-bold">“Programa”</span>, cumprindo com
@@ -63,12 +63,12 @@ export function PatientTerms() {
         </p>
         <p className="text-sm font-bold ml-20">Assim, declaro que:</p>
         <p className="text-sm">
-          Somente inscreverei pacientes maiores de 18 (dezoito) anos de idade no
-          Programa
+          Somente inscreverei (quando aplicável) pacientes maiores de 18
+          (dezoito) anos de idade no Programa.
         </p>
         <p className="text-sm">
-          Somente inscreverei pacientes que cumpram com os critérios de
-          elegibilidade do Programa.
+          Somente inscreverei (quando aplicável) pacientes que cumpram com os
+          critérios de elegibilidade do Programa.
         </p>
         <p className="text-sm">
           Autorizo a utilização dos meus dados atrelados aos resultados de exame
@@ -121,7 +121,7 @@ export function PatientTerms() {
       </div>
       <div className="flex justify-center gap-5 mt-36">
         <p className="text-base font-bold">
-          MAT-BR-ZOL-2024-00060 | Agosto/2024
+          MAT-BR-ZOL-2024-00091 | Dezembro/2024
         </p>
       </div>
     </>

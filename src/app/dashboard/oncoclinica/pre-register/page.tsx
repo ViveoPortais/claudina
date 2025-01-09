@@ -331,7 +331,7 @@ export default function PreRegister() {
   const printPDF = () => {
     const doc = new jsPDF();
     doc.addImage(
-      "/Programa Claudinova- Termo de Consentimento - Pacientes_page-0001.jpg",
+      "/Programa Claudinova_Termos-de-Consentimento_Pacientes_Sem-marcas-e-comentários_Veeva.pdf",
       "JPEG",
       0,
       0,
@@ -979,7 +979,7 @@ export default function PreRegister() {
               >
                 <div className="md:min-w-[600px] w-[350px]">
                   <Image
-                    src="/Programa Claudinova- Termo de Consentimento - Pacientes_page-0001.jpg"
+                    src="/print_termo_paciente.png"
                     alt="Termo de Consentimento"
                     width={900}
                     height={100}

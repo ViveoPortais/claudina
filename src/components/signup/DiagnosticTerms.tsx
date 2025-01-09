@@ -577,7 +577,7 @@ export function DiagnosticTerms() {
       </div>
       <div className="flex justify-center gap-5 mt-36">
         <p className="text-base font-bold">
-          MAT-BR-ZOL-2024-00061 | AGOSTO/2024
+          MAT-BR-ZOL-2024-00089 | Dezembro/2024
         </p>
       </div>
     </>

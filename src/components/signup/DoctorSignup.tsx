@@ -74,6 +74,7 @@ export function DoctorSignUp() {
   const modalAccept = useAccept();
   const useEmail = useModalEmail();
   const doctorUfCrm = watch("licenseState");
+  const [text, setText] = useState("");
 
   const [medicalSpecialtyOptions, setMedicalSpecialtyOptions] = useState<
     { id: string; value: string }[]
@@ -181,6 +182,7 @@ export function DoctorSignUp() {
         useEmail.openModal(true);
       } else {
         modalRescue.openModal(true);
+        setText(err?.response?.data?.value);
       }
     }
   }
@@ -568,7 +570,7 @@ export function DoctorSignUp() {
           open={modalRescue.isModalOpen}
           onOpenChange={modalRescue.openModal}
         >
-          <RescueRegister />
+          <RescueRegister text={text} />
         </Dialog>
       </div>
       <div>

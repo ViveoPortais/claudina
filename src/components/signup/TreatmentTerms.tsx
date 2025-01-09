@@ -490,7 +490,9 @@ export function TreatmentTerms() {
         </p>
       </div>
       <div className="flex justify-center gap-5 mt-36">
-        <p className="text-base font-bold">MAT-BR-ZOL-2024-00071 | AGOSTO/24</p>
+        <p className="text-base font-bold">
+          MAT-BR-ZOL-2024- 00088 | Dezembro/2024
+        </p>
       </div>
     </>
   );
