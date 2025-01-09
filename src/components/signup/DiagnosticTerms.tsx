@@ -4,7 +4,8 @@ export function DiagnosticTerms() {
       <div className="flex flex-col gap-5">
         <h1 className="text-center font-bold">PROGRAMA CLAUDINOVA</h1>
         <p className="text-center underline text-sm">
-          Política de Privacidade – Pacientes, Médicos e Profissionais de Saúde
+          Política de Privacidade – Pacientes, Médicos, Profissionais de Saúde e
+          Instituições
         </p>
         <p className="text-sm">
           Esta Política de Privacidade (“Política”) foi elaborada para que os
@@ -25,7 +26,7 @@ export function DiagnosticTerms() {
         <p className="text-sm">
           Para ter acesso à Política de Privacidade e ao contato do Encarregado
           de Proteção de Dados da Gestora favor acessar a página de
-          Transparência:
+          Transparência:{" "}
           <a
             className="text-blue-500"
             href="https://www.viveo.com.br/politica-de-privacidade/"
@@ -48,13 +49,13 @@ export function DiagnosticTerms() {
           Todas as informações necessárias sobre como seus dados pessoais são
           coletados, tratados e transferidos estão disponíveis nesta Política.
           Esta Política está associada ao Regulamento do Programa Claudinova
-          (“Regulamento"), que pode ser encontrado em
+          (“Regulamento"), que pode ser encontrado em {""}
           <a
             className="text-blue-500"
             href="www.programaclaudinova.com.br"
             target="_blank"
           >
-            www.programaclaudinova.com.br (“site”).
+            www.programaclaudinova.com.br
           </a>
           <span> (“site”).</span>
         </p>
@@ -74,9 +75,9 @@ export function DiagnosticTerms() {
         <p className="text-sm">
           Caso tenha quaisquer dúvidas sobre o tratamento de seus dados
           pessoais, entre em contato com o Encarregado pela proteção de dados
-          pelo e-mail
+          pelo e-mail{" "}
           <span className="text-blue-500 cursor-pointer">
-            br.privacidade@astellas.com.
+            dpos@viveo.com.br
           </span>
         </p>
         <span className="flex flex-col gap-2">
@@ -261,7 +262,7 @@ export function DiagnosticTerms() {
           g. Garantir a continuidade do Programa em casos de alterações
           societárias envolvendo a Astellas;
         </p>
-        <p>
+        <p className="text-sm">
           h. Cumprir com obrigações legais ou regulatórias, exercer direitos em
           contrato ou processo de qualquer natureza, ou cumprir com ordem de
           autoridade competente.
@@ -293,7 +294,6 @@ export function DiagnosticTerms() {
           g. Garantir o processamento dos resultados da análise para criação do
           laudo aos Profissionais e ao Paciente;
         </p>
-        <p className="text-sm underline">Paciente</p>
         <p className="text-sm">
           h. Garantir o processamento dos resultados da análise de forma
           estatística e anonimizada, para fins de pesquisa clínica e relatórios
@@ -318,11 +318,12 @@ export function DiagnosticTerms() {
         <p className="text-sm">4. Da Segurança e Confidencialidade</p>
         <p className="text-sm">
           Segurança lógica e organizacional. A Astellas e a Gestora consideram
-          todos os Dados do Paciente e dos Profissionais como confidenciais,
-          independentemente da forma de coleta, garantindo que serão tratados e
-          armazenados conforme as determinações desta Política e com a adoção
-          das adequadas medidas de segurança lógicas e organizacionais, conforme
-          o grau de sensibilidade dos dados e os riscos inerentes à atividade.
+          todos os Dados do Paciente, dos Profissionais e das Instituições como
+          confidenciais, independentemente da forma de coleta, garantindo que
+          serão tratados e armazenados conforme as determinações desta Política
+          e com a adoção das adequadas medidas de segurança lógicas e
+          organizacionais, conforme o grau de sensibilidade dos dados e os
+          riscos inerentes à atividade.
         </p>
         <p className="text-sm">
           Melhores práticas. Tais medidas seguirão o padrão de melhores práticas
@@ -333,14 +334,15 @@ export function DiagnosticTerms() {
           Dessa forma, a Astellas, em conjunto com a Gestora, se compromete a
           adotar todos os esforços razoáveis de mercado com o intuito de
           preservar a segurança dos sistemas no armazenamento dos Dados do
-          Paciente e dos Profissionais, entre eles, a observância às diretrizes
-          sobre padrões de segurança estabelecidas no Decreto nº 8.771/2016,
-          tais como:
+          Paciente, dos Profissionais e das Instituições, entre eles, a
+          observância às diretrizes sobre padrões de segurança estabelecidas no
+          Decreto nº 8.771/2016, tais como:
         </p>
         <p className="text-sm">
           (a) utilização de métodos padrão de mercado para criptografar e
-          anonimizar os Dados do Paciente e dos Profissionais, além de demais
-          formas padrão de encriptação, para garantir sua inviolabilidade;
+          anonimizar os Dados do Paciente, dos Profissionais e das Instituições,
+          além de demais formas padrão de encriptação, para garantir sua
+          inviolabilidade;
         </p>
         <p className="text-sm">
           (b) encriptação de softwares de alta tecnologia para proteção contra
@@ -370,11 +372,14 @@ export function DiagnosticTerms() {
           tratamento dos dados.
         </p>
         <p className="text-sm">
-          Anonimização pela Gestora. Os Dados do Paciente e dos Profissionais
-          coletados pela Gestora serão enviados por ela à Astellas já
-          anonimizados, ou seja, não será possível relacionar os Dados do
-          Paciente ou dos Profissionais com os Pacientes e Profissionais a que
-          eles se referem.
+          Anonimização pela Gestora. Os Dados do Paciente, dos Profissionais e
+          das Instituições coletados pela Gestora serão enviados por ela à
+          Astellas já anonimizados, ou seja,{" "}
+          <span className="underline">
+            não será possível relacionar os Dados do Paciente ou dos
+            Profissionais e das Instituições
+          </span>{" "}
+          com os Pacientes e Profissionais/Instituições a que eles se referem.
         </p>
         <p className="text-sm">
           Backup e integridade. A Astellas e a Gestora realizam backups
@@ -383,34 +388,34 @@ export function DiagnosticTerms() {
           pela Gestora, sempre que for identificada violação, modificação não
           autorizada, ou perda de dados. Os backups realizados não são
           destinados a restaurar dados apagados, acidentalmente ou não, pelos
-          Pacientes ou dos Profissionais, de modo que não é possível a
-          restauração de dados nesses casos.
+          Pacientes, dos Profissionais ou das Instituições, de modo que não é
+          possível a restauração de dados nesses casos.
         </p>
         <p className="text-sm">
           Comunicação e transferências internacionais. Nas hipóteses de
-          comunicação dos Dados do Paciente ou dos Profissionais a terceiros,
-          sejam eles operadores ou não, ou no caso de transferências
-          internacionais, a Astellas garante que todas as entidades que vierem a
-          receber tais dados serão vinculadas por cláusulas contratuais
-          específicas ou acordos de confidencialidade e segurança de dados, com
-          a finalidade de impor a tais terceiros ou recipientes de dados
-          estrangeiros as mesmas obrigações de segurança, integridade e
-          confidencialidade descritas nesta Política. Adicionalmente, nos casos
-          de transferência internacional de dados, a Astellas se certificará que
-          tal transferência ocorra dentro das hipóteses legais aceitáveis para
-          padrões de proteção de dados pessoais a serem exigidos do recipiente
-          de tais dados.
+          comunicação dos Dados do Paciente, dos Profissionais ou das
+          Instituições a terceiros, sejam eles operadores ou não, ou no caso de
+          transferências internacionais, a Astellas e a Gestora garantem que
+          todas as entidades que vierem a receber tais dados serão vinculadas
+          por cláusulas contratuais específicas ou acordos de confidencialidade
+          e segurança de dados, com a finalidade de impor a tais terceiros ou
+          recipientes de dados estrangeiros as mesmas obrigações de segurança,
+          integridade e confidencialidade descritas nesta Política.
+          Adicionalmente, nos casos de transferência internacional de dados, a
+          Astellas e a Gestora se certificarão que tal transferência ocorra
+          dentro das hipóteses legais aceitáveis para padrões de proteção de
+          dados pessoais a serem exigidos do recipiente de tais dados
         </p>
       </div>
       <div className="flex flex-col gap-5 mt-5">
         <p className="text-sm">5. Da Comunicação e Uso Compartilhado </p>
         <p className="text-sm">
-          Você reconhece que a Gestora receberá os Dados do Paciente e dos
-          Profissionais. A Astellas somente receberá dados anonimizados de
-          Pacientes. O compartilhamento é feito em conformidade com o disposto
-          na Lei Geral de Proteção de Dados, adotando todas as precauções
-          exigidas em lei para garantia da segurança e da confidencialidade dos
-          dados comunicados.
+          Você reconhece que a Gestora receberá os Dados do Paciente, dos
+          Profissionais e das Instituições. A Astellas somente receberá dados
+          anonimizados de Pacientes. O compartilhamento é feito em conformidade
+          com o disposto na Lei Geral de Proteção de Dados, adotando todas as
+          precauções exigidas em lei para garantia da segurança e da
+          confidencialidade dos dados comunicados
         </p>
         <p className="text-sm">
           A Gestora poderá, por sua vez, contratar e subcontratar terceiros
@@ -425,14 +430,14 @@ export function DiagnosticTerms() {
       <div className="flex flex-col gap-5 mt-5">
         <p className="text-sm">6. Do Direito dos Titulares</p>
         <p className="text-sm">
-          O Paciente e os Profissionais poderão, a qualquer momento e a seu
-          critério, requerer à Astellas ou à Gestora o exercício de seus
-          direitos, conforme estabelecidos na Lei Geral de Proteção de Dados e
-          regulamentado pela Autoridade Nacional de Proteção de Dados,
+          O Paciente, os Profissionais e as Instituições poderão, a qualquer
+          momento e a seu critério, requerer à Astellas ou à Gestora o exercício
+          de seus direitos, conforme estabelecidos na Lei Geral de Proteção de
+          Dados e regulamentado pela Autoridade Nacional de Proteção de Dados,
           incluindo, mas não se limitando ao acesso, atualização, portabilidade
           e exclusão de seus dados pessoais. Todos os direitos poderão ser
           exercidos por meio da área logada do Site do programa, pelo telefone
-          0800 999 5124 ou e-mail contato@claudinova.com.br.
+          0800 999 5124 ou e-mail contato@programaclaudinova.com.br.
         </p>
         <p className="text-sm">
           Toda solicitação, reclamação, pedido de informação ou exercício de
@@ -471,15 +476,16 @@ export function DiagnosticTerms() {
           faça necessário;
         </p>
         <p className="text-sm">
-          iii) quando o Paciente ou os Profissionais requererem a exclusão dos
-          dados, a qualquer tempo, conforme procedimento indicado acima, ficando
-          cientes, no entanto, que há certas informações que não poderão ser
-          excluídas e que a exclusão de dados pode acarretar seu desligamento do
-          Programa;
+          iii) quando o Paciente, os Profissionais ou as Instituições requererem
+          a exclusão dos dados, a qualquer tempo, conforme procedimento indicado
+          acima, ficando cientes, no entanto, que há certas informações que não
+          poderão ser excluídas e que a exclusão de dados pode acarretar seu
+          desligamento do Programa;
         </p>
         <p className="text-sm">
           iv) mediante determinação de autoridade competente para tanto.
         </p>
+
         <p className="text-sm">
           A Astellas e a Gestora se comprometem a empreender os melhores
           esforços para atender a todos os pedidos relacionados a seus dados
@@ -491,8 +497,8 @@ export function DiagnosticTerms() {
         <p className="text-sm">
           Sem prejuízo das demais isenções de responsabilidade indicadas na
           presente Política, no Regulamento do Programa, ou por força legal ou
-          regulatória, Paciente e Profissionais ficam desde já cientes de que a
-          Astellas não será responsável:
+          regulatória, Paciente, Profissionais e Instituições ficam desde já
+          cientes de que a Astellas não será responsável:
         </p>
         <p className="text-sm">
           a. por dados desatualizados, incompletos ou inverídicos apresentados
@@ -503,8 +509,8 @@ export function DiagnosticTerms() {
           b. pelos danos e prejuízos de toda natureza decorrentes do
           conhecimento de que terceiros não autorizados possam ter de quaisquer
           dados fornecidos ao Programa em decorrência de falha exclusivamente
-          relacionada ao Paciente, aos Profissionais ou a terceiros, que fujam a
-          qualquer controle razoável da Astellas.
+          relacionada ao Paciente, aos Profissionais, às Instituições ou a
+          terceiros, que fujam a qualquer controle razoável da Astellas.
         </p>
       </div>
       <div className="flex flex-col gap-5 mt-5">
@@ -520,7 +526,7 @@ export function DiagnosticTerms() {
         <p className="text-sm">9. Disposições Gerais</p>
         <p className="text-sm">
           9.1. Todas as comunicações feitas com o Programa serão realizadas por
-          meio dos telefones e e-mails oficiais, ou por mala direta.
+          meio dos telefones e e-mails oficiais, ou por mala direta
         </p>
         <p className="text-sm">
           9.2. Qualquer cláusula ou condição da Política que, por qualquer
@@ -532,24 +538,25 @@ export function DiagnosticTerms() {
         <p className="text-sm">
           9.3.A falha da Astellas em exigir quaisquer direitos ou disposições da
           presente Política não constituirá renúncia, podendo esta exercer
-          regularmente o seu direito dentro dos prazos legais
+          regularmente o seu direito dentro dos prazos legais.
         </p>
         <p className="text-sm">
           9.4. Esta Política poderá ser alterada a qualquer momento e a critério
-          exclusivo da Astellas, de modo a fornecer maior segurança ao Paciente
-          e aos Profissionais, desde que não haja vedação legal nesse sentido.
+          exclusivo da Astellas, de modo a fornecer maior segurança ao Paciente,
+          aos Profissionais e às Instituições, desde que não haja vedação legal
+          nesse sentido.
         </p>
         <p className="text-sm">
           9.4.1. Quaisquer mudanças substanciais serão prontamente informadas ao
-          Paciente e aos Profissionais pelos meios adequados.
+          Paciente, aos Profissionais e às Instituições pelos meios adequados
         </p>
         <p className="text-sm">
           9.4.2. Caso ocorra notificação pela Astellas e pela Gestora para os
-          casos de alterações desta Política, recomenda-se que o Paciente
-          verifique o conteúdo desta Política quando necessário através do site
-          do Programa, podendo também solicitá-la para a Gestora do Programa
-          através do contato@claudinova.com.br ou ainda através do 0800 999
-          5124.
+          casos de alterações desta Política, recomenda-se que o Paciente, os
+          Profissionais e as Instituições verifiquem o conteúdo desta Política
+          quando necessário através do site do Programa, podendo também
+          solicitá-la para a Gestora através do
+          contato@programaclaudinova.com.br ou ainda através do 0800 999 5124
         </p>
       </div>
       <div className="flex flex-col gap-5 mt-5">
@@ -557,21 +564,22 @@ export function DiagnosticTerms() {
         <p className="text-sm">
           10.1.A presente relação jurídica é regida exclusivamente pela
           legislação brasileira, inclusive eventuais ações decorrentes de
-          violação de seus termos e condições
+          violação de seus termos e condições.
         </p>
         <p className="text-sm">
-          10.2. Fica eleito o foro do domicílio do Paciente ou dos Profissionais
-          para dirimir quaisquer dúvidas, questões ou litígios decorrentes desta
-          Política, renunciando as Partes a qualquer outro, por mais
-          privilegiado que seja.
+          10.2. Fica eleito o foro do domicílio do Paciente, dos Profissionais
+          ou das Instituições para cada um deles, respectivamente, para dirimir
+          quaisquer dúvidas, questões ou litígios decorrentes desta Política,
+          renunciando as Partes a qualquer outro, por mais privilegiado que
+          seja.
         </p>
         <p className="text-sm">
-          10.3. Havendo demandas envolvendo Paciente e Profissionais
-          conjuntamente, o domicílio do Paciente terá preferência.
+          10.3. Havendo demandas envolvendo Paciente, Profissionais e
+          Instituições conjuntamente, o domicílio do Paciente terá preferência.
         </p>
       </div>
       <div className="flex justify-end mt-10">
-        <p className="text-sm">Data: 06 de agosto de 2024</p>
+        <p className="text-sm">Data: 18 de dezembro de 2024</p>
       </div>
       <div className="flex justify-center gap-5 mt-36">
         <p className="text-base font-bold">

@@ -37,14 +37,14 @@ export function PatientTerms() {
           Astellas.
         </p>
         <p className="text-sm">
-          Estou ciente da responsabilidade de realizar a minha inscrição e a de
-          meus pacientes (quando aplicável) no www.programaclaudinova.com.br
-          (“Site”) ou na central de atendimento dedicada ao Programa acessível
-          através do telefone 0800 999 5124 (“Central de Atendimento”), sendo de
-          minha exclusiva responsabilidade o adequado preenchimento das
-          informações pessoais solicitadas. Entendo que a minha participação
-          poderá ser realizada múltiplas vezes, inclusive de forma paralela,
-          desde que com pacientes diversos.
+          Estou ciente da responsabilidade de realizar a minha inscrição, bem
+          como a de meus pacientes (quando aplicável) no
+          www.programaclaudinova.com.br (“Site”) ou na central de atendimento
+          dedicada ao Programa acessível através do telefone 0800 999 5124
+          (“Central de Atendimento”), sendo de minha exclusiva responsabilidade
+          o adequado preenchimento das informações pessoais solicitadas. Entendo
+          que a minha participação poderá ser realizada múltiplas vezes,
+          inclusive de forma paralela, desde que com pacientes diversos.{" "}
         </p>
         <p className="text-sm">
           Estou ciente de que minhas informações pessoais e as informações
@@ -88,9 +88,9 @@ export function PatientTerms() {
             possuo conhecimento acerca da possibilidade de não fornecer o meu
             consentimento
           </span>{" "}
-          e de revogá-lo, mediante requisição expressa, a qualquer momento, por
-          meio de contato com a Central de Atendimento através do telefone 0800
-          999 5124 ou email contato@claudinova.com.br.
+          o e de revogá-lo, mediante requisição expressa, a qualquer momento,
+          por meio de contato com a Central de Atendimento através do telefone
+          0800 999 5124 ou email contato@programaclaudinova.com.br
         </p>
         <p className="text-sm">
           Na hipótese da negativa do fornecimento de consentimento ou de sua
