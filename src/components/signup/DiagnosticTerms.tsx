@@ -115,8 +115,8 @@ export function DiagnosticTerms() {
             requisitos para participar do Programa;
           </p>
           <p className="text-sm">
-            “Instituição/Instituições” significa a Instituição responsável pelo
-            acompanhamento do Paciente onde o Profissional solicitante está
+            • “Instituição/Instituições” significa a Instituição responsável
+            pelo acompanhamento do Paciente onde o Profissional solicitante está
             vinculado;
           </p>
           <p className="text-sm">
@@ -162,12 +162,13 @@ export function DiagnosticTerms() {
           e Telefone quando aplicável e necessário (“Dados do Paciente”).
         </p>
         <p className="text-sm">
-          Profissionais Médicos: nome completo, CRM, especialidade, CPFCEP,
+          Profissionais Médicos: nome completo, CRM, especialidade, CPF, CEP,
           e-mail e telefone
         </p>
         <p className="text-sm">
           Profissionais de Saúde: nome completo, número do conselho
-          profissional, CEP, e-mail e telefone.
+          profissional, CPF, CEP, e-mail e telefone CRM/UF do médico que deseja
+          se vincular.
         </p>
         <p>
           Instituições: nome da Instituição, endereço completo, número do CNPJ,
@@ -251,8 +252,8 @@ export function DiagnosticTerms() {
           cadastro, ou de seus Pacientes;
         </p>
         <p className="text-sm">
-          e. Garantir o acesso do Médico ao resultado da análise dos testes HER2
-          e Claudina 18.2;
+          e. Informar ao Profissional solicitante as unidades diagnósticas
+          credenciadas e disponíveis na região de seu atendimento;
         </p>
         <p className="text-sm">
           f. Garantir o acesso dos Profissionais ou Instituições solicitante ao
@@ -279,16 +280,16 @@ export function DiagnosticTerms() {
           elegíveis;
         </p>
         <p className="text-sm">
-          d. Informar ao Profissional as unidades diagnósticas credenciadas e
-          disponíveis na região;
+          d. Transportar o material coletado por meio de empresa logística
+          determinada pela Astellas, Gestora ou Instituição solicitante;
         </p>
         <p className="text-sm">
-          e. Garantir o acesso do Profissional ao resultado da análise dos
-          testes HER2 e Claudina 18.2;
+          e. Garantir a análise da amostra para a realização dos testes
+          elegíveis;
         </p>
         <p className="text-sm">
-          f. Garantir a continuidade do Programa em casos de alterações
-          societárias envolvendo a Astellas;
+          f. Garantir o acesso do Paciente ao resultado dos testes realizados,
+          quando solicitado;
         </p>
         <p className="text-sm">
           g. Garantir o processamento dos resultados da análise para criação do
@@ -351,9 +352,9 @@ export function DiagnosticTerms() {
         </p>
         <p className="text-sm">
           (c) disponibilização de acesso a locais de armazenamento dos Dados do
-          Paciente e dos Profissionais apenas a pessoas previamente autorizadas,
-          comprometidas com o sigilo de tais dados, inclusive mediante
-          assinatura de termo de confidencialidade;
+          Paciente, dos Profissionais e das Instituições apenas a pessoas
+          previamente autorizadas, comprometidas com o sigilo de tais dados,
+          inclusive mediante assinatura de termo de confidencialidade;
         </p>
         <p className="text-sm">
           (d) aplicação de mecanismos de autenticação de acesso aos registros

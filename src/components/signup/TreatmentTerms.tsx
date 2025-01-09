@@ -53,7 +53,7 @@ export function TreatmentTerms() {
         </p>
         <p className="text-sm">
           • HER2: elegível para Pacientes que não tenham realizado esse teste
-          anteriormente.
+          anteriormente, ou que o resultado tenha sido negativo
         </p>
         <p className="text-sm">
           • Claudina 18.2: elegível aos Pacientes que têm resultado do teste de
@@ -187,23 +187,6 @@ export function TreatmentTerms() {
           Profissional Médico e/ou pelo Paciente:
         </p>
         <p className="text-sm">
-          (i) Declaração de Transporte (operador logístico levará o documento
-          impresso)
-        </p>
-        <p className="text-sm">
-          (ii) Ficha de Emergência (operador logístico levará o documento
-          impresso)
-        </p>
-        <p className="text-sm">
-          (iii) Termo de Consentimento Livre e Esclarecido assinado pelo
-          Paciente (caso ele não tenha realizado o aceite eletronicamente via
-          SMS) e
-        </p>
-        <p className="text-sm">
-          (iv) pedido ou prescrição para realização dos testes, assinado e
-          carimbado pelo Profissional Médico com o número do seu CRM;
-        </p>
-        <p className="text-sm">
           (e) Todos os documentos referidos no item (d) precisam estar
           devidamente assinados pelo Profissional
         </p>
@@ -215,16 +198,7 @@ export function TreatmentTerms() {
           (g) A logística da amostra até o laboratório parceiro será realizada
           pelo operador logístico parceiro do Programa;
         </p>
-        <p className="text-sm">(i) Declaração de Transporte</p>
-        <p className="text-sm">(ii) Ficha de Emergência</p>
-        <p className="text-sm">
-          (iii) Termo de Consentimento Livre e Esclarecido assinado pelo
-          Paciente e
-        </p>
-        <p className="text-sm">
-          (iv) pedido ou prescrição para realização dos testes, assinado e
-          carimbado pelo Profissional Médico com o número do seu CRM;
-        </p>
+
         <p className="text-sm">2.3. Retirada e Transporte das Amostras</p>
         <p className="text-sm">
           (a) O parceiro logístico ou a equipe do Programa agendará a retirada
