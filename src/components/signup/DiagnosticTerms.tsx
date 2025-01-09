@@ -8,17 +8,19 @@ export function DiagnosticTerms() {
         </p>
         <p className="text-sm">
           Esta Política de Privacidade (“Política”) foi elaborada para que os
-          Pacientes, Médicos e Profissionais de Saúde (“Profissionais”)
-          envolvidos no Programa Claudinova (“Programa”) de realização da
-          ASTELLAS FARMA BRASIL IMPORTAÇÃO E DISTRIBUIÇÃO DE MEDICAMENTOS LTDA.,
-          estabelecida na Av. das Nações Unidas, 14.171, Torre C, 25º andar,
-          conjuntos 2501, 2503 e parte do 2504, Condomínio Rochaverá Corporate
-          Towers, Vila Gertrudes, , na cidade de São Paulo, Estado de São Paulo,
-          CEP 04794-000, inscrita no CNPJ /MF sob o nº 07.768.134/0002-87
-          (“Astellas”), e gerido e operacionalizado pelo Grupo VIVEO (Azimute
-          Med), (“Gestora” ou “Parceira”) para a Astellas tomem conhecimento e
-          tenham ciência de como são coletados e tratados os seus dados pessoais
-          no âmbito do Programa.
+          Pacientes, Profissionais Médicos, e Profissionais de Saúde (estes dois
+          últimos conjuntamente denominados “Profissionais” ou “Profissional”) e
+          Instituições vinculadas aos médicos (denominadas “Instituições” ou
+          “Instituição”) envolvidos no Programa Claudinova (“Programa”) de
+          realização da ASTELLAS FARMA BRASIL IMPORTAÇÃO E DISTRIBUIÇÃO DE
+          MEDICAMENTOS LTDA., estabelecida na Av. das Nações Unidas, 14.171,
+          Torre C, 25º andar, conjuntos 2501, 2503 e parte do 2504, Condomínio
+          Rochaverá Corporate Towers, Vila Gertrudes, na cidade de São Paulo,
+          Estado de São Paulo, CEP 04794-000, inscrita no CNPJ /MF sob o nº
+          07.768.134/0002-87 (“Astellas”), e gerido e operacionalizado pelo
+          Grupo VIVEO (Humania Saúde), (“Gestora” ou “Parceira”) para a Astellas
+          tomem conhecimento e tenham ciência de como são coletados e tratados
+          os seus dados pessoais no âmbito do Programa.
         </p>
         <p className="text-sm">
           Para ter acesso à Política de Privacidade e ao contato do Encarregado
@@ -36,34 +38,34 @@ export function DiagnosticTerms() {
         <p className="text-sm">
           A Astellas, junto à Gestora, desenvolve um Programa com o objetivo de
           apoiar o Médico na realização do teste de Claudina 18.2 e HER2, quando
-          necessário, buscando garantir o acesso a pacientes com diagnóstico de
-          câncer gástrico ou de junção gastroesofágica localmente avançado
-          inoperável ou metastático sob acompanhamento do Médico de sua escolha
-          (“Médico”). A Astellas garante a realização do teste sem qualquer
-          custo.
+          necessário, buscando garantir o acesso deste teste a pacientes com
+          diagnóstico de câncer gástrico ou de junção gastroesofágica localmente
+          avançado inoperável ou metastático sob acompanhamento do Médico de sua
+          escolha (“Médico”). A Astellas garante a realização do teste sem
+          qualquer custo.
         </p>
         <p className="text-sm">
           Todas as informações necessárias sobre como seus dados pessoais são
           coletados, tratados e transferidos estão disponíveis nesta Política.
           Esta Política está associada ao Regulamento do Programa Claudinova
-          (“Regulamento"), que pode ser encontrado em em
+          (“Regulamento"), que pode ser encontrado em
           <a
             className="text-blue-500"
             href="www.programaclaudinova.com.br"
             target="_blank"
           >
-            www.programaclaudinova.com.br
+            www.programaclaudinova.com.br (“site”).
           </a>
           <span> (“site”).</span>
         </p>
         <p className="text-sm">
-          A fim de garantir o melhor atendimento ao Paciente e aos
-          Profissionais, a Astellas elaborou esta Política. Assim, desde que não
-          haja vedação legal, essa Política poderá ser alterada, mas não se
+          A fim de garantir o melhor atendimento ao Paciente, aos Profissionais
+          e às Instituições, a Astellas elaborou esta Política. Assim, desde que
+          não haja vedação legal, essa Política poderá ser alterada, mas não se
           preocupe, pois você será notificado via e-mail cadastrado sempre que
           acontecerem mudanças relevantes. Caso não concorde com as alterações,
-          você pode revogar seu consentimento conforme procedimento constante
-          naquele Termo.
+          você pode revogar seu consentimento conforme procedimento constante no
+          Termo de Consentimento.
         </p>
         <p className="text-sm">
           A versão atualizada desta Política estará disponível para leitura a
@@ -71,8 +73,8 @@ export function DiagnosticTerms() {
         </p>
         <p className="text-sm">
           Caso tenha quaisquer dúvidas sobre o tratamento de seus dados
-          pessoais, entre em contato com o nosso Encarregado pela proteção de
-          dados pelo e-mail{" "}
+          pessoais, entre em contato com o Encarregado pela proteção de dados
+          pelo e-mail
           <span className="text-blue-500 cursor-pointer">
             br.privacidade@astellas.com.
           </span>
@@ -90,7 +92,7 @@ export function DiagnosticTerms() {
             natural identificada ou identificável;
           </p>
           <p className="text-sm">
-            • “Gestora” ou “Parceira” significa Grupo VIVEO (Azimute Med);
+            • “Gestora” ou “Parceira” significa Grupo VIVEO (Humania Saúde);
           </p>
           <p className="text-sm">
             • “Dados Pessoais Sensíveis” significam o dado pessoal sobre origem
@@ -104,15 +106,22 @@ export function DiagnosticTerms() {
             13.709/2018);
           </p>
           <p className="text-sm">
-            • "Profissionais” significa o Médico ou Profissional de Saúde;
+            • "Profissionais” significa o Profissional Médico ou Profissional de
+            Saúde;
           </p>
           <p className="text-sm">
-            • “Médico” significa o Médico que atende todos os requisitos para
-            participar do Programa;
+            • “Profissional Médico” significa o Médico que atende todos os
+            requisitos para participar do Programa;
+          </p>
+          <p className="text-sm">
+            “Instituição/Instituições” significa a Instituição responsável pelo
+            acompanhamento do Paciente onde o Profissional solicitante está
+            vinculado;
           </p>
           <p className="text-sm">
             • “Nós” significa, indistintamente, Astellas e/ou Gestora;
           </p>
+
           <p className="text-sm">
             • “Paciente” significa o indivíduo com diagnóstico de câncer
             gástrico ou de junção gastroesofágica localmente avançado inoperável
@@ -130,8 +139,8 @@ export function DiagnosticTerms() {
           </p>
           <p className="text-sm">• “Site” significa o site do Programa;</p>
           <p className="text-sm">
-            • “Você” significa, indistintamente, Pacientes, Médicos e
-            Profissionais de Saúde.{" "}
+            • “Você” significa, indistintamente, Pacientes, Profissionais
+            Médicos, Profissionais de Saúde e Instituições{" "}
           </p>
         </span>
       </div>
@@ -139,10 +148,12 @@ export function DiagnosticTerms() {
         <p className="text-sm">2. Dos Dados Coletados e Forma de Coleta</p>
         <p className="text-sm">
           Dados coletados no cadastro. Conforme detalhado no Regulamento, para
-          participar no Programa, o Médico deve realizar o seu próprio cadastro
-          no site do Programa. A Gestora do Programa terá acesso aos dados. A
-          Astellas somente terá acesso aos dados anonimizados. No cadastro,
-          devem ser informados os seguintes dados:{" "}
+          participar no Programa, o Profissional deve realizar o seu próprio
+          cadastro no site do Programa, bem como a Instituição responsável pelo
+          tratamento do Paciente, mediante aceite do Termo de Consentimento do
+          Profissional solicitante. A Gestora do Programa terá acesso aos dados.
+          A Astellas somente terá acesso aos dados anonimizados. No cadastro,
+          devem ser informados os seguintes dados:
         </p>
         <p className="text-sm">
           Pacientes: Nome Completo; Data de nascimento; Sexo; CPF; Se possui
@@ -150,11 +161,16 @@ export function DiagnosticTerms() {
           e Telefone quando aplicável e necessário (“Dados do Paciente”).
         </p>
         <p className="text-sm">
-          Médicos: nome completo, CRM, especialidade, CEP, e-mail e telefone.
+          Profissionais Médicos: nome completo, CRM, especialidade, CPFCEP,
+          e-mail e telefone
         </p>
         <p className="text-sm">
           Profissionais de Saúde: nome completo, número do conselho
           profissional, CEP, e-mail e telefone.
+        </p>
+        <p>
+          Instituições: nome da Instituição, endereço completo, número do CNPJ,
+          Nome completo do responsável, e-mail e telefone
         </p>
         <p className="text-sm">
           Exame: Se o Paciente já realizou HER2; Resultado do HER2 (se
@@ -166,18 +182,19 @@ export function DiagnosticTerms() {
           análise.{" "}
         </p>
         <p className="text-sm">
-          Dados coletados ao longo do Programa. Nós podemos coletar dados
+          Dados coletados ao longo do Programa. Podem ser coletados dados
           pessoais ao longo do Programa, o que inclui informações do diagnóstico
           dos Pacientes, e informações que venham a ser solicitadas
-          eletronicamente ou por contato telefônico diretamente com o Médico
-          responsável. A coleta de dados adicionais dos Médicos igualmente
-          ocorrerá por meios eletrônicos ou por telefone, conforme necessário.{" "}
+          eletronicamente ou por contato telefônico diretamente com o
+          Profissional solicitante ou Instituição. A coleta de dados adicionais
+          dos Profissionais e das Instituições igualmente ocorrerá por meios
+          eletrônicos ou por telefone, conforme necessário.
         </p>
         <p className="text-sm">
           Veracidade das informações prestadas. Ao fazer o cadastro para
-          participar do Programa, o Médico garante a veracidade e a completude
-          dos dados informados, e reconhece que os Dados do Paciente a serem
-          tratados incluirão Dados Pessoais Sensíveis.
+          participar do Programa, o Profissional e a Instituição garantem a
+          veracidade e a completude dos dados informados, e reconhecem que os
+          Dados do Paciente a serem tratados incluirão Dados Pessoais Sensíveis.
         </p>
         <p className="text-sm">
           Consequência da falsidade das informações. Todas as informações
@@ -187,86 +204,65 @@ export function DiagnosticTerms() {
         </p>
         <p className="text-sm">
           Gestão de informações. Os Dados do Paciente serão coletados por meio
-          do cadastro feito pelo Médico e Profissionais de Saúde autorizados por
-          ele e podem ser submetidos a confirmação pela central de atendimento
-          da Gestora.
+          do cadastro feito pelos Profissionais autorizados por ele e podem ser
+          submetidos à confirmação pela central de atendimento da Gestora.
         </p>
       </div>
       <div className="flex flex-col gap-5 mt-5">
         <p className="text-sm">3. Das Finalidades do Tratamento dos Dados</p>
         <p className="text-sm">
-          Limitação de finalidades. O tratamento dos Dados do Paciente e
-          Profissionais se dará com base no consentimento fornecido em documento
-          apartado com os objetivos discriminados naquele instrumento, incluindo
-          (i) avaliação genética, compilação, consulta, uso, indexação,
-          estatística, pesquisa e extração de relatórios; e (ii) avaliação do
-          atendimento aos critérios do Programa, personalização e gerenciamento
-          da sua participação no Programa, com acesso restrito a pessoas
-          autorizadas pela Astellas e sua Gestora.
+          Limitação de finalidades. O tratamento dos Dados do Paciente,
+          Profissionais e Instituições se dará com base no consentimento
+          fornecido em documento apartado com os objetivos discriminados naquele
+          instrumento, incluindo (i) avaliação genética, compilação, consulta,
+          uso, indexação, estatística, pesquisa e extração de relatórios; e (ii)
+          avaliação do atendimento aos critérios do Programa, personalização e
+          gerenciamento da sua participação no Programa, com acesso restrito a
+          pessoas autorizadas pela Astellas e sua Gestora.
         </p>
         <p className="text-sm">
-          Participação no Programa. Os Dados do Paciente e dos Profissionais
-          serão mantidos enquanto sua relação com o Programa existir. Na
-          ausência dessas informações, não é possível a participação do Paciente
-          e/ou Profissionais no Programa. Após a conclusão da participação,
-          outros motivos podem existir para a manutenção de certas informações
-          no sistema da Astellas ou da Gestora.
+          Participação no Programa. Os Dados do Paciente, dos Profissionais e
+          das Instituições serão mantidos enquanto sua relação com o Programa
+          existir. Na ausência dessas informações, não é possível a participação
+          do Paciente, Profissionais e/ou Instituições no Programa. Após a
+          conclusão da participação, outros motivos podem existir para a
+          manutenção de certas informações no sistema da Gestora.
         </p>
         <p className="text-sm">
           Usos possíveis. Dessa forma, ao aceitar a presente Política, você
           entende que a Astellas e a Gestora poderão utilizar os Dados tão
           somente para:
         </p>
-        <p className="text-sm underline">Médico</p>
+        <p className="text-sm underline">Profissionais e Instituições</p>
         <p className="text-sm">
-          a. Garantir a inscrição do Médico no Programa;
+          a. Garantir o cadastro do Profissional de Saúde e do Profissional
+          Médico no Programa;
         </p>
         <p className="text-sm">
-          b. Verificar a elegibilidade do Médico ao Programa;
+          b. Verificar a elegibilidade do Profissional Médico ao Programa;
         </p>
         <p className="text-sm">
-          c. Contatar o Médico a respeito de seu cadastro, ou de seus Pacientes;
+          c. Verificar a elegibilidade do Profissional de Saúde ao Programa, o
+          que inclui a aprovação pelo Profissional Médico cadastrado;
         </p>
         <p className="text-sm">
-          d. Informar ao Médico as unidades diagnósticas credenciadas e
-          disponíveis na região de seu atendimento;
+          d. Contatar os Profissionais ou Instituições a respeito de seu
+          cadastro, ou de seus Pacientes;
         </p>
         <p className="text-sm">
           e. Garantir o acesso do Médico ao resultado da análise dos testes HER2
           e Claudina 18.2;
         </p>
         <p className="text-sm">
-          f. Garantir a continuidade do Programa em casos de alterações
+          f. Garantir o acesso dos Profissionais ou Instituições solicitante ao
+          resultado da análise dos testes HER2 e Claudina 18.2;
+        </p>
+        <p className="text-sm">
+          g. Garantir a continuidade do Programa em casos de alterações
           societárias envolvendo a Astellas;
         </p>
-        <p className="text-sm">
-          g. Cumprir com obrigações legais ou regulatórias, exercer direitos em
-          contrato ou processo de qualquer natureza, ou cumprir com ordem de
-          autoridade competente.
-        </p>
-        <p className="text-sm underline">Profissional de Saúde</p>
-        <p className="text-sm">a. Garantir o cadastro no Programa</p>
-        <p className="text-sm">
-          b. Verificar a elegibilidade ao Programa, o que inclui a aprovação
-          pelo Médico cadastrado;
-        </p>
-        <p className="text-sm">
-          c. Contatar o Profissional a respeito de seu cadastro;
-        </p>
-        <p className="text-sm">
-          d. Informar ao Profissional as unidades diagnósticas credenciadas e
-          disponíveis na região;
-        </p>
-        <p className="text-sm">
-          e. Garantir o acesso do Profissional ao resultado da análise dos
-          testes HER2 e Claudina 18.2;
-        </p>
-        <p className="text-sm">
-          f. Garantir a continuidade do Programa em casos de alterações
-          societárias envolvendo a Astellas;
-        </p>
-        <p className="text-sm">
-          g. Cumprir com obrigações legais ou regulatórias, exercer direitos em
+        <p>
+          h. Cumprir com obrigações legais ou regulatórias, exercer direitos em
           contrato ou processo de qualquer natureza, ou cumprir com ordem de
           autoridade competente.
         </p>
@@ -282,20 +278,22 @@ export function DiagnosticTerms() {
           elegíveis;
         </p>
         <p className="text-sm">
-          d. Transportar o material coletado por meio de empresa logística
-          determinada pela Astellas e/ou Gestora;
+          d. Informar ao Profissional as unidades diagnósticas credenciadas e
+          disponíveis na região;
         </p>
         <p className="text-sm">
-          e. Garantir a análise da amostra para a realização dos testes
-          elegíveis;
+          e. Garantir o acesso do Profissional ao resultado da análise dos
+          testes HER2 e Claudina 18.2;
         </p>
         <p className="text-sm">
-          f. Garantir o acesso do Paciente ao resultado dos testes realizados;
+          f. Garantir a continuidade do Programa em casos de alterações
+          societárias envolvendo a Astellas;
         </p>
         <p className="text-sm">
-          g. Garantir o processamento dos resultados da análise para criação de
-          relatório aos Profissionais e ao Paciente;
+          g. Garantir o processamento dos resultados da análise para criação do
+          laudo aos Profissionais e ao Paciente;
         </p>
+        <p className="text-sm underline">Paciente</p>
         <p className="text-sm">
           h. Garantir o processamento dos resultados da análise de forma
           estatística e anonimizada, para fins de pesquisa clínica e relatórios
