@@ -86,6 +86,8 @@ export default function PreRegister() {
     DiseaseName: "",
     Mobilephone: "",
     DoctorId: "",
+    TookExam: "",
+    ExamStatus: "",
   });
 
   useEffect(() => {
@@ -129,7 +131,7 @@ export default function PreRegister() {
   };
 
   const resgisterPatient = () => {
-    const { doneHER2, resultHER2, ...filteredData } = preRegisterData;
+    const { ...filteredData } = preRegisterData;
 
     const dataToSend = {
       ...filteredData,
@@ -198,6 +200,8 @@ export default function PreRegister() {
       DiseaseName: "",
       Mobilephone: "",
       DoctorId: "",
+      TookExam: "",
+      ExamStatus: "",
     });
   };
 
@@ -210,15 +214,15 @@ export default function PreRegister() {
       updatedData.CPF = value;
     }
 
-    if (name === "doneHER2") {
+    if (name === "TookExam") {
       updatedData[name] = value;
       if (value === "Não") {
-        updatedData.resultHER2 = "";
+        updatedData.ExamStatus = "";
         updatedData.ExamDefinitionName = "Claudina 18.2 + HER2";
       } else {
         updatedData.ExamDefinitionName = "";
       }
-    } else if (name === "resultHER2" && preRegisterData.doneHER2 === "Sim") {
+    } else if (name === "ExamStatus" && preRegisterData.TookExam === "Sim") {
       updatedData[name] = value;
       if (value === "HER2 negativo") {
         updatedData.ExamDefinitionName = "Claudina 18.2";
@@ -434,8 +438,8 @@ export default function PreRegister() {
   };
 
   const isHER2Positive =
-    preRegisterData.doneHER2 === "Sim" &&
-    preRegisterData.resultHER2 === "HER2 positivo";
+    preRegisterData.TookExam === "Sim" &&
+    preRegisterData.ExamStatus === "HER2 positivo";
 
   const isStep1Valid = () => {
     return (
@@ -550,27 +554,27 @@ export default function PreRegister() {
             <>
               <div className="grid grid-cols-1 md:grid md:grid-cols-3 gap-5">
                 <CustomSelect
-                  name="doneHER2"
+                  name="TookExam"
                   label="Paciente já realizou HER2?"
                   onChange={handleChange}
                   options={[
                     { value: "Sim", id: "Sim" },
                     { value: "Não", id: "Não" },
                   ]}
-                  value={preRegisterData.doneHER2}
+                  value={preRegisterData.TookExam}
                 />
                 <CustomSelect
-                  name="resultHER2"
+                  name="ExamStatus"
                   label="Incluir resultado do HER2"
                   onChange={handleChange}
                   options={[
                     { value: "HER2 positivo", id: "HER2 positivo" },
                     { value: "HER2 negativo", id: "HER2 negativo" },
                   ]}
-                  value={preRegisterData.resultHER2}
+                  value={preRegisterData.ExamStatus}
                   disabled={
-                    preRegisterData.doneHER2 === "Não" ||
-                    !preRegisterData.doneHER2
+                    preRegisterData.TookExam === "Não" ||
+                    !preRegisterData.TookExam
                   }
                 />
                 <CustomSelect
@@ -579,7 +583,7 @@ export default function PreRegister() {
                   onChange={handleChange}
                   options={doctorId}
                   value={preRegisterData.DoctorId}
-                  disabled={isHER2Positive || !preRegisterData.doneHER2}
+                  disabled={isHER2Positive || !preRegisterData.TookExam}
                 />
               </div>
               {isHER2Positive ? (

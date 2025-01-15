@@ -96,10 +96,5 @@ export const routes: IRouteProps = {
       text: "Solicitação de Profissional da Saúde",
       icon: IoMegaphoneOutline,
     },
-    {
-      route: "/dashboard/oncoclinica/inativation",
-      text: "Inativação de Profissional da Saúde",
-      icon: MdOutlineCancel,
-    },
   ],
 };

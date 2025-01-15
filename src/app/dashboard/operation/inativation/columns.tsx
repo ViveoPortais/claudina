@@ -1,11 +1,13 @@
 "use client";
 
-import { useSolicitation } from "@/hooks/useModal";
+import { Button } from "@/components/ui/button";
+import { useSendLaudo, useSolicitation } from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
-import { downloadingLaudo } from "@/services/diagnostic";
+import { downloadingLaudo, downloadingLaudoCPf } from "@/services/diagnostic";
 import { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
-import { FaDownload } from "react-icons/fa";
+import { FaDownload, FaUpload } from "react-icons/fa";
+import { TbReportAnalytics } from "react-icons/tb";
 import { toast } from "react-toastify";
 
 export type Report2 = {
@@ -21,6 +23,7 @@ export type Report2 = {
   customDateTime2: string;
   createdOn: string;
   examDefinition: string;
+  logisticsStatus: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -236,6 +239,98 @@ export const columns: ColumnDef<Report2>[] = [
         return dayjs(report.logisticsDateForecast).format("DD/MM/YYYY");
       }
       return "";
+    },
+  },
+  {
+    accessorKey: "Laudos",
+    header: "Laudos",
+
+    cell: ({ row }) => {
+      const report = row.original;
+      const sendLaudo = useSendLaudo();
+      const auth = useSession();
+
+      const handleOpen = () => {
+        sendLaudo.openModal(true);
+        if (report) {
+          auth.setCpfLaudo(report.cpf);
+          auth.setNameLaudo(report.namePatient);
+        }
+      };
+
+      const handleDownloadCPF = () => {
+        const data = {
+          programcode: "985",
+          cpf: "633.345.808-22",
+          flagStringMap: "#REPORT_TKC",
+        };
+        downloadingLaudoCPf(data as any)
+          .then((response) => {
+            if (
+              !response ||
+              !Array.isArray(response) ||
+              response.length === 0
+            ) {
+              toast.error("Erro no download dos laudos");
+              return;
+            }
+
+            response.forEach((laudo, index) => {
+              if (!laudo.documentBody) {
+                toast.error(`Erro no download do laudo ${index + 1}`);
+                return;
+              }
+
+              const base64String = laudo.documentBody;
+              const byteCharacters = atob(base64String);
+              const byteNumbers = new Array(byteCharacters.length);
+              for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+              }
+              const byteArray = new Uint8Array(byteNumbers);
+              const blob = new Blob([byteArray], {
+                type: laudo.contentType || "application/octet-stream",
+              });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = laudo.fileName || `downloaded_file_${index + 1}.pdf`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            });
+
+            toast.success("Laudos baixados com sucesso");
+          })
+          .catch((error) => {
+            toast.error("Erro no download dos laudos");
+          });
+      };
+
+      return (
+        <div>
+          {report.logisticsStatus === "Ausência de Laudo anatomopatológico" ? (
+            <>
+              <Button size="sm" onClick={handleOpen}>
+                <FaUpload size={19} />
+              </Button>
+            </>
+          ) : report.logisticsStatus === "Laudo disponível" ? (
+            <Button
+              size="sm"
+              className="bg-main-blue hover:bg-main-blue-dark"
+              onClick={handleDownloadCPF}
+            >
+              <FaDownload size={19} />
+            </Button>
+          ) : (
+            <Button size="sm" disabled className="bg-main-orange">
+              <TbReportAnalytics size={19} />
+            </Button>
+          )}
+        </div>
+      );
     },
   },
   {

@@ -188,7 +188,7 @@ export function Header() {
                 />
               </div>
             </SheetTrigger>
-            <ModeToggle />
+            {/* <ModeToggle /> */}
           </div>
 
           <SheetContent className="m-4 rounded-lg h-auto">

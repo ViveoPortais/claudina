@@ -291,14 +291,6 @@ export function Solicitation() {
         {hasPending !== null && !hasPending && (
           <>
             <div className="mt-5 grid grid-cols-1 gap-4">
-              <div>
-                <Input
-                  placeholder="Upload do pedido médico"
-                  name="doctorRequest"
-                  type="file"
-                  onChange={(e: any) => handleFileChange(e, "#DOCTOR_REQUEST")}
-                />
-              </div>
               {(auth.examDefinition === "HER2" ||
                 auth.examDefinition === "Claudina 18.2 + HER2") && (
                 <div className="grid grid-cols-2 gap-4">

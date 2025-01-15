@@ -216,7 +216,7 @@ export const columns: ColumnDef<Report2>[] = [
               <FaDownload size={19} />
             </Button>
           ) : (
-            <Button size="sm" disabled className="bg-green-600">
+            <Button size="sm" disabled className="bg-main-orange">
               <TbReportAnalytics size={19} />
             </Button>
           )}
