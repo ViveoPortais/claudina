@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { CustomSelect } from "./custom/CustomSelect";
 import { UFlist } from "@/helpers/select-filters";
 import { useState } from "react";
-import { addDoctorCrm } from "@/services/doctor";
+import { addDoctorCrm, getDoctorbyCRM } from "@/services/doctor";
 import { toast } from "react-toastify";
 import { useRegisterOncoCRM } from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
@@ -15,6 +15,7 @@ import ReactInputMask from "react-input-mask";
 export function CrmRegister() {
   const refresh = useSession();
   const registerOncoCRM = useRegisterOncoCRM();
+  const [isDoctorInfoLoading, setIsDoctorInfoLoading] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [preRegisterData, setPreRegisterData] = useState<any>({
     DoctorName: "",
@@ -65,6 +66,40 @@ export function CrmRegister() {
     }
   };
 
+  async function getDoctorInfo() {
+    setIsDoctorInfoLoading(true);
+
+    try {
+      const response = await getDoctorbyCRM({
+        crm: preRegisterData.LicenseNumber,
+        ufcrm: preRegisterData.LicenseState,
+      });
+
+      if (!response.name) {
+        toast.error(
+          "CRM Inválido, digite um CRM válido para prosseguir com o cadastro"
+        );
+        setPreRegisterData({
+          ...preRegisterData,
+          LicenseNumber: "",
+          LicenseState: "",
+        });
+        setIsDoctorInfoLoading(false);
+        return;
+      }
+
+      setPreRegisterData({
+        ...preRegisterData,
+        DoctorName: response.name,
+      });
+
+      setIsDoctorInfoLoading(false);
+    } catch {
+      toast.error("Erro ao buscar dados");
+      setIsDoctorInfoLoading(false);
+    }
+  }
+
   return (
     <DialogContent className="md:w-[40%] rounded-lg lg:max-w-[80vw]  border border-none">
       <div className="w-full flex flex-col gap-1 text-3xl md:text-2xl">
@@ -97,6 +132,7 @@ export function CrmRegister() {
                 LicenseState: e.target.value,
               })
             }
+            onBlur={getDoctorInfo}
           />
 
           <Input
@@ -111,6 +147,8 @@ export function CrmRegister() {
             }}
             value={preRegisterData.DoctorName}
             maxLength={50}
+            isLoading={isDoctorInfoLoading}
+            disabled
           />
           <ReactInputMask
             mask="(99) 99999-9999"
@@ -152,13 +190,12 @@ export function CrmRegister() {
           variant="tertiary"
           onClick={addDoctor}
           disabled={
-            !(
-              preRegisterData.DoctorName &&
-              preRegisterData.LicenseNumber &&
-              preRegisterData.LicenseState &&
-              preRegisterData.MobileNumber &&
-              isEmailValid
-            )
+            !preRegisterData.LicenseNumber ||
+            !preRegisterData.LicenseState ||
+            !preRegisterData.DoctorName ||
+            !preRegisterData.EmailAddress1 ||
+            !preRegisterData.MobileNumber ||
+            !isEmailValid
           }
         >
           Cadastrar

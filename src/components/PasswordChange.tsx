@@ -23,12 +23,15 @@ export function PasswordChange() {
     Programcode: "985",
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSendQuestions((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+
+    if (value.length <= 12) {
+      setSendQuestions((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = () => {
@@ -48,7 +51,15 @@ export function PasswordChange() {
         }
       })
       .catch((err) => {
-        toast.error("Erro ao alterar senha!");
+        if (err.response?.data && Array.isArray(err.response.data)) {
+          err.response.data.forEach((error: any) => {
+            if (!error.isValid) {
+              toast.error(error.message);
+            }
+          });
+        } else {
+          toast.error("Erro ao alterar senha!");
+        }
       });
   };
 
@@ -77,6 +88,7 @@ export function PasswordChange() {
           value={sendQuestions.OldPassword}
           required
           onChange={handleChange}
+          maxLength={12}
         />
         <Input
           type="password"
@@ -85,6 +97,7 @@ export function PasswordChange() {
           value={sendQuestions.NewPassword}
           required
           onChange={handleChange}
+          maxLength={12}
         />
         <Input
           type="password"
@@ -93,6 +106,7 @@ export function PasswordChange() {
           value={sendQuestions.ConfirmPassword}
           required
           onChange={handleChange}
+          maxLength={12}
         />
       </div>
 

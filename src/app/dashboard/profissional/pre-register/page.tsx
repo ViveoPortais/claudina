@@ -489,7 +489,8 @@ export default function PreRegister() {
       preRegisterData.AccountSettingsByProgram.AddressDistrict &&
       preRegisterData.AccountSettingsByProgram.AddressCity &&
       preRegisterData.AccountSettingsByProgram.AddressState &&
-      preRegisterData.AccountSettingsByProgram.AddressNumber
+      preRegisterData.AccountSettingsByProgram.AddressNumber &&
+      preRegisterData.LogisticsSchedule.DateForCollecting
     );
   };
 
@@ -931,6 +932,7 @@ export default function PreRegister() {
                 />
 
                 <Input
+                  required
                   type="date"
                   value={preRegisterData.LogisticsSchedule.DateForCollecting}
                   name="dateForCollecting"
@@ -955,12 +957,8 @@ export default function PreRegister() {
                   onChange={handleChange}
                   options={[
                     {
-                      value: "Fleury (Matriz) - 5 dias corridos",
-                      id: "FLEURY (MATRIZ) (H27848)",
-                    },
-                    {
-                      value: "Dasa - 7 dias úteis",
-                      id: "Bronstein - Botafogo II",
+                      value: "Grupo Oncoclínicas",
+                      id: "Grupo Oncoclínicas)",
                     },
                   ]}
                   value={preRegisterData.LaboratoryName}

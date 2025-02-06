@@ -3,16 +3,25 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { talkwithus } from "@/services/users";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const router = useRouter();
 
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [program, setProgram] = useState("");
+  const [hasNameError, setHasNameError] = useState(false);
+  const [data, setData] = useState({
+    Name: "",
+    EmailAddress: "",
+    Body: "",
+    programCode: "985",
+  });
 
   const toggleNavbar = () => {
     setNavbarOpen(!navbarOpen);
@@ -20,6 +29,58 @@ export default function Home() {
 
   const handleProgram = (link: any) => {
     setProgram(link);
+  };
+
+  const sendEmail = () => {
+    talkwithus(data)
+      .then((res) => {
+        console.log(data);
+        toast.success("E-mail enviado com sucesso!");
+        setData({
+          Name: "",
+          EmailAddress: "",
+          Body: "",
+          programCode: "985",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Erro ao enviar e-mail");
+      });
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+
+    if (name === "Name") {
+      if (value.length > 0 && !validateName(value)) {
+        if (!hasNameError) {
+          toast.error("Nome inválido. Use apenas letras e espaços.");
+          setHasNameError(true);
+        }
+        return;
+      } else {
+        setHasNameError(false);
+      }
+    }
+
+    setData({ ...data, [name]: value });
+  };
+
+  const validateName = (name: string): boolean => {
+    const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+    return nameRegex.test(name.trim());
+  };
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(email.trim())) {
+      toast.error("E-mail inválido");
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -583,24 +644,39 @@ export default function Home() {
           <div className="w-full grid grid-cols-2 mt-10">
             <div className="border border-gray-200 py-10 px-10 rounded-md">
               <Input
-                name="nome"
+                name="Name"
                 placeholder="Nome"
                 className="w-full mt-5"
                 required
+                value={data.Name}
+                onChange={handleChange}
               />
               <Input
-                name="email"
+                name="EmailAddress"
                 placeholder="E-mail"
                 className="w-full mt-5"
                 required
+                value={data.EmailAddress}
+                onChange={handleChange}
+                onBlur={(e) => validateEmail(e.target.value)}
               />
               <Textarea
-                name="mensagem"
+                name="Body"
                 placeholder="Mensagem"
                 className="w-full mt-5"
                 required
+                value={data.Body}
+                onChange={handleChange}
               />
-              <Button size={"lg"} variant={`tertiary`} className="w-full mt-5">
+              <Button
+                onClick={sendEmail}
+                size={"lg"}
+                variant={`tertiary`}
+                className="w-full mt-5"
+                disabled={
+                  !data.Name || !data.EmailAddress || !data.Body ? true : false
+                }
+              >
                 Enviar
               </Button>
             </div>
