@@ -80,6 +80,9 @@ export default function PreRegister() {
       PreferredTimeStringMap: {
         OptionName: "",
       },
+      LocalTypeStringMap: {
+        OptionName: "Hospital/Clínica",
+      },
       ResponsibleForReceiving: "",
       ResponsibleTelephoneWithdrawal: "",
       DateForCollecting: "",
