@@ -11,6 +11,18 @@ export interface ILoginData {
   // healthProgramCode: string;
 }
 
+export interface ILoginDataOneStep {
+  email: string;
+  password: string;
+  // healthProgramCode: string;
+}
+
+export interface ILoginDataOneStep {
+  Email: string;
+  Password: string;
+  HealthProgramCode: string;
+}
+
 export interface IChangePasswordData {
   Email: string;
   OldPassword: string;

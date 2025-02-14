@@ -14,12 +14,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InputOTPDemo } from "@/components/custom/Input-OTP";
-import { login } from "@/services/auth";
+import { changePasswordVerify, login, loginOneStep } from "@/services/auth";
 import { BsChatLeftText } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { set } from "date-fns";
 import { Loading } from "@/components/custom/Loading";
+import { ILoginDataOneStep } from "@/types";
 
 const signInValidationSchema = z.object({
   email: z.string().min(1, { message: "Insira seu email" }).email({
@@ -48,6 +49,11 @@ export default function SignIn() {
     null
   );
   const [timeLeft, setTimeLeft] = useState(5);
+  const [data, setData] = useState({
+    Email: "",
+    Password: "",
+    HealthProgramCode: "985",
+  });
 
   const {
     register,
@@ -83,8 +89,16 @@ export default function SignIn() {
     return "treatment";
   }
 
-  const handleTwoFactorAuth = () => {
-    setTwoFa(true);
+  const handleTwoFactorAuth = (data: SignInValidationProps) => {
+    const { email, password } = data;
+    setData({ Email: email, Password: password, HealthProgramCode: "985" });
+    changePasswordVerify(data).then((res) => {
+      if (res.senhaFracaAlterada) {
+        handleLoginOneFactore(data);
+      } else {
+        setTwoFa(true);
+      }
+    });
   };
 
   const handleSendCode = async (data: SignInValidationProps) => {
@@ -103,7 +117,32 @@ export default function SignIn() {
     }
   };
 
-  async function handleLogin(data: SignInValidationProps) {
+  async function handleLoginOneFactore(data: SignInValidationProps) {
+    setIsLoading(true);
+    try {
+      const { email, password } = data;
+      setData({ Email: email, Password: password, HealthProgramCode: "985" });
+      const response = await loginOneStep(data as any);
+
+      const role = handleUserRole(response.role);
+      auth.setName(response.name);
+      auth.setUserNameLab(response.userName);
+      auth.setEmail(response.userName);
+      auth.setToken(response.token);
+      api.defaults.headers.Authorization = `Bearer ${response.token}`;
+      auth.setRole(role);
+      auth.setSession(dayjs().format("YYYY-MM-DD HH:mm:ss"));
+      auth.onLogin();
+      router.push(`/dashboard/${role}`);
+      toast.success("Login efetuado com sucesso");
+    } catch (err: any) {
+      toast.error(err.response.data);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleLoginTwoFactore(data: SignInValidationProps) {
     setIsLoading(true);
     try {
       const response = await login({
@@ -270,7 +309,7 @@ export default function SignIn() {
                 className="w-full mt-4"
                 type="submit"
                 onClick={() => {
-                  handleSubmit(handleLogin)();
+                  handleSubmit(handleLoginTwoFactore)();
                 }}
                 disabled={code.length < 4 || isLoading}
               >

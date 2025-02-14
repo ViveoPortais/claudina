@@ -31,7 +31,7 @@ export function CrmRegister() {
     addDoctorCrm(preRegisterData)
       .then((res) => {
         if (!res.isValidData) {
-          toast.error("Não foi possível cadastrar o médico");
+          toast.error(res.value);
         }
         if (res.isValidData) {
           toast.success("Médico cadastrado com sucesso!");

@@ -101,7 +101,7 @@ export default function PreRegister() {
     Contact: "",
     Sector: "",
     TookExam: "",
-    ExamStatus: "",
+    ExamStatusName: "",
     SampleInLaboratory: false,
   });
 
@@ -263,7 +263,7 @@ export default function PreRegister() {
       Sector: "",
       SampleInLaboratory: false,
       TookExam: "",
-      ExamStatus: "",
+      ExamStatusName: "",
     });
   };
 
@@ -279,12 +279,15 @@ export default function PreRegister() {
     if (name === "TookExam") {
       updatedData[name] = value;
       if (value === "Não") {
-        updatedData.ExamStatus = "";
+        updatedData.ExamStatusName = "";
         updatedData.ExamDefinitionName = "Claudina 18.2 + HER2";
       } else {
         updatedData.ExamDefinitionName = "";
       }
-    } else if (name === "ExamStatus" && preRegisterData.TookExam === "Sim") {
+    } else if (
+      name === "ExamStatusName" &&
+      preRegisterData.TookExam === "Sim"
+    ) {
       updatedData[name] = value;
       if (value === "HER2 negativo") {
         updatedData.ExamDefinitionName = "Claudina 18.2";
@@ -467,7 +470,7 @@ export default function PreRegister() {
 
   const isHER2Positive =
     preRegisterData.TookExam === "Sim" &&
-    preRegisterData.ExamStatus === "HER2 positivo";
+    preRegisterData.ExamStatusName === "HER2 positivo";
 
   const isStep1Valid = () => {
     return (
@@ -592,14 +595,14 @@ export default function PreRegister() {
                   value={preRegisterData.TookExam}
                 />
                 <CustomSelect
-                  name="ExamStatus"
+                  name="ExamStatusName"
                   label="Incluir resultado do HER2"
                   onChange={handleChange}
                   options={[
                     { value: "HER2 positivo", id: "HER2 positivo" },
                     { value: "HER2 negativo", id: "HER2 negativo" },
                   ]}
-                  value={preRegisterData.ExamStatus}
+                  value={preRegisterData.ExamStatusName}
                   disabled={
                     preRegisterData.TookExam === "Não" ||
                     !preRegisterData.TookExam

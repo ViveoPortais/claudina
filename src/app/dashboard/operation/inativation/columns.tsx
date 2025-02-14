@@ -261,7 +261,7 @@ export const columns: ColumnDef<Report2>[] = [
       const handleDownloadCPF = () => {
         const data = {
           programcode: "985",
-          cpf: "633.345.808-22",
+          cpf: report.cpf,
           flagStringMap: "#REPORT_TKC",
         };
         downloadingLaudoCPf(data as any)
