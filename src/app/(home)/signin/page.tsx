@@ -85,6 +85,9 @@ export default function SignIn() {
     if (normalizedRole.includes("oncoclinica")) {
       return "oncoclinica";
     }
+    if (normalizedRole.includes("admin claudinova")) {
+      return "admin";
+    }
 
     return "treatment";
   }

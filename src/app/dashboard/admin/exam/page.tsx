@@ -1,36 +1,40 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { columns } from "./columns";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getDiagnosticsLaboratory } from "@/services/diagnostic";
-import { Solicitation } from "@/components/Solicitation";
+import { getExam } from "@/services/diagnostic";
+import {
+  useInsufficientSample,
+  useSendLaudo,
+  useUnidentifiedSample,
+} from "@/hooks/useModal";
+import { Dialog } from "@radix-ui/react-dialog";
+import { SendLaudo } from "@/components/SendLaudo";
+import { UnidentifiedSample } from "@/components/UnidentifiedSample";
+import { Insufficient } from "@/components/Insufficient";
 import useSession from "@/hooks/useSession";
-import { set } from "date-fns";
-import { ModalLogistocaReversa } from "@/components/ModalLogistocaReversa";
 
 export default function Diagnostic() {
-  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const sendLaudo = useSendLaudo();
+  const insufficientSample = useInsufficientSample();
+  const unidentifiedSample = useUnidentifiedSample();
   const [filter, setFilter] = useState("");
-  const reloading = useSession();
+  const loading = useSession();
 
   const otherProfissional = () => {
-    reloading.setRefresh(true);
-    setIsLoading(true);
-    getDiagnosticsLaboratory()
+    getExam()
       .then((res) => {
-        if (res.data === null || res.totalSize === 0) {
-          setData([]);
-          setFilteredData([]);
-          toast.info("Nenhuma solicitação encontrada.");
+        if (res.data === null) {
+          toast.info("Nenhum dado encontrado");
           return;
         }
-
         const mapId = res.data.map((item: any) => {
           return {
             ...item,
@@ -42,10 +46,6 @@ export default function Diagnostic() {
       })
       .catch((err) => {
         toast.error("Erro ao carregar os dados");
-      })
-      .finally(() => {
-        reloading.setRefresh(false);
-        setIsLoading(false);
       });
   };
 
@@ -53,11 +53,8 @@ export default function Diagnostic() {
     const filtered = data.filter((item: any) => {
       const lowerCaseFilter = filter.toLowerCase();
       return (
-        item.nameDoctor.toLowerCase().includes(lowerCaseFilter) ||
-        item.licenseNumber.toLowerCase().includes(lowerCaseFilter) ||
-        item.licenseState.toLowerCase().includes(lowerCaseFilter) ||
-        item.namePatient.toLowerCase().includes(lowerCaseFilter) ||
         item.cpf.toLowerCase().includes(lowerCaseFilter) ||
+        item.namePatient.toLowerCase().includes(lowerCaseFilter) ||
         item.diseaseName.toLowerCase().includes(lowerCaseFilter) ||
         item.logisticsStatus.toLowerCase().includes(lowerCaseFilter)
       );
@@ -71,21 +68,24 @@ export default function Diagnostic() {
     setFilter("");
   };
 
-  useEffect(() => {
-    otherProfissional();
-  }, []);
+  // useEffect(() => {
+  //   otherProfissional();
+  // }, []);
 
   useEffect(() => {
-    if (reloading.refresh) {
+    if (!loading.refresh && data.length === 0) {
       otherProfissional();
     }
-  }, [reloading.refresh]);
+  }, [loading.refresh]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mt-8 lg:mt-0">
       <div className="flex justify-start text-xl md:text-2xl text-main-blue">
-        <span className="font-georgia">Acompanhamento de Solicitação</span>
+        <span className="font-georgia">
+          Acompanhamento de Solicitação de Exames
+        </span>
       </div>
+
       <div className="mt-10 w-full">
         <div className="grid grid-cols-1 md:grid md:grid-cols-5 gap-5 mb-10 items-center ">
           <div className="md:ml-6">
@@ -101,14 +101,15 @@ export default function Diagnostic() {
             <Button
               onClick={Buttonfilter}
               className="md:w-60 w-full py-3"
+              type="submit"
               variant="tertiary"
             >
               Buscar
             </Button>
-
             <Button
               onClick={clearFilter}
               className="md:w-60 w-full py-3"
+              type="submit"
               variant="tertiary"
             >
               Limpar
@@ -117,9 +118,28 @@ export default function Diagnostic() {
         </div>
       </div>
 
-      <DataTable columns={columns} isLoading={isLoading} data={filteredData} />
-      <Solicitation />
-      <ModalLogistocaReversa />
+      <DataTable columns={columns} data={filteredData} />
+      <div>
+        <Dialog
+          open={insufficientSample.isModalOpen}
+          onOpenChange={insufficientSample.openModal}
+        >
+          <Insufficient />
+        </Dialog>
+      </div>
+      <div>
+        <Dialog
+          open={unidentifiedSample.isModalOpen}
+          onOpenChange={unidentifiedSample.openModal}
+        >
+          <UnidentifiedSample />
+        </Dialog>
+      </div>
+      <div>
+        <Dialog open={sendLaudo.isModalOpen} onOpenChange={sendLaudo.openModal}>
+          <SendLaudo />
+        </Dialog>
+      </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { MdOutlineDescription, MdOutlineFileUpload } from "react-icons/md";
 import { FaCheckDouble, FaDownload, FaUpload } from "react-icons/fa";
 import {
   useInsufficientSample,
+  useModalLogisticaReversaConfirmation,
   useSendLaudo,
   useSolicitation,
   useUnidentifiedSample,
@@ -17,6 +18,7 @@ import useSession from "@/hooks/useSession";
 import { downloadingLaudo, downloadingLaudoCPf } from "@/services/diagnostic";
 import { toast } from "react-toastify";
 import { TbReportAnalytics } from "react-icons/tb";
+import { useEffect } from "react";
 
 export type Report2 = {
   id: string;
@@ -30,6 +32,9 @@ export type Report2 = {
   logisticsStatus: string;
   logisticsDateForecast: string;
   statusSms: string;
+  returnStatusName: string;
+  diagnosticId: string;
+  trackingCode: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -103,6 +108,40 @@ export const columns: ColumnDef<Report2>[] = [
     },
   },
   {
+    accessorKey: "returnStatusName",
+    header: "Status da Devolução",
+    cell: ({ row }) => {
+      const params = row.original;
+      const modalLogisticaReversa = useModalLogisticaReversaConfirmation();
+      const dataStorage = useSession();
+
+      const handleOpenModal = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setConfirmCode(params.diagnosticId);
+        dataStorage.setTrackingCode(params.trackingCode);
+        modalLogisticaReversa.openModal(true);
+        console.log(params.diagnosticId);
+      };
+
+      return (
+        <div>
+          {params.returnStatusName === "Devolução em andamento" ? (
+            <div
+              className="cursor-pointer flex hover:scale-110 transition-transform duration-200 text-yellow-500"
+              onClick={handleOpenModal}
+            >
+              <span className="hover:text-enzimaisBlue">
+                {params.returnStatusName}
+              </span>
+            </div>
+          ) : (
+            <span onClick={handleOpenModal}>{params.returnStatusName}</span>
+          )}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "examDefinition",
     header: "Nome do Exame Solicitado",
   },
@@ -162,13 +201,13 @@ export const columns: ColumnDef<Report2>[] = [
               !Array.isArray(response) ||
               response.length === 0
             ) {
-              toast.error("Erro no download dos laudos");
+              toast.error("Laudo indisponível");
               return;
             }
 
             response.forEach((laudo, index) => {
               if (!laudo.documentBody) {
-                toast.error(`Erro no download do laudo ${index + 1}`);
+                toast.error(`Laudo indisponível ${index + 1}`);
                 return;
               }
 
@@ -195,7 +234,7 @@ export const columns: ColumnDef<Report2>[] = [
             toast.success("Laudos baixados com sucesso");
           })
           .catch((error) => {
-            toast.error("Erro no download dos laudos");
+            toast.error("Laudo indisponível");
           });
       };
 

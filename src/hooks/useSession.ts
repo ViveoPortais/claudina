@@ -24,6 +24,14 @@ type SessionStore = {
   namePatient?: string;
   cpfPatient?: string;
   examDefinition?: string;
+  id?: string;
+  postagem?: any;
+  trackingCode?: string;
+  confirmCode?: string;
+  setConfirmCode: (confirmCode: string) => void;
+  setTrackingCode: (trackingCode: string) => void;
+  setPostagem: (postagem: any) => void;
+  setId: (id: string) => void;
   setExamDefinition: (examDefinition: string) => void;
   setDateTime: (date: string) => void;
   setHasPending: (hasPending: boolean) => void;
@@ -72,6 +80,14 @@ const useSession = create(
       cpfPatient: "",
       userNameLab: "",
       examDefinition: "",
+      id: "",
+      postagem: "",
+      trackingCode: "",
+      confirmCode: "",
+      setConfirmCode: (confirmCode) => set({ confirmCode: confirmCode }),
+      setTrackingCode: (trackingCode) => set({ trackingCode: trackingCode }),
+      setPostagem: (postagem) => set({ postagem: postagem }),
+      setId: (id) => set({ id: id }),
       setExamDefinition: (examDefinition) =>
         set({ examDefinition: examDefinition }),
       setDateTime: (date) => set({ date: date }),
@@ -115,6 +131,13 @@ const useSession = create(
           date: "",
           hasPending: false,
           userNameLab: "",
+          refresh: false,
+          nameInactive: "",
+          crmInactive: "",
+          examDefinition: "",
+          id: "",
+          postagem: "",
+          trackingCode: "",
         }),
       setChangePassword: (changePassword) =>
         set({ changePassword: changePassword }),

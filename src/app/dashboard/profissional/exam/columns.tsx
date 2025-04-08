@@ -162,13 +162,13 @@ export const columns: ColumnDef<Report2>[] = [
               !Array.isArray(response) ||
               response.length === 0
             ) {
-              toast.error("Erro no download dos laudos");
+              toast.error("Laudo indisponível");
               return;
             }
 
             response.forEach((laudo, index) => {
               if (!laudo.documentBody) {
-                toast.error(`Erro no download do laudo ${index + 1}`);
+                toast.error(`Laudo indisponível ${index + 1}`);
                 return;
               }
 
@@ -195,7 +195,7 @@ export const columns: ColumnDef<Report2>[] = [
             toast.success("Laudos baixados com sucesso");
           })
           .catch((error) => {
-            toast.error("Erro no download dos laudos");
+            toast.error("Laudo indisponível");
           });
       };
 

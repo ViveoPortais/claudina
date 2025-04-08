@@ -97,4 +97,16 @@ export const routes: IRouteProps = {
       icon: IoMegaphoneOutline,
     },
   ],
+  admin: [
+    {
+      route: "/dashboard/admin/starts",
+      text: "Início",
+      icon: IoHomeOutline,
+    },
+    {
+      route: "/dashboard/admin/exam",
+      text: "Acompanhamento de Solicitação de Exames",
+      icon: LuClipboardList,
+    },
+  ],
 };

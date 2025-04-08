@@ -68,6 +68,9 @@ export default function PreRegister() {
       PreferredTimeStringMap: {
         OptionName: "",
       },
+      LocalTypeStringMap: {
+        OptionName: localType,
+      },
       ResponsibleForReceiving: "",
       ResponsibleTelephoneWithdrawal: "",
       DateForCollecting: "",
@@ -85,7 +88,6 @@ export default function PreRegister() {
     CPF: "",
     DiseaseName: "",
     Mobilephone: "",
-    DoctorId: "",
     TookExam: "",
     ExamStatusName: "",
   });

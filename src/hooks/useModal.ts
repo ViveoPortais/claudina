@@ -89,3 +89,15 @@ export const useRegisterOncoCRM = create<ModalProps>((set) => ({
   isModalOpen: false,
   openModal: (action) => set(() => ({ isModalOpen: action })),
 }));
+
+export const useModalLogisticaReversa = create<ModalProps>((set) => ({
+  isModalOpen: false,
+  openModal: (action) => set(() => ({ isModalOpen: action })),
+}));
+
+export const useModalLogisticaReversaConfirmation = create<ModalProps>(
+  (set) => ({
+    isModalOpen: false,
+    openModal: (action) => set(() => ({ isModalOpen: action })),
+  })
+);

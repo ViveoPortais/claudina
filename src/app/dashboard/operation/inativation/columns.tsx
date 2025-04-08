@@ -1,7 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useSendLaudo, useSolicitation } from "@/hooks/useModal";
+import {
+  useModalLogisticaReversa,
+  useSendLaudo,
+  useSolicitation,
+} from "@/hooks/useModal";
 import useSession from "@/hooks/useSession";
 import { downloadingLaudo, downloadingLaudoCPf } from "@/services/diagnostic";
 import { ColumnDef } from "@tanstack/react-table";
@@ -24,6 +28,10 @@ export type Report2 = {
   createdOn: string;
   examDefinition: string;
   logisticsStatus: string;
+  returnStatusName: string;
+  id: string;
+  examStatusId: string;
+  diagnosticId: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -216,6 +224,38 @@ export const columns: ColumnDef<Report2>[] = [
     header: "Status do Protocolo",
   },
   {
+    accessorKey: "returnStatusName",
+    header: "Status da Devolução",
+    cell: ({ row }) => {
+      const params = row.original;
+      const modalLogisticaReversa = useModalLogisticaReversa();
+      const dataStorage = useSession();
+
+      const handleOpenModal = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setId(params.diagnosticId);
+        modalLogisticaReversa.openModal(true);
+      };
+
+      return (
+        <div>
+          {params.returnStatusName === "Logística Reversa" ? (
+            <div
+              className="cursor-pointer flex hover:scale-110 transition-transform duration-200 text-red-500"
+              onClick={handleOpenModal}
+            >
+              <span className="hover:text-enzimaisBlue">
+                {params.returnStatusName}
+              </span>
+            </div>
+          ) : (
+            <span onClick={handleOpenModal}>{params.returnStatusName}</span>
+          )}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "examDefinition",
     header: "Nome do Exame Solicitado",
   },
@@ -271,13 +311,13 @@ export const columns: ColumnDef<Report2>[] = [
               !Array.isArray(response) ||
               response.length === 0
             ) {
-              toast.error("Erro no download dos laudos");
+              toast.error("Laudo indisponível");
               return;
             }
 
             response.forEach((laudo, index) => {
               if (!laudo.documentBody) {
-                toast.error(`Erro no download do laudo ${index + 1}`);
+                toast.error(`Laudo indisponível ${index + 1}`);
                 return;
               }
 
@@ -304,7 +344,7 @@ export const columns: ColumnDef<Report2>[] = [
             toast.success("Laudos baixados com sucesso");
           })
           .catch((error) => {
-            toast.error("Erro no download dos laudos");
+            toast.error("Laudo indisponível");
           });
       };
 
@@ -348,7 +388,7 @@ export const columns: ColumnDef<Report2>[] = [
         downloadingLaudo(data as any)
           .then((response) => {
             if (!response.documentBody) {
-              toast.error("Erro no download do laudo");
+              toast.error("Laudo indisponível");
               return;
             }
 
@@ -374,7 +414,7 @@ export const columns: ColumnDef<Report2>[] = [
             toast.success("Laudo baixado com sucesso");
           })
           .catch((error) => {
-            toast.error("Erro no download do laudo");
+            toast.error("Laudo indisponível");
           });
       };
       return (

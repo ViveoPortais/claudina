@@ -17,6 +17,7 @@ import { SendLaudo } from "@/components/SendLaudo";
 import { UnidentifiedSample } from "@/components/UnidentifiedSample";
 import { Insufficient } from "@/components/Insufficient";
 import useSession from "@/hooks/useSession";
+import { ModalLogistocaReversaOnco } from "@/components/ModalLogistocaReversaOnco";
 
 export default function Diagnostic() {
   const [data, setData] = useState([]);
@@ -116,7 +117,7 @@ export default function Diagnostic() {
 
       <DataTable
         columns={columns}
-        isLoading={loading.refresh}
+        // isLoading={loading.refresh}
         data={filteredData}
       />
       <div>
@@ -140,6 +141,7 @@ export default function Diagnostic() {
           <SendLaudo />
         </Dialog>
       </div>
+      <ModalLogistocaReversaOnco />
     </div>
   );
 }
