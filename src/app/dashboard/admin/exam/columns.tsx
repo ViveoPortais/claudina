@@ -30,6 +30,7 @@ export type Report2 = {
   logisticsStatus: string;
   logisticsDateForecast: string;
   statusSms: string;
+  LaboratoryName: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -131,6 +132,10 @@ export const columns: ColumnDef<Report2>[] = [
       }
       return "";
     },
+  },
+  {
+    accessorKey: "LaboratoryName",
+    header: "Laboratório solicitado",
   },
 
   {

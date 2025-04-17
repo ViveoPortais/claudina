@@ -40,6 +40,8 @@ const doctorSignUpSchema = z.object({
   addressPostalCode: z.string().min(1, { message: "Informe o número" }),
   addressCity: z.string().min(1, { message: "Informe o número" }),
   addressState: z.string().min(1, { message: "Informe o número" }),
+  InstitutionId: z.string().min(1, { message: "Campo obrigatório" }),
+  InstitutionName: z.string().min(1, { message: "Campo obrigatório" }),
 
   // regulation: z.boolean().default(false).refine((val) => val === true, {
   //     message: "É necessário aceitar os termos de Consentimento e de Privacidade",
@@ -268,6 +270,54 @@ export function DoctorSignUp() {
           {errors.medicalSpecialty && (
             <span className="ml-2 w-full text-xs text-red-400 mt-1">
               {errors.medicalSpecialty.message}
+            </span>
+          )}
+        </div>
+        <div className="w-full">
+          <Controller
+            name="InstitutionId"
+            control={control}
+            render={({ field }) => (
+              <CustomSelect
+                label="Instituição"
+                options={[
+                  {
+                    id: "259D545B-5DD3-498D-923C-3E740CB60F7C",
+                    value: "Consultório/Clinica Privada",
+                  },
+                  {
+                    id: "70F9108D-B9E1-4F4E-8B29-E80506BF2385",
+                    value: "Instituição Privada",
+                  },
+                  {
+                    id: "D5CEBB5C-40C0-4C3C-8D3F-8EB1AFD053B6",
+                    value: "Instituição Pública",
+                  },
+                  {
+                    id: "A64C5A0B-E629-4605-AC1C-D0E526EAE23F",
+                    value: "Outra",
+                  },
+                ]}
+                {...field}
+              />
+            )}
+          />
+          {errors.InstitutionId && (
+            <span className="ml-2 w-full text-xs text-red-400 mt-1">
+              {errors.InstitutionId.message}
+            </span>
+          )}
+        </div>
+        <div className="w-full md:col-span-2">
+          <Input
+            type="text"
+            placeholder="Nome da Instituição"
+            isLoading={isDoctorInfoLoading}
+            {...register("InstitutionName", { required: "Campo obrigatório" })}
+          />
+          {errors.InstitutionName && (
+            <span className="ml-2 w-full text-xs text-red-400 mt-1">
+              {errors.InstitutionName.message}
             </span>
           )}
         </div>

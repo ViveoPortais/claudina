@@ -39,6 +39,8 @@ const doctorSignUpSchema = z.object({
   DoctorLicenseState: z.string().min(1, { message: "Insira seu nome" }),
   Mobilephone: z.string().min(1, { message: "Insira seu nome" }),
   Telefone: z.string().optional(),
+  InstitutionId: z.string().optional(),
+  InstitutionName: z.string().optional(),
 
   // regulation: z.boolean().default(false).refine((val) => val === true, {
   //     message: "É necessário aceitar os termos de Consentimento e de Privacidade",
@@ -211,6 +213,53 @@ export function OtherProfessionalModal() {
               </span>
             )}
           </div>
+        </div>
+        <div className="w-full">
+          <Controller
+            name="InstitutionId"
+            control={control}
+            render={({ field }) => (
+              <CustomSelect
+                label="Instituição"
+                options={[
+                  {
+                    id: "DC46A60B-A29A-4EC4-9255-3EE1094523F5",
+                    value: "Consultório/Clinica Privada",
+                  },
+                  {
+                    id: "BCF53058-E3AE-49BD-8CB3-7FA393BE78E3",
+                    value: "Instituição Privada",
+                  },
+                  {
+                    id: "F39F95C5-66B2-496B-9CDE-6BAC75564E9A",
+                    value: "Instituição Pública",
+                  },
+                  {
+                    id: "989A1ACD-B1E6-4C56-9D95-814CE009DDB9",
+                    value: "Outra",
+                  },
+                ]}
+                {...field}
+              />
+            )}
+          />
+          {errors.InstitutionId && (
+            <span className="ml-2 w-full text-xs text-red-400 mt-1">
+              {errors.InstitutionId.message}
+            </span>
+          )}
+        </div>
+        <div className="w-full md:col-span-2">
+          <Input
+            type="text"
+            placeholder="Nome da Instituição"
+            {...register("InstitutionName", { required: "Campo obrigatório" })}
+          />
+          {errors.InstitutionName && (
+            <span className="ml-2 w-full text-xs text-red-400 mt-1">
+              {errors.InstitutionName.message}
+            </span>
+          )}
         </div>
 
         <div className="w-full grid grid-cols-1 md:grid-cols-4 lg:grid-cols-2  xl:grid-cols-2 2xl:grid-cols-4 gap-4">
