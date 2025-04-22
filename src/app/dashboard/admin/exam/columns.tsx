@@ -30,7 +30,7 @@ export type Report2 = {
   logisticsStatus: string;
   logisticsDateForecast: string;
   statusSms: string;
-  LocalName: string;
+  localName: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -134,7 +134,7 @@ export const columns: ColumnDef<Report2>[] = [
     },
   },
   {
-    accessorKey: "LocalName",
+    accessorKey: "localName",
     header: "Laboratório solicitado",
   },
 
