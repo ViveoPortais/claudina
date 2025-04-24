@@ -135,7 +135,7 @@ export const columns: ColumnDef<Report2>[] = [
               </span>
             </div>
           ) : (
-            <span onClick={handleOpenModal}>{params.returnStatusName}</span>
+            <span>{params.returnStatusName}</span>
           )}
         </div>
       );
