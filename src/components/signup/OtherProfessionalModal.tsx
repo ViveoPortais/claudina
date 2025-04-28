@@ -253,7 +253,12 @@ export function OtherProfessionalModal() {
           <Input
             type="text"
             placeholder="Nome da Instituição"
-            {...register("InstitutionName", { required: "Campo obrigatório" })}
+            {...register("InstitutionName", {
+              required: "Campo obrigatório",
+              onChange: (e) => {
+                e.target.value = e.target.value.replace(/[^a-zA-Z0-9\s]/g, "");
+              },
+            })}
           />
           {errors.InstitutionName && (
             <span className="ml-2 w-full text-xs text-red-400 mt-1">
