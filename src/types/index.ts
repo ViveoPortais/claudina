@@ -93,7 +93,7 @@ export interface IOtherData {
   DoctorLicenseNumber: string;
   DoctorLicenseState: string;
   ProfessionalName: string;
-  InstitutionId: string;
+  ProfessionalTypeStringMap: string;
   InstitutionName: string;
 }
 

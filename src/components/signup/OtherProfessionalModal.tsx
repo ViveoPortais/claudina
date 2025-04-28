@@ -39,7 +39,7 @@ const doctorSignUpSchema = z.object({
   DoctorLicenseState: z.string().min(1, { message: "Insira seu nome" }),
   Mobilephone: z.string().min(1, { message: "Insira seu nome" }),
   Telefone: z.string().optional(),
-  InstitutionId: z.string().optional(),
+  ProfessionalTypeStringMap: z.string().optional(),
   InstitutionName: z.string().optional(),
 
   // regulation: z.boolean().default(false).refine((val) => val === true, {
@@ -91,7 +91,7 @@ export function OtherProfessionalModal() {
         EmailAddress: data.EmailAddress,
         DoctorLicenseNumber: data.DoctorLicenseNumber,
         DoctorLicenseState: data.DoctorLicenseState,
-        InstitutionId: data.InstitutionId ?? "",
+        ProfessionalTypeStringMap: data.ProfessionalTypeStringMap ?? "",
         InstitutionName: data.InstitutionName ?? "",
         Mobilephone: data.Mobilephone,
         Telefone: data.Telefone ?? "",
@@ -218,7 +218,7 @@ export function OtherProfessionalModal() {
         </div>
         <div className="w-full">
           <Controller
-            name="InstitutionId"
+            name="ProfessionalTypeStringMap"
             control={control}
             render={({ field }) => (
               <CustomSelect
@@ -245,9 +245,9 @@ export function OtherProfessionalModal() {
               />
             )}
           />
-          {errors.InstitutionId && (
+          {errors.ProfessionalTypeStringMap && (
             <span className="ml-2 w-full text-xs text-red-400 mt-1">
-              {errors.InstitutionId.message}
+              {errors.ProfessionalTypeStringMap.message}
             </span>
           )}
         </div>
