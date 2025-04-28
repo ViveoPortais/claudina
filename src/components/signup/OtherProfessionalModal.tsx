@@ -91,6 +91,8 @@ export function OtherProfessionalModal() {
         EmailAddress: data.EmailAddress,
         DoctorLicenseNumber: data.DoctorLicenseNumber,
         DoctorLicenseState: data.DoctorLicenseState,
+        InstitutionId: data.InstitutionId ?? "",
+        InstitutionName: data.InstitutionName ?? "",
         Mobilephone: data.Mobilephone,
         Telefone: data.Telefone ?? "",
         ProgramCode: "985",

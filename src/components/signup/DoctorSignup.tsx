@@ -165,6 +165,8 @@ export function DoctorSignUp() {
         addressCity: data.addressCity,
         addressState: data.addressState,
         addressPostalCode: data.addressPostalCode,
+        InstitutionId: data.InstitutionId,
+        InstitutionName: data.InstitutionName,
         HealthProgramCode: "985",
       });
 

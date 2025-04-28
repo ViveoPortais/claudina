@@ -93,6 +93,8 @@ export interface IOtherData {
   DoctorLicenseNumber: string;
   DoctorLicenseState: string;
   ProfessionalName: string;
+  InstitutionId: string;
+  InstitutionName: string;
 }
 
 export interface IUpdateDoctorData {
