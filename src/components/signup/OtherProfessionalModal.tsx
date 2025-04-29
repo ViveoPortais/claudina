@@ -258,7 +258,7 @@ export function OtherProfessionalModal() {
             {...register("InstitutionName", {
               required: "Campo obrigatório",
               onChange: (e) => {
-                e.target.value = e.target.value.replace(/[^a-zA-Z0-9\s]/g, "");
+                e.target.value = e.target.value.replace(/[0-9@!.:]/g, "");
               },
             })}
           />

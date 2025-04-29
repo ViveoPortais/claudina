@@ -40,8 +40,8 @@ const doctorSignUpSchema = z.object({
   addressPostalCode: z.string().min(1, { message: "Informe o número" }),
   addressCity: z.string().min(1, { message: "Informe o número" }),
   addressState: z.string().min(1, { message: "Informe o número" }),
-  InstitutionId: z.string().min(1, { message: "Campo obrigatório" }),
-  InstitutionName: z.string().min(1, { message: "Campo obrigatório" }),
+  InstitutionId: z.string().optional().or(z.literal("")),
+  InstitutionName: z.string().optional(),
 
   // regulation: z.boolean().default(false).refine((val) => val === true, {
   //     message: "É necessário aceitar os termos de Consentimento e de Privacidade",
@@ -318,7 +318,7 @@ export function DoctorSignUp() {
             {...register("InstitutionName", {
               required: "Campo obrigatório",
               onChange: (e) => {
-                e.target.value = e.target.value.replace(/[^a-zA-Z0-9\s]/g, "");
+                e.target.value = e.target.value.replace(/[0-9@!.:]/g, "");
               },
             })}
           />

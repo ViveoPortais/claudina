@@ -141,7 +141,7 @@ export default function Diagnostic() {
           <SendLaudo />
         </Dialog>
       </div>
-      <ModalLogistocaReversaOnco />
+      {/* <ModalLogistocaReversaOnco /> */}
     </div>
   );
 }

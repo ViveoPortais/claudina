@@ -9,6 +9,7 @@ import { MdOutlineDescription, MdOutlineFileUpload } from "react-icons/md";
 import { FaCheckDouble, FaDownload, FaUpload } from "react-icons/fa";
 import {
   useInsufficientSample,
+  useModalLogisticaReversaConfirmation,
   useSendLaudo,
   useSolicitation,
   useUnidentifiedSample,
@@ -30,6 +31,9 @@ export type Report2 = {
   logisticsStatus: string;
   logisticsDateForecast: string;
   statusSms: string;
+  diagnosticId: string;
+  trackingCode: string;
+  returnStatusName: string;
 };
 
 export const columns: ColumnDef<Report2>[] = [
@@ -56,6 +60,40 @@ export const columns: ColumnDef<Report2>[] = [
       } else {
         return <span>{report.statusSms}</span>;
       }
+    },
+  },
+  {
+    accessorKey: "returnStatusName",
+    header: "Status da Devolução",
+    cell: ({ row }) => {
+      const params = row.original;
+      const modalLogisticaReversa = useModalLogisticaReversaConfirmation();
+      const dataStorage = useSession();
+
+      const handleOpenModal = () => {
+        dataStorage.setNamePatient(params.namePatient);
+        dataStorage.setConfirmCode(params.diagnosticId);
+        dataStorage.setTrackingCode(params.trackingCode);
+        modalLogisticaReversa.openModal(true);
+        console.log(params.diagnosticId);
+      };
+
+      return (
+        <div>
+          {params.returnStatusName === "Devolução em andamento" ? (
+            <div
+              className="cursor-pointer flex hover:scale-110 transition-transform duration-200 text-yellow-500"
+              onClick={handleOpenModal}
+            >
+              <span className="hover:text-enzimaisBlue">
+                {params.returnStatusName}
+              </span>
+            </div>
+          ) : (
+            <span>{params.returnStatusName}</span>
+          )}
+        </div>
+      );
     },
   },
   {

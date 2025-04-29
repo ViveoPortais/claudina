@@ -107,40 +107,40 @@ export const columns: ColumnDef<Report2>[] = [
       }
     },
   },
-  {
-    accessorKey: "returnStatusName",
-    header: "Status da Devolução",
-    cell: ({ row }) => {
-      const params = row.original;
-      const modalLogisticaReversa = useModalLogisticaReversaConfirmation();
-      const dataStorage = useSession();
+  // {
+  //   accessorKey: "returnStatusName",
+  //   header: "Status da Devolução",
+  //   cell: ({ row }) => {
+  //     const params = row.original;
+  //     const modalLogisticaReversa = useModalLogisticaReversaConfirmation();
+  //     const dataStorage = useSession();
 
-      const handleOpenModal = () => {
-        dataStorage.setNamePatient(params.namePatient);
-        dataStorage.setConfirmCode(params.diagnosticId);
-        dataStorage.setTrackingCode(params.trackingCode);
-        modalLogisticaReversa.openModal(true);
-        console.log(params.diagnosticId);
-      };
+  //     const handleOpenModal = () => {
+  //       dataStorage.setNamePatient(params.namePatient);
+  //       dataStorage.setConfirmCode(params.diagnosticId);
+  //       dataStorage.setTrackingCode(params.trackingCode);
+  //       modalLogisticaReversa.openModal(true);
+  //       console.log(params.diagnosticId);
+  //     };
 
-      return (
-        <div>
-          {params.returnStatusName === "Devolução em andamento" ? (
-            <div
-              className="cursor-pointer flex hover:scale-110 transition-transform duration-200 text-yellow-500"
-              onClick={handleOpenModal}
-            >
-              <span className="hover:text-enzimaisBlue">
-                {params.returnStatusName}
-              </span>
-            </div>
-          ) : (
-            <span>{params.returnStatusName}</span>
-          )}
-        </div>
-      );
-    },
-  },
+  //     return (
+  //       <div>
+  //         {params.returnStatusName === "Devolução em andamento" ? (
+  //           <div
+  //             className="cursor-pointer flex hover:scale-110 transition-transform duration-200 text-yellow-500"
+  //             onClick={handleOpenModal}
+  //           >
+  //             <span className="hover:text-enzimaisBlue">
+  //               {params.returnStatusName}
+  //             </span>
+  //           </div>
+  //         ) : (
+  //           <span>{params.returnStatusName}</span>
+  //         )}
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "examDefinition",
     header: "Nome do Exame Solicitado",
